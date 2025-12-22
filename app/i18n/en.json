@@ -1,0 +1,94 @@
+{
+  "common": {
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "refreshData": "Refresh Data"
+  },
+  "loading": {
+    "title": "Loading...",
+    "pleaseWait": "Please wait"
+  },
+  "stats": {
+    "global": {
+      "title": "Global Statistics",
+      "totalSupply": "Total FR Supply",
+      "totalStaked": "Total FAIR Staked",
+      "totalUnstaking": "Unstaking Amount"
+    }
+  },
+  "account": {
+    "info": {
+      "title": "Account Information"
+    },
+    "balance": {
+      "title": "Token Balances",
+      "fair": "FAIR Balance"
+    }
+  },
+  "unstake": {
+    "info": {
+      "title": "Unstake Information",
+      "requestAmount": "Requested Unstake Amount",
+      "countdown": "Unstake Countdown"
+    },
+    "actions": {
+      "withdraw": "Withdraw",
+      "request": "Request Unstake"
+    },
+    "modal": {
+      "title": "Confirm Unstake Operation",
+      "confirmInfo": "Please confirm the following unstake information:",
+      "amount": "Unstake Amount",
+      "waitPeriod": "Unstake Waiting Period",
+      "option": {
+        "60": "60 days (0% fee)",
+        "45": "45 days (3% fee)",
+        "30": "30 days (6% fee)",
+        "20": "20 days (8% fee)",
+        "15": "15 days (9% fee)"
+      },
+      "warning": {
+        "notice": "Please note: After the waiting period ends, you need to withdraw to receive the tokens in your wallet address.",
+        "hint": "Hint: Shorter waiting periods have higher fees"
+      },
+      "confirm": "Confirm Unstake"
+    }
+  },
+  "burn": {
+    "reward": {
+      "title": "Burn Rewards",
+      "amount": "FR Burned Amount"
+    }
+  },
+  "footer": {
+    "tronStakingPlatform": "TRON Staking Platform",
+    "tronWebsite": "TRON Official Website",
+    "helpDocs": "Help Documentation"
+  },
+  "wallet": {
+    "connect": "Connect Wallet",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
+    "address": "Wallet Address"
+  },
+  "errors": {
+    "networkError": "Network error, please retry",
+    "walletNotConnected": "Please connect wallet first",
+    "insufficientBalance": "Insufficient balance",
+    "transactionFailed": "Transaction failed",
+    "transactionCanceled": "User canceled transaction"
+  },
+  "success": {
+    "transactionSuccess": "Transaction successful",
+    "operationCompleted": "Operation completed successfully",
+    "dataUpdated": "Data updated successfully"
+  },
+  "navigation": {
+    "doc": "Documents",
+    "doc2": "Documents 2",
+    "staking": "Staking",
+    "burn": "Burn"
+  },
+  "title": "FAIR DAO Testing Center"
+}

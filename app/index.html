@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="title"></title>
+    <!-- 引入Bulma CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+    />
+    <!-- 引入Font Awesome图标 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/app.css" />
+    <style>
+      .control.has-icons-right .icon.is-right {
+        display: flex;
+        align-items: center;
+        right: 0.5rem;
+      }
+      .control.has-icons-right .icon.is-right .tag {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        margin-right: 0.25rem;
+      }
+      .input.is-readonly {
+        background-color: #f5f5f5;
+      }
+    </style>
+  </head>
+  <body class="has-background-light">
+    <nav
+      class="navbar is-fixed-top"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div class="navbar-brand">
+        <a
+          class="navbar-item logo"
+          id="loadHome"
+          href="javascript:void(0);"
+          onclick="fairdao.loadModule('home')"
+        >
+          <img src="https://fairdao.net/res/fair-192.png" />
+          <div class="logo-title" data-i18n="title">FAIR 生态</div>
+        </a>
+        <a
+          class="navbar-item"
+          href="/pages/trading.html"
+          data-bind="com.trading"
+        ></a>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="dvnav"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="dvnav" class="navbar-menu">
+        <div class="navbar-end">
+            <button class="is-text navbar-item"  onclick="fairdao.loadModule('home-staking')" data-i18n="navigation.staking"></button>          
+           <button class="is-text navbar-item"  onclick="fairdao.loadModule('home-burn')" data-i18n="navigation.burn"></button>          
+          <div class="navbar-item">
+            <div id="walletInfo">
+              <div class="tags has-addons">
+                <button class="tag is-text is-dark is-medium" id="walletAddress" onclick="fairdao.loadModule('home-user')"  data-i18n="account.info.title"></button>           
+              </div>
+            </div>
+          </div>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <i class="fa-solid fa-earth-europe"></i>
+            </a>
+            <div class="navbar-dropdown lang" id="langList"></div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <div class="main-content" id="main-content"></div>
+    <div class="container mt-4">
+      <!-- 加载中状态 -->
+      <div id="loadingOverlay" class="is-hidden">
+        <div id="loadingIndicator" class="notification is-info">
+          <button class="delete"></button>
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">
+                <span class="icon is-large"
+                  ><i class="fas fa-circle-notch fa-spin fa-2x"></i
+                ></span>
+              </div>
+              <div class="level-item">
+                <p id="loadingMessage">
+                  <strong data-i18n="loading.title"></strong>
+                  <span data-i18n="loading.pleaseWait"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer mt-6" data-html="pages/footer.html"></footer>
+    <script src="js/TronWeb.js"></script>
+    <!-- 钱包连接模块 -->
+    <script src="js/tronweb-connector.js"></script>
+    <!-- 配置文件 -->
+    <script src="js/common.js"></script>
+    <!-- 合约交互模块 -->
+    <script src="js/contract-interaction.js"></script>
+    <!-- 主应用逻辑 -->
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<div class="container mt-4">
+  <!-- 代币交换 -->
+  <div class="card mb-6" id="burnCard">
+    <div class="card-header">
+      <p class="card-header-title" data-i18n="burn.reward.title">
+        销毁奖励
+      </p>
+    </div>
+    <div class="card-content">
+      <div class="field">
+        <label class="label" data-i18n="burn.reward.amount">
+          销毁FR数量
+        </label>
+        <div class="control has-icons-right">
+          <input
+            id="exchangeFrAmount"
+            type="number"
+            class="input"
+            data-i18n-placeholder="burn.reward.placeholder"
+            placeholder="输入销毁数量"
+            min="0"
+            step="0.000001"
+          />
+          <span class="icon is-right">
+            <span class="tag is-success">FR</span>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" data-i18n="burn.reward.token">奖励代币</label>
+        <div class="control">
+          <!-- 自定义下拉菜单，支持显示代币图标 -->
+          <div class="dropdown" id="tokenDropdown">
+            <div class="dropdown-trigger">
+              <button
+                class="button"
+                aria-haspopup="true"
+                aria-controls="tokenDropdownMenu"
+              >
+                <span id="selectedTokenText" data-i18n="burn.reward.token_placeholder">请选择奖励代币</span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-chevron-down"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="tokenDropdownMenu" role="menu">
+              <div class="dropdown-content" id="tokenDropdownContent">
+                <!-- 代币选项将通过JavaScript动态加载 -->
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="selectedTokenAddress" value="" />
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button id="exchangeButton" class="button is-primary" disabled>
+            <i class="fas fa-exchange-alt mr-2"></i><span data-i18n="burn.reward.button">销毁FR</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

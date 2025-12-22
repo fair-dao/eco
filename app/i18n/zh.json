@@ -1,0 +1,32 @@
+{
+  "network": {
+    "warnning": "当前环境为测试网络,所有交易仅在测试网络有效，不会对主网产生影响。",
+    "disconnect": "钱包已断开连接",
+    "connect": {
+      "error": "钱包连接失败"
+    }
+  },
+  "navigation": {
+    "doc": "文档",
+    "staking": "质押",
+    "burn": "销毁",
+    "whitepaper": "白皮书",
+    "contributing": "贡献",
+    "forum": "论坛",
+    "serviceagreement": "服务协议",
+    "privacypolicy": "隐私政策",
+    "disclaimers": "免责声明",
+    "legal": "法律条款",
+    "contact": "联系我们",
+    "email": "邮箱",
+    "phone": "电话",
+    "address": "地址",
+    "governance": "治理",
+    "mission": "使命",
+    "about": "关于我们",
+    "allrightsreserved": "所有权利保留",
+    "resources": "资源",
+    "links": "链接"
+  },
+  "title": "FAIR 生态"
+}

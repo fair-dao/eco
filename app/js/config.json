@@ -1,0 +1,104 @@
+
+{
+  "networks": {
+    "mainnet": {
+      "fullNode": "https://api.trongrid.io",
+      "solidityNode": "https://api.trongrid.io",
+      "eventServer": "https://api.trongrid.io",
+      "launcherAddress":"TQZeb5KUfSRpBmUn9j2g1TqPxzYBvo23AC",
+      "diamondAddress":"TJWwyWGeiggq8hrE3XnvNbVVvfiYCnzvcB",
+      "rewardToken": {
+        "address": "",
+        "decimals": 18,
+        "symbol": "FR"
+      },
+      "stakedToken": {
+        "address": "",
+        "decimals": 18,
+        "symbol": "FAIR"
+      },
+      "burnRewards": [
+        {
+          "address": "TLi4ehWSiB1pBAKYe84WRMbaYq6HMrSjPu",
+          "symbol": "USDT",
+          "icon": "https://"
+        }
+      ],
+      "chainId": "0x0"
+    },
+    "shasta": {
+      "fullNode": "https://shasta.trongrid.io",
+      "solidityNode": "https://shasta.trongrid.io",
+      "eventServer": "https://shasta.trongrid.io",
+       "diamondAddress":"TKYHZyxfTVVgPpKDnNiabTQTcPmnKCgEv1",
+      "rewardToken": {
+        "address": "TS7f1k7JxJb5V7CjL2r5XgWz8Yq9R6tP4u",
+        "decimals": 18,
+        "symbol": "FR"
+      },
+      "stakedToken": {
+        "address": "TUJmR25WpEaBk7nKd6Mp5nGjvTqC9m3F3d",
+        "decimals": 18,
+        "symbol": "FAIR"
+      },
+      "burnRewards": [
+        {
+          "address": "TSXmWNXkK2wU5VY7mPp3gVdZ3jwKqL1NfN",
+          "symbol": "USDT",
+          "icon": "https://"
+        }
+      ],
+      "chainId": "0x1"
+    },
+    "nile": {
+      "fullNode": "https://nile.trongrid.io",
+      "solidityNode": "https://nile.trongrid.io",
+      "eventServer": "https://nile.trongrid.io",
+      "launcherAddress":"TD9gYEPVWnbSQQ8fWdFpS3haAgmmoAL1jU",
+      "diamondAddress":"TU89M6qk2xPsHfNzdKctjFVhQXnbL6beSR",
+      "cutAddress0000":"TR9ciRSToTz8sJT9CSn9mE3VnXzUPdRvv9",      
+      "lookAddress":"TMRws2H7z97XySNqXCyaBEEHf3VwTq7qgQ",
+      "rewardToken": {
+        "address": "TPUmA8kHsUdHZagzKRFba3r9cKxa1NkWuu",
+        "decimals": 18,
+        "symbol": "FR"
+      },
+      "stakedToken": {
+        "address": "THoL7JoJf7oXGyqcqEfGnEaLGqtk3qUtHj",
+        "decimals": 18,
+        "symbol": "FAIR"
+      },
+      "burnRewards": [
+        {
+          "address": "TXYZopYRdj2D9XRtbG411XZZ3kM5VkAeBf",
+          "symbol": "USDT",
+          "icon": "https://static.tronscan.org/production/logo/usdtlogo.png"
+        },
+        {
+          "address": "TF17BgPaZYbz8oxbjhriubPDsA7ArKoLX3",
+          "symbol": "JST",
+          "icon": "https://static.tronscan.org/production/logo/just_icon.png"
+        },
+        {
+          "address": "THoL7JoJf7oXGyqcqEfGnEaLGqtk3qUtHj",
+          "symbol": "FAIR",
+          "icon": "https://static.tronscan.org/production/logo/just_icon.png"
+        }
+      ],
+      "chainId": "0x2"
+    }
+  },
+  "currentNetwork": "nile",
+  "abis": {
+    "ierc20": null
+  },
+  "app": {
+    "name": "Fair Stake Token",
+    "version": "1.0.0",
+    "decimals": 18
+  },
+  "timeConstants": {
+    "UNSTAKE_LOCK_PERIOD": 180
+  }
+}
+

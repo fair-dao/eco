@@ -1,0 +1,121 @@
+<div class="container mt-4">
+  <!-- 账户信息卡片 -->
+  <div class="card mb-6">
+    <div class="card-header">
+      <p class="card-header-title" data-i18n="account.info.title">
+        账户信息
+      </p>
+            <button id="refreshUserStatsBtn" class="card-header-icon" data-i18n-title="common.refreshData">
+                    <span class="icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </span>
+                </button>
+    </div>
+    <div class="card-content">
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <h4 class="title is-4" data-i18n="account.balance.trx">TRX 余额</h4>
+            <div class="field">
+              <div class="control has-icons-right">
+                <input
+                  id="trxBalance"
+                  type="text"
+                  class="input is-readonly"
+                  readonly
+                />
+                <span class="icon is-right">
+                  <span class="tag is-primary">TRX</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box">
+            <h4 class="title is-4" data-i18n="account.balance.energy">账户能量</h4>
+            <div class="field">
+              <div class="control has-icons-right">
+                <input
+                  id="accountEnergy"
+                  type="text"
+                  class="input is-readonly"
+                  readonly
+                />
+                <span class="icon is-right">
+                  <span class="tag is-warning">ENERGY</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box">
+            <h4 class="title is-4" data-i18n="account.balance.bandwidth">账户带宽</h4>
+            <div class="field">
+              <div class="control has-icons-right">
+                <input
+                  id="accountBandwidth"
+                  type="text"
+                  class="input is-readonly"
+                  readonly
+                />
+                <span class="icon is-right">
+                  <span class="tag is-danger">BANDWIDTH</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <h4 class="title is-4" data-i18n="account.balance.token"></h4>
+            <div class="field">
+              <label class="label" data-i18n="account.balance.fair">
+                FAIR 余额
+              </label>
+              <div class="field has-addons">
+                <div class="control has-icons-right is-expanded">
+                  <input
+                    id="fairTokenBalance"
+                    type="text"
+                    class="input is-readonly"
+                    readonly
+                  />
+                  <span class="icon is-right">
+                    <span class="tag is-info">FAIR</span>
+                  </span>
+                </div>
+                <div class="control">
+                  <button
+                    id="claimFairTokenBtn"
+                    class="button is-primary test-show"
+                    data-i18n="account.actions.claim"
+                  >
+                    <i class="fas fa-plus-circle mr-1"></i>领取
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" data-i18n="account.balance.fr">FR 余额</label>
+              <div class="control has-icons-right">
+                <input
+                  id="frTokenBalance"
+                  type="text"
+                  class="input is-readonly"
+                  readonly
+                />
+                <span class="icon is-right">
+                  <span class="tag is-success">FR</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

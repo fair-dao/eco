@@ -1,0 +1,72 @@
+{
+  "Name": "fair web",
+  "Lang": "zh",
+  "Langs": [
+    {
+      "Name": "en",
+      "DisplayName": "英语",
+      "RealName": "English",
+      "EnglishName": "English (United States)"
+    },
+    {
+      "Name": "ar",
+      "DisplayName": "阿拉伯语",
+      "RealName": "العربية",
+      "EnglishName": "Arabic"
+    },
+    {
+      "Name": "es",
+      "DisplayName": "西班牙语",
+      "RealName": "Español",
+      "EnglishName": "Spanish (Spain)"
+    },
+    {
+      "Name": "hi",
+      "DisplayName": "印地语",
+      "RealName": "हिन्दी",
+      "EnglishName": "Hindi (India)"
+    },
+    {
+      "Name": "fr",
+      "DisplayName": "法语",
+      "RealName": "français",
+      "EnglishName": "French (France)"
+    },
+    {
+      "Name": "ja",
+      "DisplayName": "日语",
+      "RealName": "日本語",
+      "EnglishName": "Japanese (Japan)"
+    },
+    {
+      "Name": "ru",
+      "DisplayName": "俄语",
+      "RealName": "русский",
+      "EnglishName": "Russian (Russia)"
+    },
+    {
+      "Name": "th",
+      "DisplayName": "泰语",
+      "RealName": "ไทย",
+      "EnglishName": "Thai (Thailand)"
+    },   
+    {
+      "Name": "zh",
+      "DisplayName": "中文（简体）",
+      "RealName": "中文（简体）",
+      "EnglishName": "Chinese (China)"
+    },
+    {
+      "Name": "vi",
+      "DisplayName": "越南语",
+      "RealName": "Tiếng Việt",
+      "EnglishName": "Vietnamese (Vietnam)"
+    },
+    {
+      "Name": "ko",
+      "DisplayName": "韩语",
+      "RealName": "한국어",
+      "EnglishName": "Korean (Korea)"
+    }
+  ]
+}

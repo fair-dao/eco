@@ -1,0 +1,1327 @@
+{
+    "contractName": "FairStakeToken",
+    "CreateTime": "251126 09:08",
+    "ABI": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_fairdaoManager",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_stakedToken",
+                    "type": "address"
+                }
+            ],
+            "name": null,
+            "outputs": null,
+            "stateMutability": "nonpayable",
+            "type": "constructor",
+            "Hash": "861731d5"
+        },
+        {
+            "inputs": [],
+            "name": "CalculationOverflow",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "9c154db9"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "allowance",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "needed",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ERC20InsufficientAllowance",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "2fc50d60"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "balance",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "needed",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ERC20InsufficientBalance",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "590b7c5c"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "approver",
+                    "type": "address"
+                }
+            ],
+            "name": "ERC20InvalidApprover",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "223c89a4"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                }
+            ],
+            "name": "ERC20InvalidReceiver",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "04786ad1"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                }
+            ],
+            "name": "ERC20InvalidSender",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "5b168993"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                }
+            ],
+            "name": "ERC20InvalidSpender",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "deed3d66"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requested",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "available",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExceedsExchangeLimit",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "f56c5cc9"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requested",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxSupply",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "currentSupply",
+                    "type": "uint256"
+                }
+            ],
+            "name": "ExceedsMaxSupply",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "c30436e9"
+        },
+        {
+            "inputs": [],
+            "name": "ExchangeExpired",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "0c53f914"
+        },
+        {
+            "inputs": [],
+            "name": "ExchangeNotYetAvailable",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "2f6bae98"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "required",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "available",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InsufficientBalance",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "f4d678b8"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidAddress",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "e6c4247b"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidRate",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "6a43f8d1"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "expected",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "actual",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InvalidReturnDataLength",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "3ad0505d"
+        },
+        {
+            "inputs": [],
+            "name": "InvalidTransferType",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "c79aaa44"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requiredDays",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "elapsedDays",
+                    "type": "uint256"
+                }
+            ],
+            "name": "LockPeriodNotCompleted",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "2d92e16d"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "NoTokensToClaim",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "0f3f8610"
+        },
+        {
+            "inputs": [],
+            "name": "NoUnstakeRequest",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "16f68e4b"
+        },
+        {
+            "inputs": [],
+            "name": "NotAuthorized",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "ea8e4eb5"
+        },
+        {
+            "inputs": [],
+            "name": "PausedContract",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "f322ab26"
+        },
+        {
+            "inputs": [],
+            "name": "ReentrantCall",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "37ed32e8"
+        },
+        {
+            "inputs": [],
+            "name": "TRXTransferRejected",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "946a10ac"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TransferFailed",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "90b8ec18"
+        },
+        {
+            "inputs": [],
+            "name": "ZeroAmount",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "error",
+            "Hash": "1f2a2005"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Approval",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "4c128368"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Burnt",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "3447695d"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "contributor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "proposalId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "description",
+                    "type": "string"
+                }
+            ],
+            "name": "ContributorRewardMinted",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "50ce8133"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "enum FairStakeToken.FunctionModule",
+                    "name": "module",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "ModulePaused",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "50c5c6e9"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "enum FairStakeToken.FunctionModule",
+                    "name": "module",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "ModuleUnpaused",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "5d0955a5"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Paused",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "9e87fac8"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardClaimed",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "4f9e331b"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Staked",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "7c8034b0"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "tokenAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint88",
+                    "name": "rateNumerator",
+                    "type": "uint88"
+                },
+                {
+                    "internalType": "uint88",
+                    "name": "rateDenominator",
+                    "type": "uint88"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxExchangeAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TokenExchangeRateSet",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "1c35f407"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "tokenAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "frAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TokenExchanged",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "ada4340f"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Transfer",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "406dade3"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "Unpaused",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "a45f47fd"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "waitDays",
+                    "type": "uint64"
+                }
+            ],
+            "name": "UnstakeRequested",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "20522b51"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "fee",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Unstaked",
+            "outputs": null,
+            "stateMutability": null,
+            "type": "event",
+            "Hash": "223cba10"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                }
+            ],
+            "name": "allowance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "de242ff4"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "approve",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "12424e3f"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "balanceOf",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "722713f7"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "burn",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "44df8e70"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "calculateEarnedTokens",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "86e46780"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "checkIsOwner",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "d82ff142"
+        },
+        {
+            "inputs": [],
+            "name": "claimReward",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "b88a802f"
+        },
+        {
+            "inputs": [],
+            "name": "decimals",
+            "outputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "313ce567"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "tokenAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "frAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "exchangeFRForToken",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "d045cce5"
+        },
+        {
+            "inputs": [],
+            "name": "fairdaoManager",
+            "outputs": [
+                {
+                    "internalType": "contract IFairdaoManager",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "2b716de5"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "pure",
+            "type": "function",
+            "Hash": "679aefce"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserStakeInfo",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "startTime",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "lastClaimed",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "unstakeRequestAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "unstakeRequestTime",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "unstakeWaitDays",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "ca4476b3"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "contributor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "proposalId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "description",
+                    "type": "string"
+                }
+            ],
+            "name": "mintContributorReward",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "25fc4f73"
+        },
+        {
+            "inputs": [],
+            "name": "name",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "06fdde03"
+        },
+        {
+            "inputs": [],
+            "name": "pause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "8456cb59"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "enum FairStakeToken.FunctionModule",
+                    "name": "module",
+                    "type": "uint8"
+                }
+            ],
+            "name": "pauseModule",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "e176c976"
+        },
+        {
+            "inputs": [],
+            "name": "paused",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "5c975abb"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "enum FairStakeToken.FunctionModule",
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "name": "pausedModules",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "7218f942"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "waitDays",
+                    "type": "uint64"
+                }
+            ],
+            "name": "requestUnstake",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "fc63958e"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "tokenAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint88",
+                    "name": "rateNumerator",
+                    "type": "uint88"
+                },
+                {
+                    "internalType": "uint88",
+                    "name": "rateDenominator",
+                    "type": "uint88"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "maxExchangeAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "transferType",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "durationWeeks",
+                    "type": "uint8"
+                }
+            ],
+            "name": "setTokenExchangeRate",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "3f52892f"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "stake",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "3a4b66f1"
+        },
+        {
+            "inputs": [],
+            "name": "stakedToken",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "cc7a262e"
+        },
+        {
+            "inputs": [],
+            "name": "symbol",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "95d89b41"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "tokenExchangeInfo",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "remainingExchangeAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint88",
+                    "name": "rateNumerator",
+                    "type": "uint88"
+                },
+                {
+                    "internalType": "uint88",
+                    "name": "rateDenominator",
+                    "type": "uint88"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "startTime",
+                    "type": "uint64"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "exchangeDurationWeeks",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "transferType",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "59b3f903"
+        },
+        {
+            "inputs": [],
+            "name": "totalStaked",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "817b1cd2"
+        },
+        {
+            "inputs": [],
+            "name": "totalSupply",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "18160ddd"
+        },
+        {
+            "inputs": [],
+            "name": "totalUnstaking",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "0698607d"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "transfer",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "8a4068dd"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "value",
+                    "type": "uint256"
+                }
+            ],
+            "name": "transferFrom",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "811c34d3"
+        },
+        {
+            "inputs": [],
+            "name": "unpause",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "3f4ba83a"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "enum FairStakeToken.FunctionModule",
+                    "name": "module",
+                    "type": "uint8"
+                }
+            ],
+            "name": "unpauseModule",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "87924524"
+        },
+        {
+            "inputs": [],
+            "name": "unstake",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "2def6620"
+        },
+        {
+            "inputs": null,
+            "name": null,
+            "outputs": null,
+            "stateMutability": "payable",
+            "type": "receive",
+            "Hash": "861731d5"
+        }
+    ],
+    "Compiler": {
+        "version": "0.8.25\u002Bcommit.77bd169f"
+    }
+}

@@ -1,0 +1,42 @@
+{
+  "title": {
+    "stakeAndUnstake": "Stake and Unstake",
+    "stakeOperations": "Stake Operations",
+    "unstakeOperations": "Unstake Operations"
+  },
+  "labels": {
+    "stakedFairBalance": "Staked FAIR / FAIR Balance",
+    "earnedFrBalance": "Claimable FR / FR Balance",
+    "unstakeRequestAmount": "Unstake Request Amount",
+    "unstakeCountdown": "Unstake Countdown",
+    "stakeAmountFair": "Stake Amount (FAIR)",
+    "unstakeAmountFair": "Unstake Amount (FAIR)",
+    "unstakeWaitPeriod": "Unstake Waiting Period"
+  },
+  "buttons": {
+    "stake": "Stake",
+    "claim": "Claim",
+    "withdraw": "Withdraw",
+    "requestUnstake": "Request Unstake",
+    "cancel": "Cancel",
+    "confirmStake": "Confirm Stake",
+    "confirmUnstake": "Confirm Unstake Request",
+    "confirmClaim": "Confirm Claim",
+    "refreshStats": "Refresh Stats"
+  },
+  "modals": {
+    "stakeFair": "Stake FAIR",
+    "requestUnstake": "Request Unstake",
+    "claimRewards": "Claim Rewards",
+    "confirmClaim": "Are you sure you want to claim rewards?"
+  },
+  "unstakeWaitDays": {
+    "30days": "30 Days",
+    "15days": "15 Days",
+    "60days": "60 Days"
+  },
+  "placeholders": {
+    "enterStakeAmount": "Please enter stake amount",
+    "enterUnstakeAmount": "Please enter unstake amount"
+  }
+}

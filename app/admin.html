@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fair DAO - 管理页面</title>
+    <!-- 引入Bulma CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+    />
+    <!-- 引入Font Awesome图标 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body class="has-background-light">
+    <header class="header">
+      <!-- 导航栏 -->
+      <nav
+        class="navbar is-primary is-fixed-top"
+        role="navigation"
+        aria-label="main navigation"
+      >
+        <div class="navbar-brand">
+          <a class="navbar-item" href="./"
+            ><i class="fas fa-landmark fa-lg mr-2"></i>
+            <span class="title is-4">Fair Stake Management</span>
+          </a>
+          <!-- 汉堡菜单按钮 -->
+          <a
+            role="button"
+            class="navbar-burger burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarMenu"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-end">
+            <!-- 语言切换器 -->
+            <div class="navbar-item" id="languageSwitcherContainer">
+              <!-- 语言切换器将在这里动态生成 -->
+            </div>
+   
+            <a
+              class="navbar-item"
+              href="javascript:void(0);"
+              main-load="/pages/admin-exchangeConfig.html"
+              main-loaded="import('/js/admin-exchange.js').then(mod => { mod.exchangeAdmin.init(); })"
+            >
+              <i class="fas fa-gem mr-2"></i>
+              <span>代币兑换率设置</span>
+            </a>
+
+            <a class="navbar-item" href="index.html" class="button is-info">
+              <i class="fas fa-home mr-2"></i>
+              <span data-i18n="backToHome">返回首页</span>
+            </a>
+
+            <div class="navbar-item" id="connectWallet">
+                <i class="fab fa-wallet mr-2"></i>
+                <span data-i18n="connectWallet">连接钱包</span>
+            </div>
+            <div class="navbar-item">
+              <div id="walletInfo" class="is-hidden">
+                <div class="tags has-addons">
+                  <span id="walletAddress" class="tag is-dark is-medium"></span>
+                  <span
+                    id="networkInfo"
+                    class="tag is-success is-medium"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- 主要内容 -->
+    <div class="main-content" id="main-content">
+      <!-- 主要内容 -->
+      <div class="container mt-6">
+
+        <!-- 合约状态显示 -->
+        <div class="card mb-6">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="fas fa-info-circle"></i></span>
+              合约状态
+            </p>
+            <div class="card-header-icon">
+              <button
+                id="refreshStatsButton"
+                style="
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+                  padding: 0.5rem;
+                "
+              >
+                <i class="fas fa-sync-alt"></i>
+              </button>
+            </div>
+          </header>
+          <div class="card-content">
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <label class="label">合约地址</label>
+                  <div class="control">
+                    <input
+                      type="text"
+                      id="contractAddress"
+                      class="input is-readonly"
+                      readonly
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="label">合约状态</label>
+                  <div class="control">
+                    <div class="tags has-addons">
+                      <span id="contractStatus" class="tag is-warning"
+                        >未知</span
+                      >
+                      <span id="pauseStatus" class="tag is-light"
+                        >加载中...</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <label class="label">FR总供应量</label>
+                  <div class="control has-icons-right">
+                    <input
+                      type="text"
+                      id="totalSupply"
+                      class="input is-readonly"
+                      readonly
+                    />
+                    <span class="icon is-right">
+                      <span class="tag is-info">FR</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="label">FAIR已质押总量</label>
+                  <div class="control has-icons-right">
+                    <input
+                      type="text"
+                      id="totalStaked"
+                      class="input is-readonly"
+                      readonly
+                    />
+                    <span class="icon is-right">
+                      <span class="tag is-info">FAIR</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 合约管理功能 -->
+        <div class="columns">
+          <!-- 左侧：暂停/恢复功能 -->
+          <div class="column">
+            <div class="card mb-6">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span class="icon"><i class="fas fa-pause-circle"></i></span>
+                  合约控制
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="field">
+                  <label class="label">合约状态控制</label>
+                  <div class="control">
+                    <button
+                      id="pauseButton"
+                      class="button is-warning mr-3"
+                      disabled
+                    >
+                      <i class="fas fa-pause mr-2"></i>暂停合约
+                    </button>
+                    <button
+                      id="unpauseButton"
+                      class="button is-success"
+                      disabled
+                    >
+                      <i class="fas fa-play mr-2"></i>恢复合约
+                    </button>
+                  </div>
+                  <p class="help">暂停后，用户将无法执行质押、解押等操作</p>
+                </div>
+              </div>
+
+              <!-- 模块暂停控制 -->
+              <div class="card mb-6">
+                <header class="card-header">
+                  <p class="card-header-title">
+                    <span class="icon"><i class="fas fa-cogs"></i></span>
+                    模块暂停控制
+                  </p>
+                </header>
+                <div class="card-content">
+                  <div class="field">
+                    <label class="label">选择模块</label>
+                    <div class="control">
+                      <div class="select" style="width: 100%">
+                        <select
+                          id="moduleSelect"
+                          style="width: 100%; padding: 0.5rem"
+                        >
+                          <option value="0">STAKE - 质押模块</option>
+                          <option value="1">UNSTAKE - 解押模块</option>
+                          <option value="2">REWARD - 奖励模块</option>
+                          <option value="3">EXCHANGE - 兑换模块</option>
+                          <option value="4">TRANSFER - 转账模块</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">模块状态</label>
+                    <div class="control">
+                      <input
+                        type="text"
+                        id="moduleStatus"
+                        class="input is-readonly"
+                        readonly
+                        value="加载中..."
+                      />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control">
+                      <button
+                        id="pauseModuleButton"
+                        class="button is-warning mr-3"
+                        disabled
+                      >
+                        <i class="fas fa-pause mr-2"></i>暂停模块
+                      </button>
+                      <button
+                        id="unpauseModuleButton"
+                        class="button is-success"
+                        disabled
+                      >
+                        <i class="fas fa-play mr-2"></i>恢复模块
+                      </button>
+                    </div>
+                    <p class="help">暂停特定模块不会影响其他模块的功能</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-6">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span class="icon"><i class="fas fa-gift"></i></span>
+                  铸造贡献者奖励
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="field">
+                  <label class="label">接收地址</label>
+                  <div class="control">
+                    <input
+                      type="text"
+                      id="rewardAddress"
+                      class="input"
+                      placeholder="请输入接收地址"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">提案ID</label>
+                  <div class="control">
+                    <input
+                      type="number"
+                      id="proposalId"
+                      class="input"
+                      placeholder="请输入提案ID"
+                      min="0"
+                      step="1"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">奖励数量</label>
+                  <div class="control has-icons-right">
+                    <input
+                      type="number"
+                      id="rewardAmount"
+                      class="input"
+                      placeholder="请输入奖励数量"
+                      min="0"
+                      step="0.000001"
+                    />
+                    <span class="icon is-right">
+                      <span class="tag is-info">FR</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">贡献描述</label>
+                  <div class="control">
+                    <textarea
+                      id="contributionDescription"
+                      class="textarea"
+                      placeholder="请输入贡献描述"
+                      rows="3"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <button
+                      id="mintRewardButton"
+                      class="button is-success"
+                      disabled
+                    >
+                      <i class="fas fa-coins mr-2"></i>铸造奖励
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+          <div class="container mt-6">
+
+            <!-- 加载中状态 -->
+        <div id="loadingOverlay" class="is-hidden">
+          <div id="loadingIndicator" class="notification is-info">
+            <button class="delete"></button>
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <span class="icon is-large"
+                    ><i class="fas fa-circle-notch fa-spin fa-2x"></i
+                  ></span>
+                </div>
+                <div class="level-item">
+                  <p id="loadingMessage"><strong>加载中...</strong> 请稍候</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+    <!-- 引入必要的JavaScript文件 -->
+    <script src="js/fair.js"></script>
+    <script src="js/TronWeb.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/tronweb-connector.js"></script>
+    <!-- 合约交互模块 -->
+    <script src="js/contract-interaction.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>

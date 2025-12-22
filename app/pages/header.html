@@ -1,0 +1,47 @@
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item logo" href="/">
+      <img src="https://fairdao.net/res/fair-192.png" />
+      <div class="logo-title">FAIR DAO TEST</div>
+    </a>
+    <a
+      class="navbar-item"
+      href="/pages/trading.html"
+      data-bind="com.trading"
+    ></a>
+    <a
+      role="button"
+      class="navbar-burger"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="dvnav"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="dvnav" class="navbar-menu">
+    <div class="navbar-end">
+      <a class="navbar-item" href="/pages/doc.html" data-bind="com.document"></a>
+         <a class="navbar-item" href="#burnCard" data-bind="com.staking"></a>
+      <a class="navbar-item" main-load="/pages/home-burn.html"
+              main-loaded="import('/js/burn.js').then(mod => { mod.burn.init(); })" data-bind="com.toburn"></a>    
+      <div class="navbar-item">
+        <div id="walletInfo">
+          <div class="tags has-addons">
+            <span id="walletAddress" class="tag is-dark is-medium"></span>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          <i class="fa-solid fa-earth-europe"></i>
+        </a>
+        <div class="navbar-dropdown lang"></div>
+      </div>
+    </div>
+  </div>
+</nav>

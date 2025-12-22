@@ -1,0 +1,94 @@
+<div class="container mt-4 test-show">
+  <div class="notification is-warning">
+    <button class="delete" aria-label="关闭"></button>
+    <div class="level" line-height="2em">  
+        <div class="level-item">
+          <span class="icon is-large has-text-yellow-600"><i class="fas fa-exclamation-triangle fa-2x"></i></span>
+        </div>
+        <div class="level-item" style="max-width: 90%;">
+          <div>
+            <p class="title is-4 has-text-yellow-800 pb-2" data-i18n="home.warning.title"></p>
+            <ul class="mt-2" style="list-style-type: disc; padding-left: 1.5rem;">       
+              <li data-i18n="home.warning.tip1"></li>
+              <li data-i18n="home.warning.tip2"></li>
+              <li data-i18n="home.warning.tip3"></li>
+            </ul>
+          </div>
+        </div>
+     
+    </div>
+  </div>
+  
+  <!-- 全局统计信息卡片 -->
+  <div class="card mb-6">
+    <div class="card-header">
+      <p class="card-header-title" data-i18n="home.stats.global.title">全局统计</p>
+      <button id="refreshStatsBtn" class="card-header-icon">
+        <span class="icon">
+          <i class="fas fa-sync-alt"></i>
+        </span>
+      </button>
+    </div>
+    <div class="card-content">
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <div class="field">
+              <label class="label" data-i18n="home.stats.currentNetwork">当前网络</label>
+              <div class="control">
+                <input id="currentNetwork" type="text" class="input is-readonly" readonly value="nile">
+              </div>
+            </div>
+            <div class="field mt-4">
+              <label class="label" data-i18n="home.stats.fairContract">FAIR 合约地址</label>
+              <div class="control">
+                <input id="fairContractAddress" type="text" class="input is-readonly" readonly >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box">
+            <div class="field">
+              <label class="label" data-i18n="home.stats.totalSupply">FR 总供应量</label>
+              <div class="control has-icons-right">
+                <input id="frTotalSupply" type="text" class="input is-readonly" readonly>
+                <span class="icon is-right">
+                  <span class="tag is-success">FR</span>
+                </span>
+              </div>
+            </div>
+            <div class="field mt-4">
+              <label class="label" data-i18n="home.stats.frContract">FR 合约地址</label>
+              <div class="control">
+                <input id="frContractAddress" type="text" class="input is-readonly" readonly >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box">
+            <div class="field">
+              <label class="label" data-i18n="home.stats.totalStaked">FAIR 总质押量</label>
+              <div class="control has-icons-right">
+                <input id="fairTotalStaked" type="text" class="input is-readonly" readonly>
+                <span class="icon is-right">
+                  <span class="tag is-info">FAIR</span>
+                </span>
+              </div>
+            </div>
+            <div class="field mt-4">
+              <label class="label" data-i18n="home.stats.totalUnstaking">正在解押数量</label>
+              <div class="control has-icons-right">
+                <input id="fairTotalUnstaking" type="text" class="input is-readonly" readonly>
+                <span class="icon is-right">
+                  <span class="tag is-warning">FAIR</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

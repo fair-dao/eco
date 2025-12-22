@@ -1,0 +1,85 @@
+{
+    "contractName": "OwnershipFacet",
+    "ByteCode": "6080806040523460155761016c908161001a8239f35b5f80fdfe6080806040526004361015610012575f80fd5b5f3560e01c9081638da5cb5b146100f4575063f2fde38b14610032575f80fd5b346100f05760203660031901126100f0576004356001600160a01b038116908190036100f0577fc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c1320546001600160a01b03811690338290036100e1576001600160a01b03191682177fc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c1320557f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e05f80a3005b63bfcafd3760e01b5f5260045ffd5b5f80fd5b346100f0575f3660031901126100f0577fc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c1320546001600160a01b03168152602090f3fea2646970667358221220fe3f6f72c00ad718e6fdfca38b4c4f92ede72ab7dc220c1c0f1901a7e5a17d3e64736f6c634300081e0033",
+    "CreateTime": "251209 20:10",
+    "ABI": [
+        {
+            "inputs": [],
+            "name": "NotContractOwner",
+            "type": "error",
+            "Hash": "bfcafd37"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address",
+                    "indexed": true
+                },
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address",
+                    "indexed": true
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event",
+            "anonymous": false,
+            "Hash": "8be0079c"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address",
+                    "indexed": true
+                },
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address",
+                    "indexed": true
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event",
+            "anonymous": false,
+            "Hash": "8be0079c"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "8da5cb5b"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "Hash": "f2fde38b"
+        }
+    ],
+    "Compiler": {
+        "version": "0.8.30\u002Bcommit.73712a01",
+        "InnerVersion": "EthereumV0.8.30"
+    }
+}

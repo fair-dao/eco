@@ -1,0 +1,2273 @@
+﻿[
+  {
+    "inputs": [],
+    "name": "CannotRemoveImmutableFunction",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "f2b3f877"
+  },
+  {
+    "inputs": [],
+    "name": "CannotRemoveNonExistentFunction",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "66a3c814"
+  },
+  {
+    "inputs": [],
+    "name": "CannotReplaceSameFunction",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "477afe8c"
+  },
+  {
+    "inputs": [],
+    "name": "FacetCannotBeZero",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "f4086a20"
+  },
+  {
+    "inputs": [],
+    "name": "FacetHasNoCode",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "88e4a424"
+  },
+  {
+    "inputs": [],
+    "name": "FunctionAlreadyExists",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "a023275d"
+  },
+  {
+    "inputs": [],
+    "name": "InitHasNoCode",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "473b16ae"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_initializationContractAddress",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "bytes",
+        "name": "_calldata",
+        "type": "bytes",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "InitializationFunctionReverted",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "192105d7"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidFacetCutAction",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "c138c00a"
+  },
+  {
+    "inputs": [],
+    "name": "NoSelectorsInFacet",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "92d2fe50"
+  },
+  {
+    "inputs": [],
+    "name": "NotContractOwner",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "bfcafd37"
+  },
+  {
+    "inputs": [],
+    "name": "RemoveFunctionMustBeZero",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "d33cd201"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "struct IDiamondCut.FacetCut[]",
+        "name": "_diamondCut",
+        "type": "tuple[]",
+        "indexed": false,
+        "components": [
+          {
+            "internalType": "address",
+            "name": "facetAddress",
+            "type": "address",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "enum IDiamondCut.FacetCutAction",
+            "name": "action",
+            "type": "uint8",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "bytes4[]",
+            "name": "functionSelectors",
+            "type": "bytes4[]",
+            "indexed": null,
+            "components": null
+          }
+        ]
+      },
+      {
+        "internalType": "address",
+        "name": "_init",
+        "type": "address",
+        "indexed": false,
+        "components": null
+      },
+      {
+        "internalType": "bytes",
+        "name": "_calldata",
+        "type": "bytes",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "DiamondCut",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "e785b7d4"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "struct IDiamondCut.FacetCut[]",
+        "name": "_diamondCut",
+        "type": "tuple[]",
+        "indexed": null,
+        "components": [
+          {
+            "internalType": "address",
+            "name": "facetAddress",
+            "type": "address",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "enum IDiamondCut.FacetCutAction",
+            "name": "action",
+            "type": "uint8",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "bytes4[]",
+            "name": "functionSelectors",
+            "type": "bytes4[]",
+            "indexed": null,
+            "components": null
+          }
+        ]
+      },
+      {
+        "internalType": "address",
+        "name": "_init",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "bytes",
+        "name": "_calldata",
+        "type": "bytes",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "diamondCut",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "ee0c950c"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "_functionSelector",
+        "type": "bytes4",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "facetAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "cdffacc6"
+  },
+  {
+    "inputs": [],
+    "name": "facetAddresses",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "52ef6b2c"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "_a",
+        "type": "bytes4",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "facetAddresses2",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "b7d6a1bf"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_facet",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "facetFunctionSelectors",
+    "outputs": [
+      {
+        "internalType": "bytes4[]",
+        "name": "",
+        "type": "bytes4[]",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "adfca15e"
+  },
+  {
+    "inputs": [],
+    "name": "facets",
+    "outputs": [
+      {
+        "internalType": "struct IDiamondLoupe.Facet[]",
+        "name": "",
+        "type": "tuple[]",
+        "indexed": null,
+        "components": [
+          {
+            "internalType": "address",
+            "name": "facetAddress",
+            "type": "address",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "bytes4[]",
+            "name": "functionSelectors",
+            "type": "bytes4[]",
+            "indexed": null,
+            "components": null
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "7a0ed627"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "_functionSelector",
+        "type": "bytes4",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "getFacetAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "7a070c2d"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "_functionSelector",
+        "type": "bytes4",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "getFacetAddress1",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "bc910043"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "_functionSelector",
+        "type": "bytes4",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "getFacetAddressAndPosition",
+    "outputs": [
+      {
+        "internalType": "struct LibDiamond.FacetAddressAndPosition",
+        "name": "",
+        "type": "tuple",
+        "indexed": null,
+        "components": [
+          {
+            "internalType": "address",
+            "name": "facetAddress",
+            "type": "address",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "uint96",
+            "name": "functionSelectorPosition",
+            "type": "uint96",
+            "indexed": null,
+            "components": null
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "29af6686"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "_interfaceId",
+        "type": "bytes4",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "01ffc9a7"
+  },
+  {
+    "inputs": [],
+    "name": null,
+    "outputs": null,
+    "stateMutability": "payable",
+    "type": "constructor",
+    "anonymous": null,
+    "Hash": "861731d5"
+  },
+  {
+    "inputs": [],
+    "name": "DiamondCutFacetZeroAddress",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "0aa94e1d"
+  },
+  {
+    "inputs": [],
+    "name": "FacetCutsAlreadyExist",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "31e15c33"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "selector",
+        "type": "bytes4",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "FunctionNotFound",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "5416eb98"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "8be0079c"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_diamondCutFacet",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "setDiamondCutFacet",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "545323ff"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "Approval",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "8c5be1e5"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "Transfer",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "ddf252ad"
+  },
+  {
+    "inputs": [],
+    "name": "ERC20_STORAGE_POSITION",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "390347f8"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "allowance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "dd62ed3e"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "approve",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "095ea7b3"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "70a08231"
+  },
+  {
+    "inputs": [],
+    "name": "decimals",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "313ce567"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "subtractedValue",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "decreaseAllowance",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "a457c2d7"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "addedValue",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "increaseAllowance",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "39509351"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name_",
+        "type": "string",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "string",
+        "name": "symbol_",
+        "type": "string",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint8",
+        "name": "decimals_",
+        "type": "uint8",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "initializeERC20",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "2bc7bdd2"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "06fdde03"
+  },
+  {
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "95d89b41"
+  },
+  {
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "18160ddd"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "transfer",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "a9059cbb"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "23b872dd"
+  },
+  {
+    "inputs": [],
+    "name": "CalculationOverflow",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "9c154db9"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "requested",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "available",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "ExceedsExchangeLimit",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "d28cc4cd"
+  },
+  {
+    "inputs": [],
+    "name": "ExceedsMaxStake",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "a321ad20"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "requested",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxSupply",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "currentSupply",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "ExceedsMaxSupply",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "ea27aea8"
+  },
+  {
+    "inputs": [],
+    "name": "ExchangeExpired",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "0c53f914"
+  },
+  {
+    "inputs": [],
+    "name": "ExchangeNotYetAvailable",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "2f6bae98"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "required",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "available",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "InsufficientBalance",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "cf479181"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidAddress",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "e6c4247b"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidRate",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "6a43f8d1"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "expected",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "actual",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "InvalidReturnDataLength",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "7b99b53c"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidTransferType",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "c79aaa44"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "requiredDays",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "elapsedDays",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "LockPeriodNotCompleted",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "20485349"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "NoTokensToClaim",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "09d1b88f"
+  },
+  {
+    "inputs": [],
+    "name": "NoUnstakeRequest",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "16f68e4b"
+  },
+  {
+    "inputs": [],
+    "name": "NotAuthorized",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "ea8e4eb5"
+  },
+  {
+    "inputs": [],
+    "name": "PausedContract",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "f322ab26"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "functionName",
+        "type": "bytes4",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "ReentrantCall",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "f6d296f5"
+  },
+  {
+    "inputs": [],
+    "name": "TRXTransferRejected",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "946a10ac"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "TransferFailed",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "c39ba1a9"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroAmount",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "error",
+    "anonymous": null,
+    "Hash": "1f2a2005"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "Burnt",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "919f7e20"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "contributor",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "proposalId",
+        "type": "uint256",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "ContributorRewardMinted",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "d885f943"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum FairStakeTokenStorage.FunctionModule",
+        "name": "module",
+        "type": "uint8",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      }
+    ],
+    "name": "ModulePaused",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "c230972c"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum FairStakeTokenStorage.FunctionModule",
+        "name": "module",
+        "type": "uint8",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      }
+    ],
+    "name": "ModuleUnpaused",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "9c8d2be3"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      }
+    ],
+    "name": "Paused",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "62e78cea"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "RewardClaimed",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "106f923f"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "Staked",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "9e71bc8e"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint88",
+        "name": "rateNumerator",
+        "type": "uint88",
+        "indexed": false,
+        "components": null
+      },
+      {
+        "internalType": "uint88",
+        "name": "rateDenominator",
+        "type": "uint88",
+        "indexed": false,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxExchangeAmount",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "TokenExchangeRateSet",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "79dcf314"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "frAmount",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenAmount",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "TokenExchanged",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "69b4f7d0"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      }
+    ],
+    "name": "Unpaused",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "5db9ee0a"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      },
+      {
+        "internalType": "uint64",
+        "name": "waitDays",
+        "type": "uint64",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "UnstakeRequested",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "21020437"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address",
+        "indexed": true,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "fee",
+        "type": "uint256",
+        "indexed": false,
+        "components": null
+      }
+    ],
+    "name": "Unstaked",
+    "outputs": null,
+    "stateMutability": null,
+    "type": "event",
+    "anonymous": false,
+    "Hash": "7fc4727e"
+  },
+  {
+    "inputs": [],
+    "name": "FAIR_STAKE_TOKEN_STORAGE_POSITION",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "7c488130"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "burn",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "42966c68"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "calculateEarnedTokens",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "afc92dd1"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "checkIsOwner",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "dc467f8e"
+  },
+  {
+    "inputs": [],
+    "name": "claimReward",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "b88a802f"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "frAmount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "exchangeFRForToken",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "0587b20a"
+  },
+  {
+    "inputs": [],
+    "name": "getFairdaoManager",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "0046301a"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum FairStakeTokenStorage.FunctionModule",
+        "name": "module",
+        "type": "uint8",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "getModulePaused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "6ef691c9"
+  },
+  {
+    "inputs": [],
+    "name": "getPaused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "6805b84b"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "getRate",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "57764094"
+  },
+  {
+    "inputs": [],
+    "name": "getStakedToken",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "bc8722d0"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "getTokenExchangeInfo",
+    "outputs": [
+      {
+        "internalType": "struct FairStakeTokenStorage.TokenExchangeInfo",
+        "name": "",
+        "type": "tuple",
+        "indexed": null,
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "remainingExchangeAmount",
+            "type": "uint256",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "uint88",
+            "name": "rateNumerator",
+            "type": "uint88",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "uint88",
+            "name": "rateDenominator",
+            "type": "uint88",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "uint64",
+            "name": "startTime",
+            "type": "uint64",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "uint8",
+            "name": "exchangeDurationWeeks",
+            "type": "uint8",
+            "indexed": null,
+            "components": null
+          },
+          {
+            "internalType": "uint8",
+            "name": "transferType",
+            "type": "uint8",
+            "indexed": null,
+            "components": null
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "21f0d4b9"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalStaked",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "0917e776"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalUnstaking",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "606c7cc3"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "getUserStakeInfo",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint64",
+        "name": "startTime",
+        "type": "uint64",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint64",
+        "name": "lastClaimed",
+        "type": "uint64",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "unstakeRequestAmount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint64",
+        "name": "unstakeRequestTime",
+        "type": "uint64",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint64",
+        "name": "unstakeWaitDays",
+        "type": "uint64",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "c32d3ae2"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "maxSupply_",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxStake_",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "contract IERC20",
+        "name": "stakedToken_",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "contract IFairdaoManager",
+        "name": "fairdaoManager_",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "019e2729"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "contributor",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "proposalId",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "mintContributorReward",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "9c8156ce"
+  },
+  {
+    "inputs": [],
+    "name": "pause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "8456cb59"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum FairStakeTokenStorage.FunctionModule",
+        "name": "module",
+        "type": "uint8",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "pauseModule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "eba1e3d2"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint64",
+        "name": "waitDays",
+        "type": "uint64",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "requestUnstake",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "54b9c884"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint88",
+        "name": "rateNumerator",
+        "type": "uint88",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint88",
+        "name": "rateDenominator",
+        "type": "uint88",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxExchangeAmount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint8",
+        "name": "transferType",
+        "type": "uint8",
+        "indexed": null,
+        "components": null
+      },
+      {
+        "internalType": "uint8",
+        "name": "durationWeeks",
+        "type": "uint8",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "setTokenExchangeRate",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "d7db2159"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "stake",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "a694fc3a"
+  },
+  {
+    "inputs": [],
+    "name": "unpause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "3f4ba83a"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum FairStakeTokenStorage.FunctionModule",
+        "name": "module",
+        "type": "uint8",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "unpauseModule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "759e882d"
+  },
+  {
+    "inputs": [],
+    "name": "unstake",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "2def6620"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "8da5cb5b"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_newOwner",
+        "type": "address",
+        "indexed": null,
+        "components": null
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "anonymous": null,
+    "Hash": "f2fde38b"
+  }
+]

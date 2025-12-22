@@ -1,0 +1,227 @@
+<!-- home-staking.html -->
+<div class="container mt-4">
+  <!-- 质押与解押卡片 -->
+  <div class="card mb-6">
+    <div class="card-header">
+      <p class="card-header-title" data-i18n="title.stakeAndUnstake">质押与解押</p>
+               <button id="refreshStakingStatsBtn" class="card-header-icon" title="{-data.buttons.refreshStats-}" >
+                    <span class="icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </span>
+                </button>
+    </div>
+    <div class="card-content">
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <h4 class="title is-4" data-i18n="title.stakeOperations">质押操作</h4>
+            <div class="field">
+              <label class="label" data-i18n="labels.stakedFairBalance">已质押FAIR / FAIR余额</label>
+              <div class="field has-addons">
+                <div class="control has-icons-right is-expanded">
+                  <input
+                    id="stakedAmount"
+                    type="text"
+                    class="input is-readonly"
+                    readonly
+                  />
+                  <span class="icon is-right">
+                    <span class="tag is-info">FAIR</span>
+                  </span>
+                </div>
+                <div class="control">
+                  <button
+                    id="quickStakeButton"
+                    class="button is-primary"
+                    disabled
+                  >
+                    <i class="fas fa-lock mr-1"></i><span data-i18n="buttons.stake">质押</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" data-i18n="labels.earnedFrBalance">可领取FR / FR余额</label>
+              <div class="field has-addons">
+                <div class="control has-icons-right is-expanded">
+                  <input
+                    id="earnedTokens"
+                    type="text"
+                    class="input is-readonly"
+                    readonly
+                  />
+                  <span class="icon is-right">
+                    <span class="tag is-success">FR</span>
+                  </span>
+                </div>
+                <div class="control">
+                  <button
+                    id="quickClaimButton"
+                    class="button is-primary"
+                    disabled
+                  >
+                    <i class="fas fa-gift mr-1"></i><span data-i18n="buttons.claim">领取</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box">
+            <h4 class="title is-4" data-i18n="title.unstakeOperations">
+              解押操作
+            </h4>
+            <div class="field">
+              <label class="label" data-i18n="labels.unstakeRequestAmount"
+                >申请解押数量</label
+              >
+              <div class="field has-addons">
+                <div class="control has-icons-right is-expanded">
+                  <input
+                    id="unstakeRequestAmount"
+                    type="text"
+                    class="input is-readonly"
+                    readonly
+                  />
+                  <span class="icon is-right">
+                    <span class="tag is-info">FAIR</span>
+                  </span>
+                </div>
+                <div class="control">
+                  <button
+                    id="completeUnstakeButton"
+                    class="button is-primary"
+                    disabled
+                  >
+                    <i class="fas fa-check-circle mr-1"></i
+                    ><span data-i18n="buttons.withdraw">提取</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" data-i18n="labels.unstakeCountdown"
+                >解押倒计时</label
+              >
+              <div class="field has-addons">
+                <div class="control is-expanded">
+                  <input
+                    id="unstakeCountdown"
+                    type="text"
+                    class="input is-readonly"
+                    readonly
+                  />
+                </div>
+                <div class="control">
+                  <button
+                    id="quickUnstakeButton"
+                    class="button is-primary"
+                    disabled
+                  >
+                    <i class="fas fa-unlock mr-1"></i
+                    ><span data-i18n="buttons.requestUnstake"
+                      >申请解押</span
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 质押操作模态框 -->
+<div class="modal" id="stakeModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title" data-i18n="modals.stakeFair">质押 FAIR</p>
+      <button class="delete" aria-label="close" id="closeStakeModal"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label" data-i18n="labels.stakeAmountFair">质押数量 (FAIR)</label>
+        <div class="control">
+          <input
+            id="modalStakeAmount"
+            class="input"
+            type="number"
+            min="0"
+            step="0.000001"
+            placeholder="请输入质押数量"
+            data-i18n-placeholder="placeholders.enterStakeAmount"
+          />
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" id="cancelStakeModal" data-i18n="buttons.cancel">取消</button>
+      <button class="button is-primary" id="confirmStake" data-i18n="buttons.confirmStake">确认质押</button>
+    </footer>
+  </div>
+</div>
+
+<!-- 解押操作模态框 -->
+<div class="modal" id="unstakeModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title" data-i18n="modals.requestUnstake">申请解押</p>
+      <button class="delete" aria-label="close" id="closeUnstakeModal"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label" data-i18n="labels.unstakeAmountFair">解押数量 (FAIR)</label>
+        <div class="control">
+          <input
+            id="modalUnstakeAmount"
+            class="input"
+            type="number"
+            min="0"
+            step="0.000001"
+            placeholder="请输入解押数量"
+            data-i18n-placeholder="placeholders.enterUnstakeAmount"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" data-i18n="labels.unstakeWaitPeriod">解押等待期</label>
+        <div class="control">
+          <div class="select">
+            <select id="unstakeWaitDays">
+              <option value="30" selected data-i18n="unstakeWaitDays.30days">30天</option>
+              <option value="15" data-i18n="unstakeWaitDays.15days">15天</option>
+              <option value="60" data-i18n="unstakeWaitDays.60days">60天</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" id="cancelUnstakeModal" data-i18n="buttons.cancel">取消</button>
+      <button class="button is-primary" id="confirmUnstake" data-i18n="buttons.confirmUnstake">确认申请解押</button>
+    </footer>
+  </div>
+</div>
+
+<!-- 领取奖励模态框 -->
+<div class="modal" id="claimModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title" data-i18n="modals.claimRewards">领取奖励</p>
+      <button class="delete" aria-label="close" id="closeClaimModal"></button>
+    </header>
+    <section class="modal-card-body">
+      <p data-i18n="modals.confirmClaim">确认要领取奖励吗？</p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" id="cancelClaimModal" data-i18n="buttons.cancel">取消</button>
+      <button class="button is-primary" id="confirmClaim" data-i18n="buttons.confirmClaim">确认领取</button>
+    </footer>
+  </div>
+</div>
