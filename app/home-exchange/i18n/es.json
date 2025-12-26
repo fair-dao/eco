@@ -1,0 +1,33 @@
+{
+  "burn": {
+    "reward": {
+      "title": "Intercambio de tokens",
+      "amount": "Cantidad de FR a quemar",
+      "placeholder": "Ingrese la cantidad a quemar",
+      "token": "Token de recompensa",
+      "token_placeholder": "Por favor seleccione un token de recompensa",
+      "button": "Quitar FR",
+      "frBalance": "Saldo de tokens FR"
+    }
+  },
+  "logs": {
+    "burnLogs": "Registro de quema"
+  },
+  "exchange": {
+    "notOpen": "Intercambio no disponible",
+    "end": "Finalizado",
+    "remainingAmount": "Intercambiable",
+    "canGet": "Puede obtener",
+    "start": "Próximamente",
+    "minutes": "Minutos",
+    "contractBalance": "Saldo del contrato",
+    "rule": {
+      "title": "Reglas de intercambio",
+      "item1": "Los usuarios pueden intercambiar otros tipos de tokens quemando tokens FR",
+      "item2": "En las 24 horas antes del intercambio, el monto de cada intercambio no puede exceder el 1% del saldo intercambiable",
+      "item3": "Por favor asegúrese de tener suficiente saldo de tokens FR para el intercambio",
+      "item4": "Los tokens FR correspondientes se destruirán permanentemente después de completar la transacción de intercambio",
+      "item5": "La función de intercambio solo está disponible durante un período de tiempo específico y no se puede participar después de la fecha de vencimiento"
+    }
+  }
+}

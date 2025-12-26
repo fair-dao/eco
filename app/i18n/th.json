@@ -1,0 +1,83 @@
+{
+  "network": {
+    "warnning": "สภาพแวดล้อมปัจจุบันเป็นเครือข่ายทดสอบ ทุกธุรกรรมมีประสิทธิภาพเฉพาะบนเครือข่ายทดสอบเท่านั้น และไม่มีผลต่อเครือข่ายหลัก",
+    "disconnect": "กระเป๋าเงินดิจิทัลถูกตัดการเชื่อมต่อ",
+    "connect": {
+      "error": "เชื่อมต่อกระเป๋าเงินดิจิทัลไม่สำเร็จ"
+    }
+  },
+  "navigation": {
+    "doc": "เอกสาร",
+    "staking": "สเตก",
+    "burn": "ทำลาย",
+    "exchange": "兑换",
+    "whitepaper": "สัญญาประกาศว่า",
+    "contributing": "การมีส่วนร่วม",
+    "forum": "ฟอรั่ม",
+    "serviceagreement": "ข้อตกลงการให้บริการ",
+    "privacypolicy": "นโยบายความเป็นส่วนตัว",
+    "disclaimers": "ข้อปฏิเสธความรับผิดชอบ",
+    "legal": "เงื่อนไขกฎหมาย",
+    "contact": "ติดต่อเรา",
+    "email": "อีเมล",
+    "phone": "โทรศัพท์",
+    "address": "ที่อยู่",
+    "governance": "การปกครอง",
+    "mission": "พันธกิจ",
+    "about": "เกี่ยวกับเรา",
+    "allrightsreserved": "สงวนลิขสิทธิ์ทั้งหมด",
+    "resources": "ทรัพยากร",
+    "links": "ลิงก์",
+    "accountinfo": "ข้อมูลบัญชี",
+    "admin": {
+      "exchangeSetup": "ตั้งค่า rate การแลกเปลี่ยนโทเคน"
+    }
+  },
+  "title": "ระบบ FAIR",
+  "logs": {
+    "contractLogs": "บันทึกสัญญา",
+    "noData": "ไม่มีบันทึกการทำงาน",
+    "table": {
+      "user": "ที่อยู่",
+      "from": "ที่อยู่ต้นทาง",
+      "eventName": "การดำเนินการ",
+      "amount": "จำนวน",
+      "timestamp": "เวลา",
+      "status": "สถานะ",
+      "transactionId": "หมายเลขธุรกรรม",
+      "tokenAmount": "代币数量",
+      "frAmount": "FR数量",
+      "fairAmount": "FAIR数量",
+      "value": "จำนวน",
+      "to": "ที่อยู่ปลายทาง",
+      "operator": "ผู้ดำเนินการ"
+    },
+    "eventNames": {
+      "Staked": "สเตก",
+      "Unstaked": "ยกเลิกสเตก",
+      "RewardClaimed": "รับรางวัล",
+      "Withdrawn": "ถอน",
+      "UnstakeRequested": "ขอให้ยกเลิกสเตก",
+      "Paused": "หยุดชั่วคราว",
+      "Unpaused": "เริ่มต้นใหม่",
+      "ContributorRewardMinted": "สร้างรางวัลสำหรับการมีส่วนร่วม",
+      "Burnt": "ทำลาย",
+      "Transfer": "โอนเงิน",
+      "Mint": "สร้าง",
+      "Burn": "ทำลาย",
+      "Reward": "รางวัล",
+      "TokenExchanged": "การแลกเปลี่ยนโทเคน"
+    },
+    "status": {
+      "success": "สำเร็จ",
+      "pending": "กำลังดำเนินการ",
+      "failed": "ล้มเหลว"
+    }
+  },
+  "admin": {
+    "title": "เครื่องมือผู้ดูแลระบบ",
+    "exchange": {
+      "title": "ตั้งค่า rate การแลกเปลี่ยนโทเคน"
+    }
+  }
+}

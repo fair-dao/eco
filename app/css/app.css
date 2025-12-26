@@ -27,6 +27,13 @@ body {
     display:inline-block;
 }
 
+.tab-content>*{
+  display: none;
+}
+.tab-content .is-active{
+  display: block;
+}
+
 
 #tokenAddress{
     height: 3.5rem !important;
@@ -746,6 +753,7 @@ a{
     border-radius: 4px;
 }
 
+
 ::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
 }
@@ -754,6 +762,42 @@ a{
  [data-bind], [data-i18n],[data-if],[data-array] > * {
     display: none !important;
 }
+/* 手机端媒体查询优化 */
+@media screen and (max-width: 768px) {
+    /* 导航栏 */
+    .navbar {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+    .navbar-brand .navbar-item {
+        font-size: 1rem;
+    }
+    .navbar-menu {
+        border-radius: 0 0 8px 8px;
+    }
+    .card {
+        overflow:auto;
+    } 
+
+    /* 横向滚动条优化 */
+    ::-webkit-scrollbar {
+        height: 4px;
+    }
+}
+
+/* 更小屏幕补充 */
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 0 0.75rem;
+    }
+    .navbar {
+        padding: 0.5rem 0.75rem;
+    }
+    .button {
+        font-size: 0.9rem;
+    }
+}
+
 
 /* 打印样式 */
 @media print {

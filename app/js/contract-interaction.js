@@ -51,7 +51,7 @@ class ContractInteraction {
         this.config.abis.ierc20,
         this.contractAddress
       );
-    }else{
+    } else {
       console.error("未发现网络");
     }
   }
@@ -389,7 +389,7 @@ class ContractInteraction {
 
     // 转换金额为合约所需的精度
     // 使用BigNumber安全地处理精度转换，避免科学记数法
-    const decimals = this.config.app.decimals;
+    const decimals = this.common.network.rewardToken.decimals;
     const amountInContract = tronWeb
       .toBigNumber(frAmount)
       .multipliedBy(new tronWeb.BigNumber(10).pow(decimals))
@@ -478,6 +478,31 @@ class ContractInteraction {
       return { success: false, error: error.message };
     }
   }
+
+  async getERC20Balance(tokenAddress, account) {    
+       const tronWeb = this.tronWebConnector.getTronWeb();
+       const hexAccount = tronWeb.address.toHex(account);
+       const erc20Contract = await tronWeb.contract(
+        this.config.abis.ierc20,
+        tokenAddress
+      );
+       const balance = await erc20Contract.balanceOf(hexAccount).call();
+       const decimals = await erc20Contract.decimals().call();
+       const divisor = new tronWeb.BigNumber(10).pow(decimals);
+       return parseFloat(tronWeb.toBigNumber(balance).dividedBy(divisor)).toFixed(6);
+  }
+
+  async getTRXBalance(account){
+         const tronWeb = this.tronWebConnector.getTronWeb();
+      // 获取TRX余额
+      const trxBalance = await tronWeb.trx.getBalance(account);
+      // 确保转换为数字类型
+      const trxBalanceInTRX = parseFloat(tronWeb.fromSun(trxBalance) || 0);
+      return trxBalanceInTRX.toFixed(6);
+  }
+
+
+
 
   /**
    * 获取用户FR代币余额
@@ -889,17 +914,14 @@ class ContractInteraction {
 
   /**
    * 获取代币兑换信息（包括兑换率和时间范围）
-   * @param {string} tokenAddress - 目标代币地址
+   * @param {string} token - 目标代币地址
    * @returns {Promise} 返回代币兑换信息
    */
-  async getTokenExchangeInfo(tokenAddress) {
-    try {
-      if (!this.isInitialized()) {
-        await this.init();
-      }
+  async getTokenExchangeInfo(token) {
+    try {     
 
       const tronWeb = this.tronWebConnector.getTronWeb();
-      const hexAddress = tronWeb.address.toHex(tokenAddress);
+      const hexAddress = tronWeb.address.toHex(token.address);
 
       // 正确读取合约的tokenExchangeInfo映射
       const exchangeInfo = await this.contract
@@ -907,7 +929,7 @@ class ContractInteraction {
         .call();
       if (exchangeInfo.rateDenominator === 0n) {
         return { success: false, error: "目前未开通兑换" };
-      }
+      }    
 
       // 计算结束时间（一周有604800秒）
       const endTime =
@@ -918,18 +940,6 @@ class ContractInteraction {
       let frDecimals =
         this.config.networks[this.config.currentNetwork]?.rewardToken
           ?.decimals || 18;
-      let tokenDecimals = 18;
-      try {
-        // 尝试从合约获取目标代币的小数位数
-        const tokenDecimalsResult = await this.getTokenDecimals(tokenAddress);
-        if (tokenDecimalsResult.success) {
-          tokenDecimals = tokenDecimalsResult.data;
-        }
-      } catch (decimalsError) {
-        console.warn("获取小数位数时出错");
-        return { success: false, error: decimalsError.message };
-      }
-
       return {
         success: true,
         data: {
@@ -938,7 +948,7 @@ class ContractInteraction {
           rateNumerator: exchangeInfo.rateNumerator.toString(),
           rateDenominator: exchangeInfo.rateDenominator.toString(),
           frDecimals: frDecimals,
-          tokenDecimals: tokenDecimals,
+          tokenDecimals: token.decimals,
           startTime: exchangeInfo.startTime.toString(),
           endTime: endTime.toString(),
           exchangeDurationWeeks: exchangeInfo.exchangeDurationWeeks.toString(),
@@ -948,6 +958,82 @@ class ContractInteraction {
     } catch (error) {
       console.error("获取代币兑换信息失败:", error);
       return { success: false, error: error.message };
+    }
+  }
+
+  
+  /**
+   * 获取任意合约的链上事件
+   * @param {string} contractAddress - 合约地址
+   * @param {string[]} eventNames - 事件名称数组（可选）
+   * @param {number} fromBlock - 起始区块
+   * @param {number} toBlock - 结束区块
+   * @returns {Promise} 包含事件列表的 Promise
+   */
+  async getEvents(contractAddress, eventNames, fromBlock, toBlock) {
+    try {
+      // 获取指定合约地址的所有事件
+      let events = [];
+      if (!eventNames) {
+        events = await this.common.getContractEvents(
+          contractAddress,
+          null,
+          fromBlock,
+          toBlock
+        );
+      } else {
+        for (let i = 0; i < eventNames.length; i++) {
+          const eventName = eventNames[i];
+          const event = await this.common.getContractEvents(
+            contractAddress,
+            eventName,
+            fromBlock,
+            toBlock
+          );
+          events = events.concat(event);
+        }
+        events.sort((a, b) => a.block_number - b.block_number);
+      }
+      let es = [];
+      for (let i = 0; i < events.length; i++) {
+        const e = events[i];
+        const logIndex = e.event_index;
+        let amount = 0;
+        console.log(e);
+        const txId = e.transaction_id;
+        if (e.result == {}) {
+          const txInfo = await tronWeb.trx.getTransactionInfo(txId);
+          if (!txInfo) {
+            debugger;
+            //找到事件的ABI
+            const eventABI = this.contract.abi.find(
+              (item) => item.name === e.event_name && e.type == "event"
+            );
+            if (eventABI) {
+              const curLog = txInfo.log[logIndex];
+              const decodedLog = tronWeb.utils.abi.decodeLog(
+                eventABI.inputs,
+                curLog.data,
+                curLog.topic.slice(1)
+              );
+              e.result = decodedLog;
+            } else continue;
+          } else continue;
+        }
+        let item = {
+          eventName: e.event_name,
+          blockNumber: e.block_number,
+          transactionId: e.transaction_id,
+          logIndex: logIndex,
+          timestamp: e.block_timestamp,
+          result: e.result
+        };
+        es.push(item);
+      }
+      return es;
+    } catch (error) {
+      console.error(`get contract events (${contractAddress}):`, error);
+      return [];
     }
   }
 }

@@ -1,0 +1,83 @@
+{
+  "network": {
+    "warnning": "El entorno actual es una red de prueba, todas las transacciones solo son válidas en la red de prueba y no afectan la red principal.",
+    "disconnect": "Billetera desconectada",
+    "connect": {
+      "error": "Error al conectar billetera"
+    }
+  },
+  "navigation": {
+    "doc": "Documentos",
+    "staking": "Está participando",
+    "burn": "Destruir",
+    "exchange": "兑换",
+    "whitepaper": "Libro blanco",
+    "contributing": "Contribuciones",
+    "forum": "Foro",
+    "serviceagreement": "Acuerdo de servicio",
+    "privacypolicy": "Política de privacidad",
+    "disclaimers": "Descargo de responsabilidad",
+    "legal": "Términos legales",
+    "contact": "Contáctenos",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "governance": "Gobernanza",
+    "mission": "Misión",
+    "about": "Sobre nosotros",
+    "allrightsreserved": "Todos los derechos reservados",
+    "resources": "Recursos",
+    "links": "Enlaces",
+    "accountinfo": "Información de cuenta",
+    "admin": {
+      "exchangeSetup": "Configuración de tasa de intercambio de tokens"
+    }
+  },
+  "title": "Ecosistema FAIR",
+  "logs": {
+    "contractLogs": "Registros de contrato",
+    "noData": "No hay registros de operaciones",
+    "table": {
+      "user": "Dirección",
+      "from": "Dirección de envío",
+      "eventName": "Operación",
+      "amount": "Cantidad",
+      "timestamp": "Tiempo",
+      "status": "Estado",
+      "transactionId": "Hash de transacción",
+      "tokenAmount": "代币数量",
+      "frAmount": "FR数量",
+      "fairAmount": "FAIR数量",
+      "value": "Cantidad",
+      "to": "Dirección de recepción",
+      "operator": "Operador"
+    },
+    "eventNames": {
+      "Staked": "Está participando",
+      "Unstaked": "No está participando",
+      "RewardClaimed": "Reclamar recompensa",
+      "Withdrawn": "Retirar",
+      "UnstakeRequested": "Solicitar retiro de participación",
+      "Paused": "Pausado",
+      "Unpaused": "Reanudado",
+      "ContributorRewardMinted": "Compensación por contribución",
+      "Burnt": "Destruir",
+      "Transfer": "Transferir",
+      "Mint": "Mint",
+      "Burn": "Destruir",
+      "Reward": "Recompensa",
+      "TokenExchanged": "Intercambio de tokens"
+    },
+    "status": {
+      "success": "Éxito",
+      "pending": "En proceso",
+      "failed": "Fracasado"
+    }
+  },
+  "admin": {
+    "title": "Herramientas de administrador",
+    "exchange": {
+      "title": "Configuración de tasa de intercambio de tokens"
+    }
+  }
+}

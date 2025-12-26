@@ -105,6 +105,7 @@ class FairDaoModule {
         moduleObj.container = pageEl;
         moduleObj.fairdao = this;
         moduleObj.path = path;
+        moduleObj.app=window.app;
         moduleObj.i18n = function () {
           return this.fairdao.i18n(moduleObj);
         };
@@ -342,7 +343,7 @@ class FairDaoModule {
       });
     });
     // 点击外部关闭 dropdown
-    document.addEventListener('click', e => {
+    element.addEventListener('click', e => {
       if (!e.target.closest('.dropdown')) {
         element.querySelectorAll('.dropdown').forEach(d => d.classList.remove('is-active'));
       }

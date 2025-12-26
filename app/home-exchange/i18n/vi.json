@@ -1,0 +1,33 @@
+{
+  "burn": {
+    "reward": {
+      "title": "Trao đổi token",
+      "amount": "Số lượng FR cần tiêu hủy",
+      "placeholder": "Nhập số lượng cần tiêu hủy",
+      "token": "Token thưởng",
+      "token_placeholder": "Vui lòng chọn token thưởng",
+      "button": "Tiêu hủy FR",
+      "frBalance": "Số dư token FR"
+    }
+  },
+  "logs": {
+    "burnLogs": "Nhật ký tiêu hủy"
+  },
+  "exchange": {
+    "notOpen": "Chưa mở trao đổi",
+    "end": "Đã kết thúc",
+    "remainingAmount": "Có thể trao đổi",
+    "canGet": "Có thể nhận được",
+    "start": "Sắp bắt đầu",
+    "minutes": "Phút",
+    "contractBalance": "Số dư hợp đồng",
+    "rule": {
+      "title": "Quy tắc trao đổi",
+      "item1": "Người dùng có thể trao đổi các loại token khác bằng cách tiêu hủy token FR",
+      "item2": "Trong vòng 24 giờ trước khi có thể trao đổi, mỗi lần trao đổi không được vượt quá 1% của số dư có thể trao đổi",
+      "item3": "Vui lòng đảm bảo bạn có đủ số dư token FR để trao đổi",
+      "item4": "Sau khi hoàn thành giao dịch trao đổi, token FR tương ứng sẽ bị tiêu hủy vĩnh viễn",
+      "item5": "Chức năng trao đổi chỉ mở trong một khoảng thời gian cụ thể, sau khi hết hạn sẽ không thể tham gia"
+    }
+  }
+}

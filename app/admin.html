@@ -49,23 +49,8 @@
             <!-- 语言切换器 -->
             <div class="navbar-item" id="languageSwitcherContainer">
               <!-- 语言切换器将在这里动态生成 -->
-            </div>
-   
-            <a
-              class="navbar-item"
-              href="javascript:void(0);"
-              main-load="/pages/admin-exchangeConfig.html"
-              main-loaded="import('/js/admin-exchange.js').then(mod => { mod.exchangeAdmin.init(); })"
-            >
-              <i class="fas fa-gem mr-2"></i>
-              <span>代币兑换率设置</span>
-            </a>
-
-            <a class="navbar-item" href="index.html" class="button is-info">
-              <i class="fas fa-home mr-2"></i>
-              <span data-i18n="backToHome">返回首页</span>
-            </a>
-
+            </div>   
+             <button class="is-text navbar-item"  onclick="fairdao.loadModule('admin-exchange')" data-i18n="navigation.admin.exchangeSetup"></button>          
             <div class="navbar-item" id="connectWallet">
                 <i class="fab fa-wallet mr-2"></i>
                 <span data-i18n="connectWallet">连接钱包</span>
@@ -374,7 +359,6 @@
 
 
     <!-- 引入必要的JavaScript文件 -->
-    <script src="js/fair.js"></script>
     <script src="js/TronWeb.js"></script>
     <script src="js/common.js"></script>
     <script src="js/tronweb-connector.js"></script>

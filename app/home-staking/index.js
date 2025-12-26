@@ -5,15 +5,15 @@
  * 该模块处理 FAIR 代币系统的所有质押与解押操作
  */
 class StakingModule {
-  static lastInstance=null;
+  static lastInstance = null;
   constructor() {
-    StakingModule.lastInstance=this;
+    StakingModule.lastInstance = this;
     // 获取 tronWebConnector
     this.tronWebConnector = window.tronWebConnector;
-    
+
     // 获取合约交互模块
     this.contractInteraction = window.contractInteraction;
-    
+
     // 获取公共工具模块
     this.common = window.fairStakeCommon;
     this.functionButtons = [
@@ -22,17 +22,17 @@ class StakingModule {
       "quickClaimButton",
       "exchangeButton",
     ];
-    this.refreshId="refreshStakingStatsBtn";
+    this.refreshId = "refreshStakingStatsBtn";
   }
 
   async init() {
-    try{
-        console.log("init staking module ...");
-        try{
+    try {
+      console.log("init staking module ...");
+      try {
         await this.i18n();
-        }catch(ex){
-          console.log(ex);
-        }
+      } catch (ex) {
+        console.log(ex);
+      }
 
       // 初始化 DOM 元素引用
       this.initDOMReferences();
@@ -40,13 +40,13 @@ class StakingModule {
       // 初始化按钮事件监听器
       this.initButtonEventListeners();
       this.setupBasicEventListeners();
-       this.startDataRefreshTimer();
-             // 初始化模态框事件监听器
+      this.startDataRefreshTimer();
+      // 初始化模态框事件监听器
       this.initModalEventListeners();
-      if(this.common.tronWebConnector.getAccount()){   
+      if (this.common.tronWebConnector.getAccount()) {
         // 启用其他功能按钮
         this.enableFunctionButtons();
-      }else{
+      } else {
         this.disableFunctionButtons();
       }
 
@@ -56,14 +56,11 @@ class StakingModule {
       console.error("用户账户模块初始化错误:", error);
       return false;
     }
-
-
   }
   /**
    * 启用功能按钮
    */
   enableFunctionButtons() {
-  
     this.functionButtons.forEach((id) => {
       const btn = document.getElementById(id);
       if (btn) {
@@ -77,7 +74,7 @@ class StakingModule {
    * 禁用功能按钮
    */
   disableFunctionButtons() {
-   this.functionButtons.forEach((id) => {
+    this.functionButtons.forEach((id) => {
       const btn = document.getElementById(id);
       if (btn) {
         btn.disabled = true;
@@ -85,7 +82,6 @@ class StakingModule {
       }
     });
   }
-
 
   /**
    * 设置基本事件监听器
@@ -104,7 +100,7 @@ class StakingModule {
         try {
           console.log("手动刷新数据开始执行");
           // 在刷新期间显示加载动画
-          refreshStatsBtn.querySelector("i").classList.add("fa-spin");          
+          refreshStatsBtn.querySelector("i").classList.add("fa-spin");
           await this.loadUserData(false);
           console.log("手动刷新数据执行完成");
         } catch (error) {
@@ -117,19 +113,19 @@ class StakingModule {
     }
   }
 
-   /**
+  /**
    * 加载用户数据
    */
   async loadUserData(isAutoRefresh = false) {
     console.log(isAutoRefresh ? "自动刷新加载用户数据" : "手动加载用户数据");
-   
+
     // 自动刷新时，只旋转全局统计右上角的刷新图标
     const refreshBtn = document.getElementById(this.refreshId);
-    if(!refreshBtn) return;
+    if (!refreshBtn) return;
     if (isAutoRefresh && refreshBtn) {
       refreshBtn.classList.add("fa-spin");
     }
-   // 手动刷新时，显示加载图标   
+    // 手动刷新时，显示加载图标
     else if (!isAutoRefresh) {
       const loadingIndicator = document.getElementById("dataLoadingIndicator");
       if (loadingIndicator) {
@@ -137,10 +133,8 @@ class StakingModule {
       }
     }
     try {
-      
       const account = await this.tronWebConnector.getAccount();
 
-      
       // 确保账户已连接
       if (!account) {
         const errorMessage = "账户未连接";
@@ -158,7 +152,7 @@ class StakingModule {
         !this.contractInteraction.isInitialized()
       ) {
         return;
-      }    
+      }
       // 调用合约获取用户质押信息
       const stakeInfoResult = await this.contractInteraction.getUserStakeInfo(
         account
@@ -181,19 +175,33 @@ class StakingModule {
         );
 
         if (stakedAmountElement)
-          stakedAmountElement.value = `${this.common.formatNumber(stakeInfoResult.data.stakedAmount)} / ${fairTokenBalanceResult.success ? this.common.formatNumber(fairTokenBalanceResult.balance) : "0.00"}`;
+          stakedAmountElement.value = `${this.common.formatNumber(
+            stakeInfoResult.data.stakedAmount
+          )} / ${
+            fairTokenBalanceResult.success
+              ? this.common.formatNumber(fairTokenBalanceResult.balance)
+              : "0.00"
+          }`;
         if (earnedTokensElement)
-          earnedTokensElement.value = `${this.common.formatNumber(earnedTokensResult.data)} / ${frTokenBalanceResult.success ? this.common.formatNumber(frTokenBalanceResult.balance) : "0.00"}`;
+          earnedTokensElement.value = `${this.common.formatNumber(
+            earnedTokensResult.data
+          )} / ${
+            frTokenBalanceResult.success
+              ? this.common.formatNumber(frTokenBalanceResult.balance)
+              : "0.00"
+          }`;
         if (unstakeRequestAmountElement)
           unstakeRequestAmountElement.value =
-            stakeInfoResult.data.unstakeRequestAmount;     
-
+            stakeInfoResult.data.unstakeRequestAmount;
 
         // 更新解押倒计时，传入从合约获取的解除质押等待天数
         this.updateUnstakeCountdown(
           stakeInfoResult.data.unstakeRequestTime,
           stakeInfoResult.data.unstakeWaitDays
         );
+
+        // 更新事件日志
+        await this.refreshChainOperationsLogs();
       } else {
         console.error("获取用户质押信息失败:", stakeInfoResult.error);
         // 非自动刷新时才显示消息
@@ -221,6 +229,7 @@ class StakingModule {
         countdownText === "0" ||
         countdownText === "00:00:00" ||
         countdownText.toLowerCase().includes("已完成") ||
+        countdownText.toLowerCase().includes("完成") ||
         countdownText.toLowerCase().includes("完成") ||
         countdownText.toLowerCase().includes("完成");
 
@@ -252,12 +261,12 @@ class StakingModule {
     }
   }
 
-   /**
+  /**
    * 启动数据定时刷新功能
    * 每1分钟调用一次loadUserData方法，同时更新用户数据和全局统计
    */
-  startDataRefreshTimer(time=10)  {
-    const me=this;
+  startDataRefreshTimer(time = 10) {
+    const me = this;
     setTimeout(async () => {
       try {
         /*
@@ -266,10 +275,10 @@ class StakingModule {
             this.clearDataRefreshTimer();
             return;
         }*/
-       if(StakingModule.lastInstance===me){       
-        // 调用合并方法同时更新用户数据和全局统计，传递isAutoRefresh=true参数
-        await this.loadUserData(true);
-       }else return;
+        if (StakingModule.lastInstance === me) {
+          // 调用合并方法同时更新用户数据和全局统计，传递isAutoRefresh=true参数
+          await this.loadUserData(true);
+        } else return;
       } catch (error) {
         console.error("定时刷新数据时出错:", error);
       }
@@ -277,7 +286,6 @@ class StakingModule {
     }, time);
   }
 
-  
   /**
    * 更新解押倒计时
    * @param {string|number} requestTime - 解除质押请求时间戳
@@ -287,7 +295,7 @@ class StakingModule {
     const unstakeCountdown = document.getElementById("unstakeCountdown");
 
     if (!unstakeCountdown || !requestTime) {
-      if(unstakeCountdown.value ){
+      if (unstakeCountdown.value) {
         unstakeCountdown.value = "";
       }
       return;
@@ -366,7 +374,7 @@ class StakingModule {
       );
     }
   }
-  
+
   /**
    * 处理完成解押功能
    */
@@ -460,13 +468,13 @@ class StakingModule {
     } catch (error) {
       console.error("领取FAIR代币失败:", error);
       alert("领取FAIR代币失败: " + error.message);
-     } finally {
+    } finally {
       const claimBtn = document.getElementById("claimFairTokenBtn");
       claimBtn.disabled = false;
       claimBtn.innerHTML = '<i class="fas fa-plus-circle mr-1"></i>领取';
     }
   }
-  
+
   /**
    * 确认质押操作
    */
@@ -488,6 +496,7 @@ class StakingModule {
       if (result.state === "ok") {
         this.common.showMessage("success", "质押成功!");
         modalStakeAmount.value = "";
+
         // 隐藏模态框
         const stakeModal = document.getElementById("stakeModal");
         if (stakeModal) {
@@ -608,6 +617,7 @@ class StakingModule {
 
       if (result.state === "ok") {
         this.common.showMessage("success", "申请解押成功! 等待解锁期结束...");
+
         // 重新加载所有数据
         this.loadUserData();
       } else {
@@ -648,6 +658,33 @@ class StakingModule {
       claimModal.classList.remove("is-active");
     }
   }
+
+
+  /**
+   * 刷新链上操作日志
+   * Refresh operations logs from blockchain
+   */
+  async refreshChainOperationsLogs() {
+    try {
+      const tronWeb = this.common.tronWebConnector?.getTronWeb();
+      const logs = await this.contractInteraction.getEvents(
+        this.common.network.rewardToken.address
+      );
+      const userBase58 = this.common.tronWebConnector.getAccount();
+      const userHex = "0x" + tronWeb.address.toHex(userBase58).substring(2);
+      const userLogs = logs.filter((log) => log.result["user"] === userHex || log.result["to"]===userHex
+       || log.result["from"]===userHex || log.result["operator"]===userHex);
+      this.app.displayContractLogs("contractAccountLogsTable", userLogs,[ "user","eventName","fairAmount","frAmount,value","to",      
+          "timestamp",
+        "transactionId"]);
+    } catch (error) {
+      console.error("刷新链上操作日志失败:", error);
+      if (this.common) {
+        this.common.showMessage("error", "刷新操作日志失败");
+      }
+    }
+  }
+
   /**
    * 初始化模态框事件监听器
    */
@@ -700,13 +737,8 @@ class StakingModule {
         });
       });
     } catch (error) {
-      console.error("初始化模态框事件监听器出错:", error);
+      console.error("初始化模态框事件监听器出错", error);
     }
   }
 }
 export default StakingModule;
-
-
-
-
-

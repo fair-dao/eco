@@ -1,9 +1,4 @@
 {
-  "title": {
-    "stakeAndUnstake": "Stake and Unstake",
-    "stakeOperations": "Stake Operations",
-    "unstakeOperations": "Unstake Operations"
-  },
   "labels": {
     "stakedFairBalance": "Staked FAIR / FAIR Balance",
     "earnedFrBalance": "Claimable FR / FR Balance",
@@ -22,13 +17,14 @@
     "confirmStake": "Confirm Stake",
     "confirmUnstake": "Confirm Unstake Request",
     "confirmClaim": "Confirm Claim",
-    "refreshStats": "Refresh Stats"
+    "refreshStats": "Refresh Statistics",
+    "refreshLogs": "Refresh Logs"
   },
   "modals": {
     "stakeFair": "Stake FAIR",
     "requestUnstake": "Request Unstake",
     "claimRewards": "Claim Rewards",
-    "confirmClaim": "Are you sure you want to claim rewards?"
+    "confirmClaim": "Confirm Claim"
   },
   "unstakeWaitDays": {
     "30days": "30 Days",
@@ -38,5 +34,11 @@
   "placeholders": {
     "enterStakeAmount": "Please enter stake amount",
     "enterUnstakeAmount": "Please enter unstake amount"
+  },
+  "title": {
+    "stakeAndUnstake": "Stake & Unstake",
+    "stakeOperations": "Stake Operations",
+    "unstakeOperations": "Unstake Operations",
+    "operationsHistory": "Operations History"
   }
 }

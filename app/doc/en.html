@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FairStakeToken Contract API Documentation</title>
+    
+    <!-- External Resources -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f5f7fa; 
+        }
+        .header-section { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 3rem 0; 
+            margin-bottom: 2rem;
+        }
+        .header-section h1 { 
+            font-size: 2.5rem; 
+            font-weight: 700;
+        }
+        .content-card { 
+            background: white; 
+            border-radius: 8px; 
+            padding: 2rem; 
+            margin-bottom: 2rem; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .content-card:hover { 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .function-def { 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: #333; 
+            margin-bottom: 1rem;
+            background-color: #f8f9fa;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+        .event-def { 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: #333; 
+            margin-bottom: 1rem;
+            background-color: #e7f3ff;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #2196F3;
+        }
+        .error-def { 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: #333; 
+            margin-bottom: 1rem;
+            background-color: #fff3cd;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+        }
+        .modifier-def { 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: #333; 
+            margin-bottom: 1rem;
+            background-color: #d4edda;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+        }
+        .section-title { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            color: #2c3e50; 
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem; 
+            border-bottom: 3px solid #667eea;
+        }
+        .parameter-list { 
+            list-style: none; 
+            padding-left: 0;
+        }
+        .parameter-list li { 
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .code-block { 
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        .nav-link { 
+            font-weight: 500; 
+            transition: color 0.2s;
+        }
+        .nav-link:hover { 
+            color: #667eea !important;
+        }
+        .language-switch { 
+            margin-left: 1rem;
+        }
+        .language-switch button { 
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .language-switch button:hover { 
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content { 
+            line-height: 1.6;
+        }
+        .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 { 
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .content p { 
+            margin-bottom: 1em;
+        }
+        .content ul, .content ol { 
+            margin-bottom: 1em;
+        }
+        .tag { 
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar is-white" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/index.html">
+                <img src="https://fairdao.space/static/fair-logo.34a90480.png" alt="FairDAO" height="28">
+            </a>
+            
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item nav-link" href="#overview">Overview</a>
+                <a class="navbar-item nav-link" href="#contract">Contract Info</a>
+                <a class="navbar-item nav-link" href="#events">Events</a>
+                <a class="navbar-item nav-link" href="#functions">Functions</a>
+                <a class="navbar-item nav-link" href="#modifiers">Modifiers</a>
+                <a class="navbar-item nav-link" href="#errors">Error Types</a>
+            </div>
+            
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="language-switch">
+                        <button class="button is-light" onclick="switchLanguage('zh')">
+                            中文
+                        </button>
+                        <button class="button is-primary" onclick="switchLanguage('en')">
+                            English
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="header-section">
+        <div class="container">
+            <h1 class="title">FairStakeToken Contract API Documentation</h1>
+            <p class="subtitle">Staking and Token Exchange Protocol</p>
+        </div>
+    </section>
+
+    <!-- Main Content --<div class="container">
+        <div class="columns">
+            <div class="column is-three-quarters is-offset-one-eighth">
+                
+                <!-- Overview -->
+                <section id="overview" class="content-card">
+                    <h2 class="section-title">Overview</h2>
+                    <div class="content">
+                        <p>FairStakeToken contract is a token staking and exchange protocol based on TRON blockchain, providing the following core functionalities:</p>
+                        <ul>
+                            <li>Token staking and reward system</li>
+                            <li>Fair Reward (FR) and FairToken exchange mechanism</li>
+                            <li>Early unstaking mechanism with penalty rate calculation</li>
+                            <li>Modular function pause control</li>
+                            <li>Multi-dimensional reward calculation and distribution</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Contract Basic Information -->
+                <section id="contract" class="content-card">
+                    <h2 class="section-title">Contract Basic Information</h2>
+                    <div class="content">
+                        <table class="table is-striped is-hoverable is-fullwidth">
+                            <tbody>
+                                <tr>
+                                    <th>Contract Name</th>
+                                    <td>FairStakeToken</td>
+                                </tr>
+                                <tr>
+                                    <th>Inheritance</th>
+                                    <td>ERC20</td>
+                                </tr>
+                                <tr>
+                                    <th>Compiler Version</th>
+                                    <td>^0.8.23</td>
+                                </tr>
+                                <tr>
+                                    <th>License</th>
+                                    <td>MIT</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Error Types -->
+                <section id="errors" class="content-card">
+                    <h2 class="section-title">Error Types</h2>
+                    <div class="content">
+                        <div class="mb-4">
+                            <div class="error-def">TransferFailed()</div>
+                            <p class="mt-2">Error thrown when token transfer fails.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">InsufficientFROnChain()</div>
+                            <p class="mt-2">Error thrown when there are not enough FR rewards available on chain.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">AddressIsZero()</div>
+                            <p class="mt-2">Error thrown when address is zero address.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">AmountIsZero()</div>
+                            <p class="mt-2">Error thrown when amount is zero.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">UserNotStaked()</div>
+                            <p class="mt-2">Error thrown when user has not staked any tokens.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">UserAlreadyStaked()</div>
+                            <p class="mt-2">Error thrown when user has already staked tokens.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">UnstakeRequestNotReady()</div>
+                            <p class="mt-2">Error thrown when unstake request is not yet ready.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">UnstakeRequestAlreadyExists()</div>
+                            <p class="mt-2">Error thrown when user already has an unstake request pending.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">NoPendingUnstakeRequest()</div>
+                            <p class="mt-2">Error thrown when there is no pending unstake request.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">ExchangeLimitExceeded()</div>
+                            <p class="mt-2">Error thrown when exchange amount exceeds the limit.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">ExchangeAmountExceedsOnePercentLimit()</div>
+                            <p class="mt-2">Error thrown when single exchange amount exceeds 1% of remaining limit within 48 hours.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">ContractIsPaused()</div>
+                            <p class="mt-2">Error thrown when contract function is paused.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">OnlyOwner()</div>
+                            <p class="mt-2">Error thrown when only contract owner can call this function.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">TokenExchangeTypeInvalid()</div>
+                            <p class="mt-2">Error thrown when token exchange type is invalid.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">BurnAmountTooLarge()</div>
+                            <p class="mt-2">Error thrown when burn amount is too large.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">RewardAmountZero()</div>
+                            <p class="mt-2">Error thrown when reward amount is zero.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">NotEnoughTokensToUnstake()</div>
+                            <p class="mt-2">Error thrown when user doesn't have enough tokens to unstake.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Events -->
+                <section id="events" class="content-card">
+                    <h2 class="section-title">Events</h2>
+                    <div class="content">
+                        <div class="mb-4">
+                            <div class="event-def">event Staked(address indexed user, uint256 amount, uint256 rewardAmount)</div>
+                            <p class="mt-2">Event emitted when a user successfully stakes tokens.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - Staking user's address</li>
+                                <li><code>amount</code> - Amount of tokens staked</li>
+                                <li><code>rewardAmount</code> - FR reward amount</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event UnstakeRequested(address indexed user, uint256 amount, uint256 timestamp)</div>
+                            <p class="mt-2">Event emitted when a user successfully requests to unstake.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - Unstaking user's address</li>
+                                <li><code>amount</code> - Amount of tokens to unstake</li>
+                                <li><code>timestamp</code> - Request timestamp</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event Unstaked(address indexed user, uint256 fairAmount, uint256 fee)</div>
+                            <p class="mt-2">Event emitted when a user successfully unstakes.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - Unstaking user's address</li>
+                                <li><code>fairAmount</code> - FR amount received</li>
+                                <li><code>fee</code> - Early unstake penalty amount</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event RewardClaimed(address indexed user, uint256 amount)</div>
+                            <p class="mt-2">Event emitted when a user successfully claims reward.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - Reward claiming user's address</li>
+                                <li><code>amount</code> - FR reward amount claimed</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event TokenExchanged(address indexed user, uint256 frAmount, uint256 tokenAmount, uint256 timestamp)</div>
+                            <p class="mt-2">Event emitted when a user successfully exchanges tokens.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - Token exchanging user's address</li>
+                                <li><code>frAmount</code> - FR amount paid</li>
+                                <li><code>tokenAmount</code> - Token amount received</li>
+                                <li><code>timestamp</code> - Exchange timestamp</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Functions -->
+                <section id="functions" class="content-card">
+                    <h2 class="section-title">Functions</h2>
+                    <div class="content">
+                        <div class="mb-4">
+                            <div class="function-def">function stake(uint256 amount) external</div>
+                            <p class="mt-2">Main function for users to stake tokens.</p>
+                            <p><strong>Parameters:</strong> <code>amount</code> - Amount of tokens to stake (in TRX units)</p>
+                            <p><strong>Operation流程：</strong></p>
+                            <ul>
+                                <li>Validate input parameters</li>
+                                <li>Calculate user's FR rewards (including unclaimed rewards)</li>
+                                <li>Process user's staking operation</li>
+                                <li>Update staking records</li>
+                                <li>Emit Staked event</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function requestUnstake(uint256 amount) external</div>
+                            <p class="mt-2">User requests to unstake staked tokens.</p>
+                            <p><strong>Parameters:</strong> <code>amount</code> - Amount of tokens to unstake</p>
+                            <p><strong>Feature特点：</strong></p>
+                            <ul>
+                                <li>Requires 15-60 days waiting period, specific duration calculated based on staked amount</li>
+                                <li>Calculate user's unclaimed FR rewards</li>
+                                <li>Set unstake request expiration time</li>
+                                <li>Update user's staking information</li>
+                                <li>Emit UnstakeRequested event</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function unstake() external</div>
+                            <p class="mt-2">User executes the actual unstake operation.</p>
+                            <p><strong>Feature特点：</strong></p>
+                            <ul>
+                                <li>Check if unstake request has expired</li>
+                                <li>Calculate early unstake penalty rate (0.2% per day)</li>
+                                <li>Execute token transfer</li>
+                                <li>Update user's staking records</li>
+                                <li>Emit Unstaked event</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function claimReward() external</div>
+                            <p class="mt-2">User claims unclaimed FR rewards.</p>
+                            <p><strong>Operation流程：</strong></p>
+                            <ul>
+                                <li>Calculate earned FR rewards</li>
+                                <li>Update user's reward records</li>
+                                <li>Emit RewardClaimed event</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function exchangeFRForToken(uint256 frAmount, TokenTransferType transferType) external</div>
+                            <p class="mt-2">Core token exchange function, allows users to exchange FR for FairToken.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>frAmount</code> - FR amount to exchange</li>
+                                <li><code>transferType</code> - Transfer type (instant or other)</li>
+                            </ul>
+                            <p><strong>Important limitations：</strong></p>
+                            <ul>
+                                <li><strong>48-hour single exchange limit</strong>: Single exchange within 48 hours not exceeding 1% of remaining limit</li>
+                                <li>Check if contract is paused</li>
+                                <li>Validate input parameters</li>
+                                <li>Calculate exchange rate and exchange amount</li>
+                                <li>Update user's exchange records</li>
+                                <li>Execute token transfer</li>
+                                <li>Emit TokenExchanged event</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getUserStakeInfo(address user) external view returns (StakeInfo memory)</div>
+                            <p class="mt-2">Get user's staking information.</p>
+                            <p><strong>Parameters:</strong> <code>user</code> - User's address</p>
+                            <p><strong>Returns:</strong> <code>StakeInfo</code> - User's staking information struct</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function burn(uint256 amount) external</div>
+                            <p class="mt-2">Burn specified amount of tokens.</p>
+                            <p><strong>Parameters:</strong> <code>amount</code> - Amount of tokens to burn</p>
+                            <p><strong>Permissions:</strong> Only contract owner can call</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function setTokenExchangeRate(uint256 rate, uint256 maxExchangeAmountPerDay, TokenTransferType transferType) external</div>
+                            <p class="mt-2">Set token exchange rate and daily maximum exchange amount.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>rate</code> - Exchange rate (FR amount per token unit)</li>
+                                <li><code>maxExchangeAmountPerDay</code> - Daily maximum exchange amount</li>
+                                <li><code>transferType</code> - Transfer type</li>
+                            </ul>
+                            <p><strong>Permissions:</strong> Only contract owner can call</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Modifiers -->
+                <section id="modifiers" class="content-card">
+                    <h2 class="section-title">Modifiers</h2>
+                    <div class="content">
+                        <div class="mb-4">
+                            <div class="modifier-def">modifier isOwner()</div>
+                            <p class="mt-2">Modifier that restricts access to contract owner only.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="modifier-def">modifier whenModuleNotPaused(FunctionModule module)</div>
+                            <p class="mt-2">Modifier that checks if specified function module is not paused.</p>
+                            <p><strong>Parameters:</strong> <code>module</code> - Function module type</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="modifier-def">modifier nonReentrant()</div>
+                            <p class="mt-2">Modifier that prevents reentrant attacks.</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-8">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>FairStakeToken Contract API Documentation &copy; 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/js/doc.js"></script>
+    <script>
+        // Language switch function
+        function switchLanguage(language) {
+            if (language === 'en') {
+                window.location.href = 'en.html';
+            } else {
+                window.location.href = 'zh.html';
+            }
+        }
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

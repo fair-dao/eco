@@ -32,6 +32,10 @@ class FairStakeAdmin {
     this.selectedToken = null;
     // 钻石合约相关变量
     this.diamondAddress = null;
+    const dao = await import("/js/fairdao.js");
+    this.fairdao = new dao.default();
+    await this.fairdao.init();
+    window.fairdao = this.fairdao;
 
     
     // 初始化UI元素引用

@@ -1,0 +1,33 @@
+{
+  "burn": {
+    "reward": {
+      "title": "代币兑换",
+      "amount": "销毁FR数量",
+      "placeholder": "输入销毁数量",
+      "token": "奖励代币",
+      "token_placeholder": "请选择奖励代币",
+      "button": "销毁FR",
+      "frBalance": "FR代币余额"
+    }
+  },
+  "logs": {
+    "burnLogs": "销毁日志"
+  },
+  "exchange": {
+    "notOpen": "未开通兑换",
+    "end": "已结束",
+    "remainingAmount": "可兑换",
+    "canGet": "获得",
+    "start": "即将开始",
+    "minutes": "分钟",
+    "contractBalance": "合约余额",
+    "rule": {
+      "title": "兑换规则",
+      "item1": "用户可以通过销毁 FR 代币来兑换其他类型的代币",
+      "item2": "可兑换前24小时内，每次兑换金额不能超过可兑换余额的1%",
+      "item3": "请确保您有足够的 FR 代币余额进行兑换",
+      "item4": "兑换交易完成后，相应的 FR 代币将被永久销毁",
+      "item5": "兑换功能仅在指定时间段内开放，过期将无法参与"
+    }
+  }
+}

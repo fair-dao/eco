@@ -1,0 +1,25 @@
+{
+  "home": {
+    "warning": {
+      "title": "FR Token Description",
+      "tip1": "FR Token (FAIR Reward Token) is the reward token of FAIR DAO, initial supply is 0.",
+      "tip2": "Ways to obtain FR tokens: Claim by staking FAIR tokens, up to 90 days of earnings can be claimed each time; Obtain by participating in FAIR DAO construction.",
+      "tip3": "FR Token is the only proof for exchanging FAIR DAO earnings. All DAO earnings will be transferred to FR contract, and you can only exchange DAO earnings by burning FR tokens."
+    },
+    "stats": {
+      "global": {
+        "title": "FR Token Description"
+      },
+      "currentNetwork": "Current Network",
+      "totalSupply": "Total FR Supply",
+      "totalStaked": "Total Staked FAIR",
+      "totalUnstaking": "Unstaking Amount",
+      "fairContract": "FAIR Contract Address",
+      "frContract": "FR Contract Address"
+    },
+    "logs": {
+      "fairContract": "FAIR Contract Address",
+      "frContract": "FR Contract Address"
+    }
+  }
+}

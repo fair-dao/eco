@@ -1,0 +1,83 @@
+{
+  "network": {
+    "warnning": "L'environnement actuel est un réseau de test, toutes les transactions ne sont valides que sur le réseau de test et n'affectent pas le réseau principal.",
+    "disconnect": "Portefeuille déconnecté",
+    "connect": {
+      "error": "Échec de la connexion du portefeuille"
+    }
+  },
+  "navigation": {
+    "doc": "Documents",
+    "staking": "Engagé",
+    "burn": "Détruire",
+    "exchange": "兑换",
+    "whitepaper": "Livre blanc",
+    "contributing": "Contributions",
+    "forum": "Forum",
+    "serviceagreement": "Contrat de service",
+    "privacypolicy": "Politique de confidentialité",
+    "disclaimers": "Clause de non-responsabilité",
+    "legal": "Conditions légales",
+    "contact": "Contactez-nous",
+    "email": "Email",
+    "phone": "Téléphone",
+    "address": "Adresse",
+    "governance": "Gouvernance",
+    "mission": "Mission",
+    "about": "À propos de nous",
+    "allrightsreserved": "Tous droits réservés",
+    "resources": "Ressources",
+    "links": "Liens",
+    "accountinfo": "Informations de compte",
+    "admin": {
+      "exchangeSetup": "Paramétrage du taux de change des jetons"
+    }
+  },
+  "title": "Écosystème FAIR",
+  "logs": {
+    "contractLogs": "Journaux de contrat",
+    "noData": "Aucun enregistrement d'opération",
+    "table": {
+      "user": "Adresse",
+      "from": "Adresse d'origine",
+      "eventName": "Opération",
+      "amount": "Quantité",
+      "timestamp": "Heure",
+      "status": "Statut",
+      "transactionId": "Hash de transaction",
+      "tokenAmount": "代币数量",
+      "frAmount": "FR数量",
+      "fairAmount": "FAIR数量",
+      "value": "Quantité",
+      "to": "Adresse de destination",
+      "operator": "Opérateur"
+    },
+    "eventNames": {
+      "Staked": "Engagé",
+      "Unstaked": "Désengagé",
+      "RewardClaimed": "Réclamer une récompense",
+      "Withdrawn": "Retirer",
+      "UnstakeRequested": "Demander le retrait",
+      "Paused": "Suspendu",
+      "Unpaused": "Réactivé",
+      "ContributorRewardMinted": "Récompense pour contribution",
+      "Burnt": "Détruire",
+      "Transfer": "Transférer",
+      "Mint": "Mint",
+      "Burn": "Détruire",
+      "Reward": "Récompense",
+      "TokenExchanged": "Échange de jetons"
+    },
+    "status": {
+      "success": "Succès",
+      "pending": "En cours",
+      "failed": "Échec"
+    }
+  },
+  "admin": {
+    "title": "Outils d'administrateur",
+    "exchange": {
+      "title": "Paramétrage du taux de change des jetons"
+    }
+  }
+}

@@ -3,9 +3,23 @@
  */
 
 class FairStakeApp {
-  
   constructor() {
     this.tronWebConnector = window.tronWebConnector;
+    this.logTypes = [
+      "Transfer",
+      "Mint",
+      "Burn",
+      "RewardClaimed",
+      "Staked",
+      "Unstaked",
+      "Claim",
+      "Burnt",
+      "ContributorRewardMinted",
+      "UnstakeRequested",
+      "Paused",
+      "Unpaused",
+      "TokenExchanged",
+    ];
     // 确保正确获取合约交互模块
     if (!window.contractInteraction) {
       window.contractInteraction = new ContractInteraction(
@@ -38,13 +52,12 @@ class FairStakeApp {
    */
   async init() {
     console.log("应用开始初始化...");
-    var dao=await import("/js/fairdao.js");
+    var dao = await import("/js/fairdao.js");
     this.fairdao = new dao.default();
     await this.fairdao.init();
     window.fairdao = this.fairdao;
 
     try {
-    
       // 确保DOM完全加载
       if (document.readyState !== "complete") {
         console.log("等待DOM加载完成...");
@@ -186,8 +199,189 @@ class FairStakeApp {
       }
     } catch (error) {
       console.error("connectWallet error:", error);
-      this.common.showMessage("error", this.fairdao.translator.translate("network.connect.error") );
+      this.common.showMessage(
+        "error",
+        this.fairdao.translator.translate("network.connect.error")
+      );
     }
+  }
+
+  /**
+   * 显示 合约日志
+   * @param {Array} events 链上事件数组
+   */
+  displayContractLogs(tableId, events, fields) {
+    if (!fields || fields.length === 0) {
+      fields = [
+        "user",
+        "eventName",
+        "frAmount",
+        "to",
+        "timestamp",
+        "transactionId",
+      ];
+    }
+    const table = document.getElementById(tableId);
+    if (!table) return;
+    let tableHeader = table.querySelector("thead");
+    if (!tableHeader) {
+      tableHeader = document.createElement("thead");
+      let headerHTML = "";
+      for (let field of fields) {
+        let str = field;
+        let index = str.indexOf(",");
+        if (index > -1) {
+          str = field.substring(0, index);
+        }
+        headerHTML += `<th data-i18n="logs.table.${str}"></th>`;
+      }
+      tableHeader.innerHTML = `<tr>${headerHTML}</tr>`;
+      table.insertBefore(tableHeader, table.firstChild);
+    }
+    let tableBody = table.querySelector("tbody");
+    if (!tableBody) {
+      tableBody = document.createElement("tbody");
+      table.appendChild(tableBody);
+    }
+    if (!events || events.length === 0) {
+      tableBody.innerHTML =
+        '<tr><td colspan="6" class="has-text-centered" data-i18n="logs.noData">暂无操作记录</td></tr>';
+    } else {
+      // 按时间倒序排序
+      const sortedEvents = events.sort((a, b) => {
+        const timeA = a.timestamp || 0;
+        const timeB = b.timestamp || 0;
+        return timeB - timeA;
+      });
+
+      let rows = "";
+      for (let i = 0; i < sortedEvents.length; i++) {
+        const event = sortedEvents[i];
+        if (!this.logTypes.includes(event.eventName)) continue;
+
+        event.aptAddress = this.common.formatHexAddressToBase58(
+          event.aptAddress
+        );
+        if (event.result["user"] == null) {
+          event.result["user"] = event.result["from"];
+        }
+
+        const txHash = event.transactionId || "N/A";
+        // 格式化数量
+        let amount = this.common.formatNumber(
+          event.amount / Math.pow(10, 18),
+          4
+        );
+        let eventName = event.eventName || "Unknown";
+        let rowHTML = "<tr>";
+        for (let strField of fields) {
+          let field = strField;
+          let fieldHtml = null;
+          let arry = strField.split(",");
+          if (arry.length > 1) {
+            field = arry[0];
+            for (let j = 0; j < arry.length; j++) {
+              if (event.result[arry[j]] != null) {
+                event.result[field]=event.result[arry[j]];
+                break;
+              }
+            }
+          }
+          switch (field) {
+            case "user":
+              const user = this.common.formatHexAddressToBase58(
+                event.result["user"]
+              );
+              fieldHtml = `<td>${user}</td>`;
+              break;
+            case "eventName":
+              eventName = event.eventName || "Unknown";
+              fieldHtml = `<td data-i18n="logs.eventNames.${eventName}"></td>`;
+              break;
+            case "frAmount":
+            case "fairAmount":
+            case "amount":
+            case "value": //fair transfer amount
+              const amount = this.common.formatNumber(
+                event.result[field] / Math.pow(10, 18),
+                4
+              );
+              fieldHtml = `<td>${amount}</td>`;
+              break;
+            case "tokenAmount":
+              let address = event.result["tokenAddress"];
+              let tokenAmount = event.result[field];
+              let token = null;
+              if (address) {
+                address = this.common.TronWeb.utils.address.fromHex(address);
+                for (
+                  let i = 0;
+                  i < this.common.network.burnRewards.length;
+                  i++
+                ) {
+                  let a = this.common.network.burnRewards[i];
+                  if (a.address === address) {
+                    token = a;
+                    break;
+                  }
+                }
+                if (token) {
+                  tokenAmount = this.common.formatNumber(
+                    tokenAmount / Math.pow(10, token.decimals),
+                    4
+                  );
+                  fieldHtml = `<td>${tokenAmount} ${token.symbol}</td>`;
+                  break;
+                }
+              }
+              fieldHtml = `<td>${tokenAmount} N/A</td>`;
+              break;
+            case "amount":
+              event.amount = this.common.formatNumber(
+                event.amount / Math.pow(10, 18),
+                4
+              );
+              fieldHtml = `<td>${amount}</td>`;
+              break;
+            case "transactionId":
+              fieldHtml = `<td class="is-family-monospace"><a href="${
+                this.common.network.browser
+              }#/transaction/${txHash}" target="_blank">${this.common.formatTxHash(
+                txHash
+              )}</a></td>`;
+              break;
+            case "to":
+              const to = this.common.formatHexAddressToBase58(
+                event.result["to"]
+              );
+              fieldHtml = `<td>${to}</td>`;
+              break;
+            case "timestamp":
+              const eventTime = event.timestamp
+                ? new Date(event.timestamp)
+                : null;
+              const formattedTime = eventTime
+                ? eventTime.toLocaleString()
+                : "未知时间";
+              fieldHtml = `<td>${formattedTime}</td>`;
+              break;
+            default:
+              debugger;
+              let val = event[field];
+              if (val === undefined || val === null) {
+                val = event.result[field] || "N/A";
+              }
+              fieldHtml = `<td>${val}</td>`;
+              break;
+          }
+          rowHTML += fieldHtml;
+        }
+        rowHTML += "</tr>";
+        rows += rowHTML;
+      }
+      tableBody.innerHTML = rows;
+    }
+    this.fairdao.i18nElement(table, this.fairdao.translator);
   }
 
   /**
@@ -200,12 +394,13 @@ class FairStakeApp {
     await this.common.changeNetwork();
     this.contractInteraction.resetContract();
     this.updateWalletUI(true);
-    debugger;
-    if(this.common.network.name!=="MAINNET"){ 
-        this.common.showMessage("warning", this.fairdao.translator.translate("network.warnning"));
+    if (this.common.network.name !== "MAINNET") {
+      this.common.showMessage(
+        "warning",
+        this.fairdao.translator.translate("network.warnning")
+      );
       return;
     }
-    
   }
 
   /**
@@ -214,7 +409,10 @@ class FairStakeApp {
   handleWalletDisconnected() {
     this.account = null;
     this.updateWalletUI(false);
-    this.common.showMessage("warning", this.fairdao.translator.translate("network.disconnect"));
+    this.common.showMessage(
+      "warning",
+      this.fairdao.translator.translate("network.disconnect")
+    );
 
     // 禁用功能按钮
     const actionButtons = document.querySelectorAll(".action-section button");
@@ -235,7 +433,6 @@ class FairStakeApp {
     if (earnedTokens) earnedTokens.value = "0.00";
     if (unstakeRequestAmount) unstakeRequestAmount.value = "0.00";
     if (unstakeCountdown) unstakeCountdown.textContent = "";
-
   }
 
   /**

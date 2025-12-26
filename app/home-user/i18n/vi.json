@@ -1,0 +1,21 @@
+{
+  "account": {
+    "info": {
+      "title": "账户信息"
+    },
+    "balance": {
+      "trx": "TRX 余额",
+      "energy": "账户能量",
+      "bandwidth": "账户带宽",
+      "token": "代币余额",
+      "fair": "FAIR 余额",
+      "fr": "FR 余额"
+    },
+    "actions": {
+      "claim": "领取"
+    },
+    "buttons": {
+      "refresh": "刷新数据"
+    }
+  }
+}

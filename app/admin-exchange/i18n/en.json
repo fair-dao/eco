@@ -1,0 +1,60 @@
+{
+  "title": {
+    "exchangeRateConfig": "Token Exchange Rate Setup"
+  },
+  "labels": {
+    "tokenAddress": "Token Address",
+    "tokenDecimals": "Token Decimals",
+    "contractTokenBalance": "Contract Token Balance",
+    "exchangeRate": "Exchange Rate",
+    "maxExchangeAmount": "Max Exchange Amount",
+    "tokenType": "Token Type",
+    "duration": {
+      "1week": "1 Week",
+      "2weeks": "2 Weeks",
+      "5weeks": "5 Weeks",
+      "9weeks": "9 Weeks",
+      "13weeks": "13 Weeks",
+      "55weeks": "55 Weeks",
+      "permanent": "Permanent"
+    },
+    "frToken": "FR Token"
+  },
+  "buttons": {
+    "setExchangeRate": "Set Token Exchange Rate"
+  },
+  "help": {
+    "selectToken": "Select token to set exchange rate",
+    "exchangeRate": "Exchange Rate",
+    "maxExchangeAmount": "Max Exchange Amount",
+    "tokenType": "Token Type",
+    "duration": {
+      "1week": "1 Week",
+      "2weeks": "2 Weeks",
+      "5weeks": "5 Weeks",
+      "9weeks": "9 Weeks",
+      "13weeks": "13 Weeks",
+      "55weeks": "55 Weeks",
+      "permanent": "Permanent"
+    }
+  },
+  "options": {
+    "standardErc20": "Standard ERC20",
+    "nonStandardErc20": "Non-Standard ERC20"
+  },
+  "duration": {
+    "1week": "1 Week",
+    "2weeks": "2 Weeks",
+    "5weeks": "5 Weeks",
+    "9weeks": "9 Weeks",
+    "13weeks": "13 Weeks",
+    "55weeks": "55 Weeks",
+    "permanent": "Permanent"
+  },
+  "placeholders": {
+    "selectToken": "Select token to set exchange rate",
+    "enterFrAmount": "Enter FR amount",
+    "enterMaxExchangeAmount": "Enter max exchange amount",
+    "unknown": "--"
+  }
+}

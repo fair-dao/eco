@@ -4,9 +4,10 @@ class Common {
     this.network = null;
     this.tronWebConnector = null;
     this.diamondAddress = null;
-    this.diamondABI=null;
+    this.diamondABI = null;
+    this.funTronWeb = null;
+    this.TronWeb = window.TronWeb;
   }
-
 
   /**
    * 检测合约是否存在（通过bytecode）
@@ -16,8 +17,8 @@ class Common {
   async isContractExistByCode(contractAddress) {
     try {
       let tronWeb = this.tronWebConnector.getTronWeb();
-      const account= await tronWeb.trx.getAccount(contractAddress);
-       return account!==null && account.type==="Contract";
+      const account = await tronWeb.trx.getAccount(contractAddress);
+      return account !== null && account.type === "Contract";
     } catch (error) {
       console.error("检测合约字节码失败：", error.message);
       return false;
@@ -30,12 +31,14 @@ class Common {
     window.CONFIG = this.config;
     window.fairStakeCommon = this;
 
-
     // 创建单例实例
     const tronWebConnector = new TronWebConnector();
     this.tronWebConnector = tronWebConnector;
     window.tronWebConnector = tronWebConnector;
     tronWebConnector.init();
+    this.funTronWeb = new window.TronWeb.TronWeb({
+      fullHost: "https://nile.trongrid.io",
+    });
 
     // 关闭加载消息
     document
@@ -45,22 +48,42 @@ class Common {
       });
   }
 
-
   async changeNetwork() {
-    //检测合约是否存在    
-    try{
-    const isContractExist = await this.isContractExistByCode(this.config.networks["nile"].stakedToken.address);
-    if (!isContractExist) {  // mainnet
-      this.network=this.config.networks["mainnet"];
-      this.network.name="MAINNET";
-    }else {  //nilenet
-      this.network=this.config.networks["nile"];
-      this.network.name="NILE";
+    //检测合约是否存在
+    try {
+      const isContractExist = await this.isContractExistByCode(
+        this.config.networks["nile"].stakedToken.address
+      );
+      if (isContractExist) {
+        // mainnet
+        this.network = this.config.networks["nile"];
+        this.network.name = "NILE";
+      } else {
+        //nilenet
+        const exists = await this.isContractExistByCode(
+          this.config.networks["shasta"].stakedToken.address
+        );
+        if (exists) {
+          this.network = this.config.networks["shasta"];
+          this.network.name = "SHASTA";
+        } else {
+          this.network = this.config.networks["mainnet"];
+          this.network.name = "MAINNET";
+        }
+      }
+      if (this.network.burnRewards) {
+        this.network.burnRewards.forEach( async (m) => {
+          if (m.address.length < 10) {            
+            const addr = parseInt(m.address);
+            let strAddr = addr.toString(16).padStart(40, "0");
+            m.address = this.TronWeb.utils.address.fromHex(`41${strAddr}`);
+          }
+        });
+      }
+      this.diamondAddress = this.network.diamondAddress;
+    } catch (e) {
+      console.error("切换网络失败:", e.message);
     }
-    this.diamondAddress = this.network.diamondAddress;
-  }catch(e){
-    console.error("切换网络失败:", e.message);  
-  }
   }
 
   /**
@@ -86,6 +109,28 @@ class Common {
     return `${start}...${end}`;
   }
 
+  /**
+   * 格式化交易哈希
+   * @param {string} txHash - 完整的交易哈希
+   * @param {number} startLength - 显示开头的字符数，默认6
+   * @param {number} endLength - 显示结尾的字符数，默认4
+   * @returns {string} 格式化后的交易哈希，如：TXYZ...abcd
+   */
+  formatTxHash(txHash, startLength = 6, endLength = 4) {
+    return this.truncateAddress(txHash, startLength, endLength);
+  }
+
+  formatHexAddressToBase58(address) {
+    if (address == null || address == undefined || address == "") {
+      return "";
+    }
+    if (address <= 1) {
+      return "Black Hole";
+    } else {
+      return this.truncateAddress(this.funTronWeb.address.fromHex(address));
+    }
+  }
+
   parseRevertData(txInfo, contract, method) {
     let reverData = txInfo.contractResult[0];
     if (txInfo.receipt && txInfo.receipt.result == "SUCCESS") {
@@ -95,18 +140,17 @@ class Common {
         throw `未找到方法 ${method} 的ABI`;
       }
       try {
-      
-        let decodedParams; 
-          try {
-            // 降级尝试 decodeParamsV2ByABI
-            decodedParams = tronWeb.utils.abi.decodeParamsV2ByABI(
-              methodABIs[0],
-              '0x'+txInfo.contractResult[0]
-            );
-          } catch (e2) {
-            console.error("解码出错", e2);
-            decodedParams = {};
-          }
+        let decodedParams;
+        try {
+          // 降级尝试 decodeParamsV2ByABI
+          decodedParams = tronWeb.utils.abi.decodeParamsV2ByABI(
+            methodABIs[0],
+            "0x" + txInfo.contractResult[0]
+          );
+        } catch (e2) {
+          console.error("解码出错", e2);
+          decodedParams = {};
+        }
         return decodedParams;
       } catch (e) {
         console.log(e);
@@ -167,24 +211,23 @@ class Common {
     throw new Error(errMsg);
   }
 
-
   async call(contract, methodName, params = []) {
     try {
-      const tronWeb = this.tronWebConnector.getTronWeb();      
-    
+      const tronWeb = this.tronWebConnector.getTronWeb();
+
       // 从ABI中找到对应的方法
-      const methodAbi = contract.abi.find(item => {
-        return item.type === 'function' && item.name === methodName;
+      const methodAbi = contract.abi.find((item) => {
+        return item.type === "function" && item.name === methodName;
       });
-      
+
       if (!methodAbi) {
         throw new Error(`Method ${methodName} not found in contract ABI`);
       }
-      
+
       // 构建函数签名
-      const inputTypes = methodAbi.inputs.map(input => input.type);
-      const functionSignature = `${methodName}(${inputTypes.join(',')})`;
-      
+      const inputTypes = methodAbi.inputs.map((input) => input.type);
+      const functionSignature = `${methodName}(${inputTypes.join(",")})`;
+
       // 编码函数选择器 (前4字节的SHA3哈希)
       // 兼容不同TronWeb版本的SHA3实现
       let sha3Result;
@@ -194,68 +237,76 @@ class Common {
         sha3Result = tronWeb.utils.sha3(functionSignature);
       } else {
         // Fallback to a simple implementation if SHA3 is not available (only as last resort)
-        console.warn('TronWeb SHA3 method not found, using fallback implementation');
-        sha3Result = '0x' + Array(66).join('0').slice(0, 64); // 返回全零哈希作为最后选择
+        console.warn(
+          "TronWeb SHA3 method not found, using fallback implementation"
+        );
+        sha3Result = "0x" + Array(66).join("0").slice(0, 64); // 返回全零哈希作为最后选择
       }
       const functionSelector = sha3Result.slice(0, 10); // 0x + 8 characters
-      
+
       // 编码参数
-      let parameterHex = '';
+      let parameterHex = "";
       if (params.length > 0) {
-        const encodedParams = await tronWeb.utils.abi.encodeParams(inputTypes, params);
-        parameterHex = encodedParams.replace('0x', '');
+        const encodedParams = await tronWeb.utils.abi.encodeParams(
+          inputTypes,
+          params
+        );
+        parameterHex = encodedParams.replace("0x", "");
       }
-      
+
       // 构建完整的data字段
       const dataHex = functionSelector + parameterHex;
-      
+
       // 使用TronWeb的transactionBuilder.triggerConstantContract方法
       const result = await tronWeb.transactionBuilder.triggerConstantContract(
-        '0x' + tronWeb.address.toHex(contract.address),
+        "0x" + tronWeb.address.toHex(contract.address),
         dataHex,
         {}, // 不需要options
         100000000 // fee limit
       );
-      
+
       if (!result || !result.result) {
-        throw new Error('Contract call failed: No result returned');
+        throw new Error("Contract call failed: No result returned");
       }
-      
-      if (result.result.code !== 'SUCCESS') {
+
+      if (result.result.code !== "SUCCESS") {
         throw new Error(`Contract call failed: ${result.result.message}`);
       }
-      
+
       // 解码返回结果
       const returnValue = result.constant_result[0];
       if (!returnValue) {
         return null; // 无返回值的方法
       }
-      
+
       // 根据方法的输出类型解码结果
       if (methodAbi.outputs.length === 1) {
         const outputType = methodAbi.outputs[0].type;
         return this.#decodeReturnData(returnValue, outputType, tronWeb);
       } else if (methodAbi.outputs.length > 1) {
         // 多个返回值，解码为对象
-        const outputTypes = methodAbi.outputs.map(output => output.type);
-        const decoded = await tronWeb.utils.abi.decodeParams(outputTypes, returnValue);
-        
+        const outputTypes = methodAbi.outputs.map((output) => output.type);
+        const decoded = await tronWeb.utils.abi.decodeParams(
+          outputTypes,
+          returnValue
+        );
+
         // 将索引键转换为命名键
         const namedResult = {};
         methodAbi.outputs.forEach((output, index) => {
           namedResult[output.name || `param${index}`] = decoded[index];
         });
-        
+
         return namedResult;
       }
-      
+
       return returnValue;
     } catch (error) {
       console.error(`Ultra-low-level contract call failed: ${error.message}`);
       throw error;
     }
   }
-  
+
   /**
    * 解码合约返回数据
    * @param {string} dataHex - 十六进制的返回数据
@@ -267,18 +318,21 @@ class Common {
     try {
       // 简单类型的直接解码
       switch (dataType) {
-        case 'bool':
-          return tronWeb.utils.abi.decodeParams(['bool'], dataHex)[0];
-        case 'uint256':
-        case 'uint':
-        case 'int256':
-        case 'int':
+        case "bool":
+          return tronWeb.utils.abi.decodeParams(["bool"], dataHex)[0];
+        case "uint256":
+        case "uint":
+        case "int256":
+        case "int":
           return tronWeb.utils.abi.decodeParams([dataType], dataHex)[0];
-        case 'address':
-          const hexAddress = tronWeb.utils.abi.decodeParams(['address'], dataHex)[0];
+        case "address":
+          const hexAddress = tronWeb.utils.abi.decodeParams(
+            ["address"],
+            dataHex
+          )[0];
           return tronWeb.address.fromHex(hexAddress); // 转换为Base58格式
-        case 'string':
-          return tronWeb.utils.abi.decodeParams(['string'], dataHex)[0];
+        case "string":
+          return tronWeb.utils.abi.decodeParams(["string"], dataHex)[0];
         default:
           // 复杂类型或数组
           return tronWeb.utils.abi.decodeParams([dataType], dataHex)[0];
@@ -307,34 +361,34 @@ class Common {
     if (num === null || num === undefined) {
       num = 0;
     }
-    if(typeof num === 'string') {
-      const index=num.indexOf('e');
-      if (index === -1){
+    if (typeof num === "string") {
+      const index = num.indexOf("e");
+      if (index === -1) {
         num = parseFloat(num);
-      }else{
+      } else {
         const exponent = num.substring(index);
         let str = num.substring(0, index);
-        if (str.length>8){
+        if (str.length > 8) {
           str = str.substring(0, 8);
         }
         return str + exponent;
       }
     }
-    if (typeof num !== 'number' || isNaN(num)) {
+    if (typeof num !== "number" || isNaN(num)) {
       num = 0;
     }
     // Convert to fixed decimal places first to avoid scientific notation
     if (Number.isInteger(num)) {
       // Format integer with thousands separator
-      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     const fixedNum = num.toFixed(6);
     // Split into integer and decimal parts
-    const parts = fixedNum.toString().split('.');
+    const parts = fixedNum.toString().split(".");
     // Format integer part with thousands separator
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     // Join back together
-    return parts.join('.');
+    return parts.join(".");
   }
 
   /**
@@ -561,8 +615,8 @@ class Common {
     try {
       this.showLoading(loadingMsg);
       let fn = contract[method];
-      if(!data){
-        data={};
+      if (!data) {
+        data = {};
       }
       const txId = await fn(...args).send(data);
       const txInfo = await this.getConfirmedTxInfo(txId);
@@ -631,7 +685,6 @@ class Common {
     throw new Error("交易超时未确认");
   }
 
-
   /**
    * 显示加载状态
    * @param {string} message - 加载消息，默认为'加载中...'
@@ -657,6 +710,7 @@ class Common {
 
   async #loadConfig() {
     let response = await fetch("js/config.json");
+
     if (!response.ok) {
       throw new Error("Failed to load config.json");
     }
@@ -690,9 +744,7 @@ class Common {
     return config;
   }
 
-  
-  
-  async getDiamondContract(diamondAddress){
+  async getDiamondContract(diamondAddress) {
     try {
       let tronWeb = this.tronWebConnector.getTronWeb();
       const diamondContract = await tronWeb.contract(
@@ -706,23 +758,65 @@ class Common {
     }
   }
 
-  async getOwnerAddress(diamondAddress){
+  async getOwnerAddress(diamondAddress) {
     try {
-      const contract=await this.getDiamondContract(diamondAddress);
+      const contract = await this.getDiamondContract(diamondAddress);
       const owner = await contract.owner().call();
       if (!owner) {
         throw new Error("未能获取到合约所有者信息");
       }
       let tronWeb = this.tronWebConnector.getTronWeb();
-      return  tronWeb.address.fromHex(owner);
+      return tronWeb.address.fromHex(owner);
     } catch (error) {
       console.error("获取合约所有者失败:", error);
       throw error;
     }
   }
 
+  /**
+   * 获取任意合约的链上事件
+   * @param {string} contractAddress - 合约地址
+   * @param {number} fromBlock - 起始区块
+   * @param {number} toBlock - 结束区块
+   * @returns {Promise} 包含事件列表的 Promise
+   */
+  async getContractEvents(contractAddress, eventName, fromBlock, toBlock) {
+    try {
+      const tronWeb = this.tronWebConnector.getTronWeb();
+      const contractAddressHex = tronWeb.address.toHex(contractAddress);
 
-  async isDiamondOwner(diamondAddress){
+      let eventOptions = {
+        only_unconfirmed: false,
+        only_confirmed: true,
+        orderBy: "block_timestamp,desc",
+        limit: 100,
+      };
+
+      // 添加块范围筛选
+      if (fromBlock) {
+        eventOptions.fromBlock = fromBlock;
+      }
+      if (toBlock) {
+        eventOptions.toBlock = toBlock;
+      }
+      if (eventName) {
+        eventOptions.eventName = eventName;
+      }
+
+      // 获取指定合约地址的所有事件
+      const events = await tronWeb.event.getEventsByContractAddress(
+        contractAddressHex,
+        eventOptions
+      );
+
+      return events.data || [];
+    } catch (error) {
+      console.error(`get contract events (${contractAddress}):`, error);
+      return [];
+    }
+  }
+
+  async isDiamondOwner(diamondAddress) {
     try {
       const owner = await this.getOwnerAddress(diamondAddress);
       const currentAccount = this.tronWebConnector.getAccount();
@@ -732,6 +826,4 @@ class Common {
       throw error;
     }
   }
-
-
 }

@@ -3,6 +3,7 @@ pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
+
 /**
  * @title Fair Reward Token (FR)
  * @dev ERC20 token implementation with staking functionality, token exchange, and reward mechanisms
@@ -36,6 +37,7 @@ contract FairStakeToken is ERC20 {
     error ExchangeNotYetAvailable();
     error ExchangeExpired();
     error ExceedsExchangeLimit(uint256 requested, uint256 available);
+    error ExchangeAmountExceedsOnePercentLimit(uint256 requested, uint256 maxAllowed);
     error InvalidTransferType();
     error TRXTransferRejected();
     error ExceedsMaxSupply(uint256 requested, uint256 maxSupply, uint256 currentSupply);
@@ -44,8 +46,11 @@ contract FairStakeToken is ERC20 {
      * @dev Maximum supply of FR tokens
      * @notice 1 billion FR tokens with 18 decimals
      */
-    uint256 private constant MAX_SUPPLY = 1_000_000_000_000 * 10**18;
-    uint256 private constant MAX_STAKE  = 20_000_000 * 10**18;    
+    uint256 private constant MAX_TOKEN_SUPPLY = 1_000_000_000_000 * 10**18;
+    uint256 private constant MAX_USER_STAKE = 20_000_000 * 10**18;
+    uint256 private constant SECONDS_PER_DAY = 1 days;
+    uint256 private constant SECONDS_PER_WEEK = SECONDS_PER_DAY * 7;
+    uint256 private constant MAX_STAKE_DURATION = SECONDS_PER_DAY * 90;
 
     /**
      * @dev Immutable addresses (set during construction)
@@ -94,19 +99,20 @@ contract FairStakeToken is ERC20 {
     /**
      * @dev Standard token precision
      */
-    uint256 private constant TOKEN_PRECISION = 10 ** 18;
+    uint256 private constant PRECISION_MULTIPLIER = 10 ** 18;
     
     /**
      * @dev Base rate for stake reward calculations
      */
-    uint256 private constant STAKE_RATE_BASE = 1000 * TOKEN_PRECISION;
+    uint256 private constant BASE_REWARD_RATE = 1000 * PRECISION_MULTIPLIER;
     
     // Token transfer type enum
     enum TokenTransferType {
         STANDARD,        // Standard ERC20 transfer that returns boolean
-        NON_STANDARD     // Non-standard transfer that doesn't return a value (e.g., TRC20 USDT)
+        NON_STANDARD,    // Non-standard transfer that doesn't return a value (e.g., TRC20 USDT)
+        TRX             // TRX native token transfer
     }
-    
+
     /**
      * @dev Optimized storage layout for token exchange information
      */
@@ -116,34 +122,34 @@ contract FairStakeToken is ERC20 {
          * @notice Takes a full 256-bit slot
          */
         uint256 remainingExchangeAmount;
-        
+
         /**
          * @dev Numerator of exchange rate
          * @notice Packed into a single 256-bit slot
          */
         uint88 rateNumerator;
-        
+
         /**
          * @dev Denominator of exchange rate
          * @notice Packed into a single 256-bit slot
          */
         uint88 rateDenominator;
-        
+
         /**
          * @dev Exchange start time
          * @notice Packed into a single 256-bit slot
          */
         uint64 startTime;
-        
+
         /**
          * @dev Exchange duration in weeks
          * @notice Packed into a single 256-bit slot
          */
         uint8 exchangeDurationWeeks;
-        
+
         /**
          * @dev Token transfer type
-         * @notice 0 for STANDARD, 1 for NON_STANDARD
+         * @notice 0 for STANDARD, 1 for NON_STANDARD, 2 for TRX
          * @notice Packed into a single 256-bit slot
          */
         uint8 transferType;
@@ -199,18 +205,18 @@ contract FairStakeToken is ERC20 {
     mapping(address => StakeInfo) private stakes; // User stake data
     
     // Events
-    event Paused(address indexed account); // Contract paused
-    event Unpaused(address indexed account); // Contract resumed
-    event ModulePaused(FunctionModule indexed module, address indexed account); // Function module paused
-    event ModuleUnpaused(FunctionModule indexed module, address indexed account); // Function module resumed
-    event Staked(address indexed user, uint256 amount); // Tokens staked
-    event UnstakeRequested(address indexed user, uint256 amount, uint64 waitDays); // Unstake requested
-    event Unstaked(address indexed user, uint256 amount, uint256 fee); // Tokens unstaked with fee information
-    event RewardClaimed(address indexed user, uint256 amount); // Rewards claimed
-    event Burnt(address indexed user, uint256 amount); // Tokens burned
+    event Paused(address indexed operator); // Contract paused
+    event Unpaused(address indexed operator); // Contract resumed
+    event ModulePaused(FunctionModule indexed module, address indexed operator); // Function module paused
+    event ModuleUnpaused(FunctionModule indexed module, address indexed operator); // Function module resumed
+    event Staked(address indexed user, uint256 fairAmount,uint256 rate); // Tokens staked
+    event UnstakeRequested(address indexed user, uint256 fairAmount, uint64 waitDays,uint256 rate); // Unstake requested
+    event Unstaked(address indexed user, uint256 fairAmount, uint256 fee); // Tokens unstaked with fee information
+    event RewardClaimed(address indexed user, uint256 frAmount); // Rewards claimed
+    event Burnt(address indexed user, uint256 frAmount); // Tokens burned
     event TokenExchangeRateSet(address indexed tokenAddress, uint88 rateNumerator, uint88 rateDenominator, uint256 maxExchangeAmount); // Exchange rate (numerator/denominator) and max exchange amount set
-    event TokenExchanged(address indexed user, address indexed tokenAddress, uint256 frAmount, uint256 tokenAmount); // Token exchanged
-    event ContributorRewardMinted(address indexed contributor, uint256 indexed proposalId, uint256 amount, string description); // Contributor reward minted
+    event TokenExchanged(address indexed user, address indexed tokenAddress, uint256 frAmount, uint256 exchangeTokenAmount); // Token exchanged
+    event ContributorRewardMinted(address indexed contributor, uint256 indexed proposalId, uint256 frAmount, string description,address operator); // Contributor reward minted
 
     /**
      * @dev Mint Fair Reward Token (FR) as rewards for contributors
@@ -232,8 +238,8 @@ contract FairStakeToken is ERC20 {
     function _customMint(address account, uint256 amount) internal {
         // Check if minting would exceed maximum supply
         uint256 newSupply = totalSupply() + amount;
-        if (newSupply > MAX_SUPPLY) {
-            revert ExceedsMaxSupply(amount, MAX_SUPPLY, totalSupply());
+        if (newSupply > MAX_TOKEN_SUPPLY) {
+            revert ExceedsMaxSupply(amount, MAX_TOKEN_SUPPLY, totalSupply());
         }
         
         // Directly call ERC20's _mint function
@@ -270,11 +276,10 @@ contract FairStakeToken is ERC20 {
         _customMint(contributor, amount);
         
         // Emit event with all relevant information
-        emit ContributorRewardMinted(contributor, proposalId, amount, description);
+        emit ContributorRewardMinted(contributor, proposalId, amount, description, msg.sender);
         
         return true;
     }
-    
     /**
      * @notice Initializes the Fair Reward Token (FR) contract
      * @dev Sets up the Fair Stake Token with reference to the staked token contract
@@ -288,7 +293,7 @@ contract FairStakeToken is ERC20 {
         if (_stakedToken == address(0)) revert InvalidAddress();
         
         // Set owner and immutable address
-        owner = tx.origin;
+        owner = msg.sender;
         stakedToken = IERC20(_stakedToken);
     }
     
@@ -427,7 +432,7 @@ contract FairStakeToken is ERC20 {
      * @param rateNumerator Numerator of the exchange rate, represents the target token amount factor
      * @param rateDenominator Denominator of the exchange rate, represents the FR token amount factor
      * @param maxExchangeAmount Maximum exchange amount for this token (in target token units)
-     * @param transferType Token transfer type (0 for functions returning boolean, 1 for functions with no return value)
+     * @param transferType Token transfer type (0 for functions returning boolean, 1 for functions with no return value, 2 for TRX)
      * @param durationWeeks Exchange duration in weeks (use 255 for unlimited duration)
      * @return Boolean indicating success of the operation
      * 
@@ -436,21 +441,22 @@ contract FairStakeToken is ERC20 {
      * - Token address must not be zero or this contract
      * - Exchange rate must be valid (numerator and denominator > 0)
      * - Max exchange amount must be greater than zero
-     * - Transfer type must be 0 or 1
+     * - Transfer type must be 0, 1 or 2
      * - Duration must be at least 1 week (or 255 for unlimited)
      */
     function setTokenExchangeRate(address tokenAddress, uint88 rateNumerator, uint88 rateDenominator, uint256 maxExchangeAmount, uint8 transferType, uint8 durationWeeks) external isOwner returns(bool) {
         // Input validations
         if (tokenAddress == address(0) || tokenAddress == address(this)) revert InvalidAddress();
         if (maxExchangeAmount <= 0) revert ZeroAmount();
-        if (transferType > 1) revert InvalidTransferType();
+        // For TRX exchange (tokenAddress == address(1)), transferType is set to 2
+        if (tokenAddress != address(1) && transferType > 2) revert InvalidTransferType();
         if (rateNumerator <= 0 || rateDenominator <= 0) revert InvalidRate();
         if (durationWeeks == 0) revert ZeroAmount();
 
         // Create exchange info with unchecked time calculation
         uint64 startTime;
         unchecked {
-            startTime = uint64(block.timestamp + 1 days);
+            startTime = uint64(block.timestamp + SECONDS_PER_DAY);
         }
         
         tokenExchangeInfo[tokenAddress] = TokenExchangeInfo({
@@ -459,7 +465,7 @@ contract FairStakeToken is ERC20 {
             rateDenominator: rateDenominator,
             startTime: startTime,
             exchangeDurationWeeks: durationWeeks,
-            transferType: transferType
+            transferType: tokenAddress == address(1) ? 2 : transferType // TRX has transferType 2
         });
 
         emit TokenExchangeRateSet(tokenAddress, rateNumerator, rateDenominator, maxExchangeAmount);
@@ -471,7 +477,7 @@ contract FairStakeToken is ERC20 {
      * @param user User address to calculate earned tokens for
      * @return Amount of earned FR tokens
      * 
-     * Calculation formula: (stakeAmount * timeElapsed * getRate()) / (1 days * 3650000)
+     * Calculation formula: (stakeAmount * timeElapsed * getRate()) / (ONE_DAY * 3650000)
      * - Uses time-weighted calculation with rate based on stake amount
      * - Caps timeElapsed at 90 days to prevent excessive reward accumulation
      * - Includes overflow protection for all arithmetic operations
@@ -485,9 +491,9 @@ contract FairStakeToken is ERC20 {
         
         // Calculate time elapsed with max limit (90 days)
         uint256 timeElapsed = block.timestamp - userStake.lastClaimed;
-        uint256 maxTimeElapsed = 90 days;
-        if (timeElapsed > maxTimeElapsed) {
-            timeElapsed = maxTimeElapsed;
+        
+        if (timeElapsed > MAX_STAKE_DURATION) {
+            timeElapsed = MAX_STAKE_DURATION ;
         }
         
         // Get rate based on stake amount
@@ -495,7 +501,7 @@ contract FairStakeToken is ERC20 {
         if (type(uint256).max / rate / timeElapsed <= userStake.amount) revert CalculationOverflow();
         
         unchecked {
-            return userStake.amount * timeElapsed * rate / 1 days / 3650000;
+            return userStake.amount * timeElapsed * rate / SECONDS_PER_DAY / 3650000;
         }
     }
     
@@ -514,7 +520,7 @@ contract FairStakeToken is ERC20 {
      */
     function getRate(uint256 amount) public pure returns(uint256) {
         // Calculate base rate by dividing amount by the rate base
-        uint256 rate = amount / STAKE_RATE_BASE;
+        uint256 rate = amount / BASE_REWARD_RATE;
 
         // Apply tiered rate calculation:
         // - Tier 1: For small stakes, minimum rate of 100
@@ -554,7 +560,7 @@ contract FairStakeToken is ERC20 {
         uint256 earnedTokens = calculateEarnedTokens(msg.sender);
         
         // Check if the total stake after this operation would exceed the maximum allowed
-        if (userStake.amount > MAX_STAKE - amount) revert ExceedsMaxStake();
+        if (userStake.amount > MAX_USER_STAKE - amount) revert ExceedsMaxStake();
 
         // Check for overflow before updating totalStaked
         if (totalStaked > type(uint256).max - amount) revert CalculationOverflow();
@@ -581,8 +587,8 @@ contract FairStakeToken is ERC20 {
             _customMint(msg.sender, earnedTokens);
             emit RewardClaimed(msg.sender, earnedTokens);
         }
-        
-        emit Staked(msg.sender, amount);
+        uint256 rate = getRate(userStake.amount);
+        emit Staked(msg.sender, amount,rate);
         return true;
     }
     
@@ -654,9 +660,9 @@ contract FairStakeToken is ERC20 {
             _customMint(msg.sender, earnedTokens);
             emit RewardClaimed(msg.sender, earnedTokens);
         }
-        
+         uint256 rate = getRate(userStake.amount);
         // Emit unstake request event after all state updates
-        emit UnstakeRequested(msg.sender, amount, waitDays);
+        emit UnstakeRequested(msg.sender, amount, waitDays,rate);
         return true;
     }
     
@@ -665,7 +671,7 @@ contract FairStakeToken is ERC20 {
      * @return Boolean indicating success of the operation
      * 
      * Fee calculation rules:
-     * - 0% fee if wait period ≥ 60 days
+     * - 0% fee if wait period is greater than or equal to 60 days
      * - 0.2% fee per day less than 60 days (e.g., 59 days = 0.2% fee, 58 days = 0.4% fee, etc.)
      * 
      * Requirements:
@@ -699,8 +705,8 @@ contract FairStakeToken is ERC20 {
         uint256 unlockTime;
         uint256 elapsedDays;
         unchecked {
-            elapsedDays = (block.timestamp - userStake.unstakeRequestTime) / 1 days;
-            unlockTime = userStake.unstakeRequestTime + (waitDays * 1 days);
+            elapsedDays = (block.timestamp - userStake.unstakeRequestTime) / SECONDS_PER_DAY;
+            unlockTime = userStake.unstakeRequestTime + (waitDays * SECONDS_PER_DAY);
         }
         
         // Check if lock period is completed
@@ -807,7 +813,7 @@ contract FairStakeToken is ERC20 {
      * - Amount must be greater than zero
      * - User must have sufficient balance
      */
-    function burn(uint256 amount) external whenModuleNotPaused(FunctionModule.BURN) {
+    function burn(uint256 amount) external whenModuleNotPaused(FunctionModule.BURN) nonReentrant {
         // Input validation
         if (amount <= 0) revert ZeroAmount();
         
@@ -831,78 +837,98 @@ contract FairStakeToken is ERC20 {
      * - Exchange rate must be set (numerator and denominator > 0)
      * - Exchange period must be active (not expired and started)
      * - Requested amount must not exceed available exchange limit
+     * - Within the first 48 hours of exchange opening, each transaction can exchange at most 1% of the remaining exchange amount
      * 
      * Effects:
      * - Burns FR tokens from user balance
      * - Transfers requested tokens to user
      * - Updates remaining exchange amount
      */
-    function exchangeFRForToken(address tokenAddress, uint256 frAmount) external whenModuleNotPaused(FunctionModule.EXCHANGE) nonReentrant returns (uint256) {        // Input validations
+    function exchangeFRForToken(address tokenAddress, uint256 frAmount) external whenModuleNotPaused(FunctionModule.EXCHANGE) nonReentrant returns (uint256) {
         if (tokenAddress == address(0)) revert InvalidAddress();
-        if (frAmount <= 0) revert ZeroAmount();
-        
+        if (frAmount == 0) revert ZeroAmount();
+        if (balanceOf(msg.sender) < frAmount) revert InsufficientBalance(balanceOf(msg.sender), frAmount);
+
         // Get exchange information
         TokenExchangeInfo storage exchangeInfo = tokenExchangeInfo[tokenAddress];
-        
+
         // Validate exchange rate
         if (exchangeInfo.rateNumerator == 0 || exchangeInfo.rateDenominator == 0) revert InvalidRate();
-        
+
         // Combined time window validations
         if (block.timestamp < exchangeInfo.startTime) revert ExchangeNotYetAvailable();
-        
+
         // Check if exchange has expired (only if duration is not unlimited)
         if (exchangeInfo.exchangeDurationWeeks < type(uint8).max) {
             uint256 endTime;
             unchecked {
-                endTime = exchangeInfo.startTime + (uint256(exchangeInfo.exchangeDurationWeeks) * 7 days);
+                endTime = exchangeInfo.startTime + (uint256(exchangeInfo.exchangeDurationWeeks) * SECONDS_PER_WEEK);
             }
             if (block.timestamp > endTime) revert ExchangeExpired();
         }
-        
+
         // Overflow protection and calculate token amount with multiple checks
         if (exchangeInfo.rateNumerator > type(uint256).max / frAmount) revert CalculationOverflow();
-        
+
         uint256 numerator;
         unchecked {
             numerator = frAmount * exchangeInfo.rateNumerator;
         }
-        
-        uint256 tokenAmount;
+
+        uint256 exchangeAmount;
         unchecked {
-            tokenAmount = numerator / exchangeInfo.rateDenominator;
+            exchangeAmount = numerator / exchangeInfo.rateDenominator;
         }
-        
+
         // Ensure token amount is positive after calculation
-        if (tokenAmount == 0) revert ZeroAmount();
-        
+        if (exchangeAmount == 0) revert ZeroAmount();
+
         // Check if requested exchange exceeds remaining amount
-        if (tokenAmount > exchangeInfo.remainingExchangeAmount) revert ExceedsExchangeLimit(tokenAmount, exchangeInfo.remainingExchangeAmount);
-        
+        if (exchangeAmount > exchangeInfo.remainingExchangeAmount) revert ExceedsExchangeLimit(exchangeAmount, exchangeInfo.remainingExchangeAmount);
+
+        uint256 fortyEightHoursInSeconds = 48 * 60 * 60; // 48 hours in seconds
+        if (block.timestamp <= exchangeInfo.startTime + fortyEightHoursInSeconds) {
+            uint256 maxExchangePerTransaction = exchangeInfo.remainingExchangeAmount / 100; // 1% of remaining exchange amount
+            if (exchangeAmount > maxExchangePerTransaction) {
+                revert ExchangeAmountExceedsOnePercentLimit(exchangeAmount, maxExchangePerTransaction);
+            }
+        }
+
         // Following Checks-Effects-Interactions pattern: all state changes are completed before external calls
-        
+
         // Update remaining exchange amount (state change)
         unchecked {
-            exchangeInfo.remainingExchangeAmount -= tokenAmount;
+            exchangeInfo.remainingExchangeAmount -= exchangeAmount;
         }
-        
+
         // Burn FR tokens (state change)
         _burn(msg.sender, frAmount);
-        
+
         // Handle token transfer based on transfer type (external call)
-        // Inline token transfer logic to reduce gas costs
-        (bool success,bytes memory returnData) = tokenAddress.call(abi.encodeWithSignature("transfer(address,uint256)", msg.sender, tokenAmount));
-        if (!success) revert TransferFailed(tokenAmount);
-        if (exchangeInfo.transferType == 0) { //Standard ERC20 has return value        
-            if (returnData.length != 32) revert InvalidReturnDataLength(32, returnData.length); // bool type occupies 32 bytes
-            bool transferSuccess = abi.decode(returnData, (bool)); // Decode to bool
-            if(!transferSuccess) revert TransferFailed(tokenAmount);
+        if (exchangeInfo.transferType == 2) {
+            // TRX transfer
+            (bool success,) = payable(msg.sender).call{value: exchangeAmount}('');
+            if (!success) revert TransferFailed(exchangeAmount);
+
+            // Emit exchange event for TRX
+            emit TokenExchanged(msg.sender, tokenAddress, frAmount, exchangeAmount);
+        } else {
+            // Token transfer for standard ERC20 or other types
+            (bool success, bytes memory returnData) = tokenAddress.call(abi.encodeWithSignature("transfer(address,uint256)", msg.sender, exchangeAmount));
+            if (!success) revert TransferFailed(exchangeAmount);
+            if (exchangeInfo.transferType == 0) { // Standard ERC20 has return value
+                if (returnData.length != 32) revert InvalidReturnDataLength(32, returnData.length); // bool type occupies 32 bytes
+                bool transferSuccess = abi.decode(returnData, (bool)); // Decode to bool
+                if (!transferSuccess) revert TransferFailed(exchangeAmount);
+            }
+
+            // Emit exchange event for tokens
+            emit TokenExchanged(msg.sender, tokenAddress, frAmount, exchangeAmount);
         }
-        
-        // Emit exchange event after all operations are complete
-        emit TokenExchanged(msg.sender, tokenAddress, frAmount, tokenAmount);
-        return tokenAmount;
+
+        return exchangeAmount;
     }
-    
+
     // Note: _executeTokenTransfer function was removed to reduce gas costs by inlining its logic
 
     /**
@@ -913,11 +939,6 @@ contract FairStakeToken is ERC20 {
         return 18;
     }
     
-    /**
-     * @dev Reject all TRX transfers to this contract
-     */
-    receive() external payable {
-        revert TRXTransferRejected();
-    }
+
 
 }

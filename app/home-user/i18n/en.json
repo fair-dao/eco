@@ -1,13 +1,13 @@
 {
   "account": {
     "info": {
-      "title": "Account Information"
+      "title": "Account Info"
     },
     "balance": {
       "trx": "TRX Balance",
-      "energy": "Account Energy",
-      "bandwidth": "Account Bandwidth",
-      "token": "Token Balances",
+      "energy": "Energy",
+      "bandwidth": "Bandwidth",
+      "token": "Token Balance",
       "fair": "FAIR Balance",
       "fr": "FR Balance"
     },

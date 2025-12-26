@@ -1,7 +1,7 @@
 class HomeModule {
   static lastInstance = null;
   constructor() {
-    HomeModule.lastInstance = this;
+    HomeModule.lastInstance = this;    
     this.homeModule = document.getElementById("homeModule");
   }
 
@@ -24,11 +24,61 @@ class HomeModule {
       
       // 获取公共工具模块
       this.common = window.fairStakeCommon;
+      
+      // 初始化日志功能
+      this.initLogs();
+      
+      // 启动数据刷新定时器
       this.startDataRefreshTimer();
       return this;
     } catch (error) {
       console.error("HomeModule 初始化错误:", error);
       return false;
+    }
+  }
+
+  /**
+   * 初始化日志功能
+   */
+  initLogs() {
+    // 使用 fairdao 的 bulma() 方法来初始化 tabs 功能，保持代码一致性
+    if (this.fairdao && this.container) {
+      this.fairdao.bulma(this.container);
+    }
+    // 添加刷新按钮事件监听器
+    const refreshLogsBtn = document.getElementById('refreshLogsBtn');
+    if (refreshLogsBtn) {
+      refreshLogsBtn.addEventListener('click', () => {
+        this.refreshAllLogs();
+      });
+    }
+
+    // 初始加载日志
+    this.refreshFairContractLogs();
+    this.refreshFrContractLogs();
+  }
+
+  
+  /**
+   * 刷新所有日志
+   */
+  async refreshAllLogs() {
+    const refreshBtn = document.getElementById('refreshLogsBtn');
+    if (refreshBtn) {
+      refreshBtn.classList.add('fa-spin');
+    }
+
+    try {
+      await Promise.all([
+        this.refreshFairContractLogs(),
+        this.refreshFrContractLogs()
+      ]);
+    } catch (error) {
+      console.error('刷新日志失败:', error);
+    } finally {
+      if (refreshBtn) {
+        refreshBtn.classList.remove('fa-spin');
+      }
     }
   }
 
@@ -59,6 +109,10 @@ class HomeModule {
             if (fairContractAddress) {
               fairContractAddress.value = this.common.network.stakedToken.address;
             }
+            var currentNetworkEL= document.getElementById("currentNetwork");
+            if (currentNetworkEL){
+              currentNetwork.value= this.common.network.name;
+            }
 
             // 调用合并方法同时更新用户数据和全局统计，传递isAutoRefresh=true参数
             await this.updateGlobalStats(true);
@@ -70,6 +124,8 @@ class HomeModule {
       me.startDataRefreshTimer(10000);
     }, time);
   }
+
+
 
   /**
    * 更新全局统计数据
@@ -113,6 +169,10 @@ class HomeModule {
       if (fairTotalUnstakingElement) {
         fairTotalUnstakingElement.value = totalUnstakingResult.success ? totalUnstakingResult.data : "0.00";
       }
+
+      // 同时刷新合约日志
+      await this.refreshFairContractLogs();
+      await this.refreshFrContractLogs();
     } catch (error) {
       console.error("执行数据加载和更新时发生未预期的错误:", error);
       return false;
@@ -130,6 +190,76 @@ class HomeModule {
       }
     }
   }
+
+
+  /**
+   * 获取 FR 合约链上操作历史
+   */
+  async fetchFrContractOperationsHistory() {
+    try {
+      const frContractAddress = this.common.network.rewardToken.address;
+
+
+      // 调用合约交互模块获取链上事件
+      const events = await this.contractInteraction.getEvents(
+        frContractAddress,null
+      );
+
+      return events;
+    } catch (error) {
+      console.error('获取 FR 合约操作历史失败:', error);
+      return null;
+    }
+  }
+
+  /**
+   * 刷新 Fair 合约日志
+   */
+  async refreshFairContractLogs() {
+    try {
+         
+      const fairContractAddress = this.common.network.stakedToken.address;
+      // 调用合约交互模块获取链上事件
+      const events = await this.contractInteraction.getEvents(
+        fairContractAddress,null
+      );
+      this.app.displayContractLogs("fairContractLogsTable",events,
+        [
+        "user",
+        "eventName",
+        "value",
+        "to",
+        "timestamp",
+        "transactionId",
+      ]
+      );
+    } catch (error) {
+      console.error('刷新 Fair 合约日志失败:', error);
+    }
+  }
+
+  /**
+   * 刷新 FR 合约日志
+   */
+  async refreshFrContractLogs() {
+    try {
+      const events = await this.fetchFrContractOperationsHistory();
+      this.app.displayContractLogs("frContractLogsTable",events,
+        [
+        "user",
+        "eventName",
+        "frAmount",
+        "fairAmount",
+        "to",
+        "timestamp",
+        "transactionId",
+      ]
+      );
+    } catch (error) {
+      console.error('刷新 FR 合约日志失败:', error);
+    }
+  }
+
 }
 
 export default HomeModule;

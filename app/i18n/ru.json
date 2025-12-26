@@ -1,0 +1,83 @@
+{
+  "network": {
+    "warnning": "Текущая среда - тестовая сеть, все транзакции действительны только в тестовой сети и не влияют на основную сеть.",
+    "disconnect": "Кошелек отключен",
+    "connect": {
+      "error": "Ошибка подключения кошелька"
+    }
+  },
+  "navigation": {
+    "doc": "Документы",
+    "staking": "Стейкод",
+    "burn": "Сожгнуть",
+    "exchange": "兑换",
+    "whitepaper": "Белая книга",
+    "contributing": "Вклад",
+    "forum": "Форум",
+    "serviceagreement": "Соглашение об обслуживании",
+    "privacypolicy": "Политика конфиденциальности",
+    "disclaimers": "Отказ от ответственности",
+    "legal": "Юридические условия",
+    "contact": "Свяжитесь с нами",
+    "email": "Электронная почта",
+    "phone": "Телефон",
+    "address": "Адрес",
+    "governance": "Управление",
+    "mission": "Миссия",
+    "about": "О нас",
+    "allrightsreserved": "Все права защищены",
+    "resources": "Ресурсы",
+    "links": "Ссылки",
+    "accountinfo": "Информация о счете",
+    "admin": {
+      "exchangeSetup": "Настройка курса обмена токенов"
+    }
+  },
+  "title": "Экосистема FAIR",
+  "logs": {
+    "contractLogs": "Логи контракта",
+    "noData": "Нет записей о операциях",
+    "table": {
+      "user": "Адрес",
+      "from": "Адрес отправителя",
+      "eventName": "Операция",
+      "amount": "Количество",
+      "timestamp": "Время",
+      "status": "Статус",
+      "transactionId": "Хэш транзакции",
+      "tokenAmount": "代币数量",
+      "frAmount": "FR数量",
+      "fairAmount": "FAIR数量",
+      "value": "Количество",
+      "to": "Адрес получателя",
+      "operator": "Оператор"
+    },
+    "eventNames": {
+      "Staked": "Стейкод",
+      "Unstaked": "Анстейкод",
+      "RewardClaimed": "Получить награду",
+      "Withdrawn": "Вывести",
+      "UnstakeRequested": "Запрос на анстейкинг",
+      "Paused": "Приостановлено",
+      "Unpaused": "Возобновлено",
+      "ContributorRewardMinted": "Награда за вклад",
+      "Burnt": "Сожгнуть",
+      "Transfer": "Перевести",
+      "Mint": "Минт",
+      "Burn": "Сожгнуть",
+      "Reward": "Награда",
+      "TokenExchanged": "Обмен токенов"
+    },
+    "status": {
+      "success": "Успех",
+      "pending": "В процессе",
+      "failed": "Неудача"
+    }
+  },
+  "admin": {
+    "title": "Инструменты админа",
+    "exchange": {
+      "title": "Настройка курса обмена токенов"
+    }
+  }
+}

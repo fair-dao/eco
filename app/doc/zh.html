@@ -3,1148 +3,518 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fair Reward Token 合约 API 文档</title>
-    <!-- 集成 Bulma v1.0 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
-    <!-- Font Awesome -->
+    <title>FairStakeToken 合约 API 文档</title>
+    
+    <!-- External Resources -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- 自定义样式 -->
-    <link rel="stylesheet" href="/css/doc.css">
+    
+    <!-- Custom Styles -->
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f5f7fa; 
+        }
+        .header-section { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 3rem 0; 
+            margin-bottom: 2rem;
+        }
+        .header-section h1 { 
+            font-size: 2.5rem; 
+            font-weight: 700;
+        }
+        .content-card { 
+            background: white; 
+            border-radius: 8px; 
+            padding: 2rem; 
+            margin-bottom: 2rem; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .content-card:hover { 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .function-def { 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: #333; 
+            margin-bottom: 1rem;
+            background-color: #f8f9fa;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+        .event-def { 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: #333; 
+            margin-bottom: 1rem;
+            background-color: #e7f3ff;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #2196F3;
+        }
+        .error-def { 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: #333; 
+            margin-bottom: 1rem;
+            background-color: #fff3cd;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+        }
+        .modifier-def { 
+            font-family: 'Courier New', monospace; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            color: #333; 
+            margin-bottom: 1rem;
+            background-color: #d4edda;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+        }
+        .section-title { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            color: #2c3e50; 
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem; 
+            border-bottom: 3px solid #667eea;
+        }
+        .parameter-list { 
+            list-style: none; 
+            padding-left: 0;
+        }
+        .parameter-list li { 
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .code-block { 
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        .nav-link { 
+            font-weight: 500; 
+            transition: color 0.2s;
+        }
+        .nav-link:hover { 
+            color: #667eea !important;
+        }
+        .language-switch { 
+            margin-left: 1rem;
+        }
+        .language-switch button { 
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .language-switch button:hover { 
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .content { 
+            line-height: 1.6;
+        }
+        .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 { 
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .content p { 
+            margin-bottom: 1em;
+        }
+        .content ul, .content ol { 
+            margin-bottom: 1em;
+        }
+        .tag { 
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar is-info is-fixed-top" role="navigation" aria-label="main navigation">
+    <!-- Navigation -->
+    <nav class="navbar is-white" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="#">
-                <span class="title is-4 has-text-white">Fair Reward Token (FR)</span>
+            <a class="navbar-item" href="/index.html">
+                <img src="https://fairdao.space/static/fair-logo.34a90480.png" alt="FairDAO" height="28">
             </a>
             
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
         </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
+        <div id="navbarMenu" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="#overview">概述</a>
-                <a class="navbar-item" href="#contracts">合约</a>
-                <a class="navbar-item" href="#events">事件</a>
-                <a class="navbar-item" href="#functions">函数</a>
-                <a class="navbar-item" href="#modifiers">修饰器</a>
+                <a class="navbar-item nav-link" href="#overview">概述</a>
+                <a class="navbar-item nav-link" href="#contract">合约信息</a>
+                <a class="navbar-item nav-link" href="#events">事件</a>
+                <a class="navbar-item nav-link" href="#functions">函数</a>
+                <a class="navbar-item nav-link" href="#modifiers">修饰器</a>
+                <a class="navbar-item nav-link" href="#errors">错误类型</a>
             </div>
-
+            
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <div class="buttons">
-                          <a href="zh.html" class="button is-light">
-                            <i class="fas fa-language"></i> 中文
-                        </a>
-                          <a href="en.html" class="button is-light">
-                            <i class="fas fa-language"></i> English
-                        </a>
+                    <div class="language-switch">
+                        <button class="button is-primary" onclick="switchLanguage('zh')">
+                            中文
+                        </button>
+                        <button class="button is-light" onclick="switchLanguage('en')">
+                            English
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="container main-content">
+    <!-- Header --<section class="header-section">
+        <div class="container">
+            <h1 class="title">FairStakeToken 合约 API 文档</h1>
+            <p class="subtitle">质押与通证兑换协议</p>
+        </div>
+    </section>
+
+    <!-- Main Content --<div class="container">
         <div class="columns">
-            <!-- 侧边栏导航 -->
-            <div class="column is-3">
-                <aside class="sidebar p-4">
-                    <div class="card">
-                        <div class="card-content">
-                            <h3 class="title is-5 mb-4">导航</h3>
-                            <ul class="menu-list">
-                                <li><a href="#overview">概述</a></li>
-                                <li><a href="#contracts">合约</a></li>
-                                <li><a href="#events">事件</a></li>
-                                <li><a href="#functions">函数</a></li>
-                                <li><a href="#modifiers">修饰器</a></li>
+            <div class="column is-three-quarters is-offset-one-eighth">
+                
+                <!-- Overview --<section id="overview" class="content-card">
+                    <h2 class="section-title">概述</h2>
+                    <div class="content">
+                        <p>FairStakeToken 合约是基于 TRON 区块链的通证质押与兑换协议，提供以下核心功能：</p>
+                        <ul>
+                            <li>通证质押与奖励系统</li>
+                            <li>Fair Reward (FR) 与 FairToken 兑换机制</li>
+                            <li>提前赎回机制及罚金率计算</li>
+                            <li>模块化函数暂停控制</li>
+                            <li>多维度奖励计算与发放</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Contract Basic Information --<section id="contract" class="content-card">
+                    <h2 class="section-title">合约基础信息</h2>
+                    <div class="content">
+                        <table class="table is-striped is-hoverable is-fullwidth">
+                            <tbody>
+                                <tr>
+                                    <th>合约名称</th>
+                                    <td>FairStakeToken</td>
+                                </tr>
+                                <tr>
+                                    <th>继承关系</th>
+                                    <td>ERC20</td>
+                                </tr>
+                                <tr>
+                                    <th>编译版本</th>
+                                    <td>^0.8.23</td>
+                                </tr>
+                                <tr>
+                                    <th>许可证</th>
+                                    <td>MIT</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Error Types --<section id="errors" class="content-card">
+                    <h2 class="section-title">错误类型</h2>
+                    <div class="content">
+                        <div class="mb-4">
+                            <div class="error-def">TransferFailed()</div>
+                            <p class="mt-2">当通证转账失败时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">InsufficientFROnChain()</div>
+                            <p class="mt-2">当链上 FR 奖励不足时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">AddressIsZero()</div>
+                            <p class="mt-2">当地址为零地址时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">AmountIsZero()</div>
+                            <p class="mt-2">当金额为零时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">UserNotStaked()</div>
+                            <p class="mt-2">当用户未进行任何质押时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">UserAlreadyStaked()</div>
+                            <p class="mt-2">当用户已进行质押时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">UnstakeRequestNotReady()</div>
+                            <p class="mt-2">当赎回请求未就绪时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">UnstakeRequestAlreadyExists()</div>
+                            <p class="mt-2">当用户已存在待处理的赎回请求时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">NoPendingUnstakeRequest()</div>
+                            <p class="mt-2">当不存在待处理的赎回请求时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">ExchangeLimitExceeded()</div>
+                            <p class="mt-2">当兑换金额超过限制时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">ExchangeAmountExceedsOnePercentLimit()</div>
+                            <p class="mt-2">当单笔兑换金额在 48 小时内超过剩余额度的 1% 时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">ContractIsPaused()</div>
+                            <p class="mt-2">当合约函数暂停时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">OnlyOwner()</div>
+                            <p class="mt-2">当只有合约所有者可以调用该函数时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">TokenExchangeTypeInvalid()</div>
+                            <p class="mt-2">当通证兑换类型无效时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">BurnAmountTooLarge()</div>
+                            <p class="mt-2">当销毁金额过大时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">RewardAmountZero()</div>
+                            <p class="mt-2">当奖励金额为零时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">NotEnoughTokensToUnstake()</div>
+                            <p class="mt-2">当用户没有足够的通证可以赎回时抛出的错误。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Events --<section id="events" class="content-card">
+                    <h2 class="section-title">事件</h2>
+                    <div class="content">
+                        <div class="mb-4">
+                            <div class="event-def">event Staked(address indexed user, uint256 amount, uint256 rewardAmount)</div>
+                            <p class="mt-2">当用户成功质押通证时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - 质押用户地址</li>
+                                <li><code>amount</code> - 质押通证数量</li>
+                                <li><code>rewardAmount</code> - FR 奖励数量</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event UnstakeRequested(address indexed user, uint256 amount, uint256 timestamp)</div>
+                            <p class="mt-2">当用户成功请求赎回时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - 赎回用户地址</li>
+                                <li><code>amount</code> - 赎回通证数量</li>
+                                <li><code>timestamp</code> - 请求时间戳</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event Unstaked(address indexed user, uint256 fairAmount, uint256 fee)</div>
+                            <p class="mt-2">当用户成功赎回通证时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - 赎回用户地址</li>
+                                <li><code>fairAmount</code> - 获得的 FR 数量</li>
+                                <li><code>fee</code> - 提前赎回的罚金数量</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event RewardClaimed(address indexed user, uint256 amount)</div>
+                            <p class="mt-2">当用户成功申领奖励时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - 申领奖励的用户地址</li>
+                                <li><code>amount</code> - 申领的 FR 奖励数量</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event TokenExchanged(address indexed user, uint256 frAmount, uint256 tokenAmount, uint256 timestamp)</div>
+                            <p class="mt-2">当用户成功兑换通证时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - 兑换通证的用户地址</li>
+                                <li><code>frAmount</code> - 支付的 FR 数量</li>
+                                <li><code>tokenAmount</code> - 获得的通证数量</li>
+                                <li><code>timestamp</code> - 兑换时间戳</li>
                             </ul>
                         </div>
                     </div>
-                </aside>
-            </div>
+                </section>
 
-            <!-- 主内容区域 -->
-            <div class="column is-9">
-                <!-- 概述 -->
-                <section id="overview" class="api-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-header-title">概述</div>
+                <!-- Functions --<section id="functions" class="content-card">
+                    <h2 class="section-title">函数</h2>
+                    <div class="content">
+                        <div class="mb-4">
+                            <div class="function-def">function stake(uint256 amount) external</div>
+                            <p class="mt-2">用户质押通证的主要函数。</p>
+                            <p><strong>参数：</strong> <code>amount</code> - 质押的通证数量（TRX 单位）</p>
+                            <p><strong>操作流程：</strong></p>
+                            <ul>
+                                <li>验证输入参数</li>
+                                <li>计算用户的 FR 奖励（含未领取奖励）</li>
+                                <li>处理用户质押操作</li>
+                                <li>更新质押记录</li>
+                                <li>触发 Staked 事件</li>
+                            </ul>
                         </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <h1 class="title is-2">Fair Reward Token (FR) 合约</h1>
-                                <p>Fair Reward Token (FR) 是一个基于 ERC20 的代币合约，支持质押功能和贡献者奖励。</p>
-                                <p>该合约允许用户质押代币并随时间获得奖励，同时提供解除质押、领取奖励和代币交换等功能。</p>
-                                
-                                <div class="mt-4">
-                                    <h3 class="subtitle is-4">许可证</h3>
-                                    <p>SPDX-License-Identifier: GPL-3.0</p>
-                                </div>
-                                
-                                <div class="mt-4">
-                                    <h3 class="subtitle is-4">Solidity 版本</h3>
-                                    <p>^0.8.24</p>
-                                </div>
-                            </div>
+                        <div class="mb-4">
+                            <div class="function-def">function requestUnstake(uint256 amount) external</div>
+                            <p class="mt-2">用户请求赎回质押的通证。</p>
+                            <p><strong>参数：</strong> <code>amount</code> - 赎回的通证数量</p>
+                            <p><strong>功能特点：</strong></p>
+                            <ul>
+                                <li>需要 15-60 天等待期，具体天数根据质押金额计算</li>
+                                <li>计算用户未领取的 FR 奖励</li>
+                                <li>设置赎回请求到期时间</li>
+                                <li>更新用户质押信息</li>
+                                <li>触发 UnstakeRequested 事件</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function unstake() external</div>
+                            <p class="mt-2">用户执行实际的赎回操作。</p>
+                            <p><strong>功能特点：</strong></p>
+                            <ul>
+                                <li>检查赎回请求是否到期</li>
+                                <li>计算提前赎回的罚金率（每天 0.2%）</li>
+                                <li>执行通证转账</li>
+                                <li>更新用户质押记录</li>
+                                <li>触发 Unstaked 事件</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function claimReward() external</div>
+                            <p class="mt-2">用户申领未领取的 FR 奖励。</p>
+                            <p><strong>操作流程：</strong></p>
+                            <ul>
+                                <li>计算已获得的 FR 奖励</li>
+                                <li>更新用户奖励记录</li>
+                                <li>触发 RewardClaimed 事件</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function exchangeFRForToken(uint256 frAmount, TokenTransferType transferType) external</div>
+                            <p class="mt-2">核心通证兑换函数，允许用户用 FR 兑换 FairToken。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>frAmount</code> - 要兑换的 FR 数量</li>
+                                <li><code>transferType</code> - 转账类型（即时或其他）</li>
+                            </ul>
+                            <p><strong>重要限制：</strong></p>
+                            <ul>
+                                <li><strong>48 小时单笔兑换限制</strong>：48 小时内单笔兑换不超过剩余额度的 1%</li>
+                                <li>检查合约是否暂停</li>
+                                <li>验证输入参数</li>
+                                <li>计算兑换汇率和兑换数量</li>
+                                <li>更新用户兑换记录</li>
+                                <li>执行通证转账</li>
+                                <li>触发 TokenExchanged 事件</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getUserStakeInfo(address user) external view returns (StakeInfo memory)</div>
+                            <p class="mt-2">获取用户的质押信息。</p>
+                            <p><strong>参数：</strong> <code>user</code> - 用户地址</p>
+                            <p><strong>返回值：</strong> <code>StakeInfo</code> - 用户质押信息结构体</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function burn(uint256 amount) external</div>
+                            <p class="mt-2">销毁指定数量的通证。</p>
+                            <p><strong>参数：</strong> <code>amount</code> - 要销毁的通证数量</p>
+                            <p><strong>权限：</strong> 只有合约所有者可以调用</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function setTokenExchangeRate(uint256 rate, uint256 maxExchangeAmountPerDay, TokenTransferType transferType) external</div>
+                            <p class="mt-2">设置通证兑换汇率和每日最大兑换量。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>rate</code> - 兑换汇率（每单位通证的 FR 数量）</li>
+                                <li><code>maxExchangeAmountPerDay</code> - 每日最大兑换量</li>
+                                <li><code>transferType</code> - 转账类型</li>
+                            </ul>
+                            <p><strong>权限：</strong> 只有合约所有者可以调用</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 合约结构 -->
-                <section id="contracts" class="api-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-header-title">合约</div>
+                <!-- Modifiers --<section id="modifiers" class="content-card">
+                    <h2 class="section-title">修饰器</h2>
+                    <div class="content">
+                        <div class="mb-4">
+                            <div class="modifier-def">modifier isOwner()</div>
+                            <p class="mt-2">限制只有合约所有者可以调用的修饰器。</p>
                         </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <!-- Fair Reward Token (FR) -->
-                                <div class="mb-6">
-                                    <h3 class="subtitle is-4">Fair Reward Token (FR)</h3>
-                                    <p>Fair Reward Token (FR) 是一个继承自 ERC20 的代币合约，实现了质押、解除质押、贡献者奖励等功能。</p>
-                                    <p>合约通过质押机制，允许用户质押代币并随时间获得奖励，奖励率会根据总质押金额进行调整。</p>
-                                </div>
-                                
-                                <h3 class="subtitle is-4">数据结构</h3>
-                                
-                                <div class="mb-4">
-                                    <h4 class="title is-5">StakeInfo 结构</h4>
-                                    <div class="code-block">
-<pre>struct StakeInfo { 
-    uint256 stakedAmount;         // 质押的代币数量
-    uint256 unstakeRequestAmount; // 请求解除质押的数量
-    uint64 lastRewardClaimTime;   // 最后领取奖励时间
-    uint64 unstakeRequestTime;    // 解除质押请求时间
-    uint256 earned;               // 已赚取但未领取的奖励
-    // 存储优化：重新排列字段以实现存储打包，仅使用3个存储槽
-}</pre>
-                                    </div>
-                                    <p class="mt-2">用于存储用户质押信息的数据结构。</p>
-                                </div>
-                            </div>
+                        <div class="mb-4">
+                            <div class="modifier-def">modifier whenModuleNotPaused(FunctionModule module)</div>
+                            <p class="mt-2">检查指定函数模块是否未暂停的修饰器。</p>
+                            <p><strong>参数：</strong> <code>module</code> - 函数模块类型</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="modifier-def">modifier nonReentrant()</div>
+                            <p class="mt-2">防止重入攻击的修饰器。</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- 事件 -->
-                <section id="events" class="api-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-header-title">事件</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <div class="mb-6">
-                                    <h3 class="subtitle is-4">FairVoteToken 事件</h3>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event Paused(address indexed account);
-                                        </div>
-                                        <p class="mt-2">合约暂停时触发的事件。</p>
-                                        <p><strong>参数：</strong> account - 暂停合约的账户地址</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event Unpaused(address indexed account);
-                                        </div>
-                                        <p class="mt-2">合约恢复运行时触发的事件。</p>
-                                        <p><strong>参数：</strong> account - 恢复合约的账户地址</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event Staked(address indexed user, uint256 amount);
-                                        </div>
-                                        <p class="mt-2">用户质押代币时触发的事件。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li>user - 质押代币的用户地址</li>
-                                            <li>amount - 质押的代币数量</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event UnstakeRequested(address indexed user, uint256 amount);
-                                        </div>
-                                        <p class="mt-2">用户请求解除质押时触发的事件。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li>user - 请求解除质押的用户地址</li>
-                                            <li>amount - 请求解除质押的代币数量</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event Unstaked(address indexed user, uint256 amount);
-                                        </div>
-                                        <p class="mt-2">用户成功解除质押时触发的事件。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li>user - 解除质押的用户地址</li>
-                                            <li>amount - 解除质押的代币数量</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event RewardClaimed(address indexed user, uint256 amount);
-                                        </div>
-                                        <p class="mt-2">用户领取奖励时触发的事件。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li>user - 领取奖励的用户地址</li>
-                                            <li>amount - 领取的奖励数量</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event Burnt(address indexed user, uint256 amount);
-                                        </div>
-                                        <p class="mt-2">用户销毁代币时触发的事件。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li>user - 销毁代币的用户地址</li>
-                                            <li>amount - 销毁的代币数量</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event TokenExchangeRateSet(address indexed tokenAddress, uint256 rate, uint256 startTime);
-                                        </div>
-                                        <p class="mt-2">设置代币兑换率和开始时间时触发的事件。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li>tokenAddress - 代币地址</li>
-                                            <li>rate - 兑换率</li>
-                                            <li>startTime - 兑换开始时间</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event TokenExchanged(address indexed user, address indexed tokenAddress, uint256 frAmount, uint256 tokenAmount);
-                                        </div>
-                                        <p class="mt-2">用户兑换代币时触发的事件。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li>user - 兑换代币的用户地址</li>
-                                            <li>tokenAddress - 兑换的代币地址</li>
-                                            <li>frAmount - 消耗的 Fair Reward Token 数量</li>
-                                            <li>tokenAmount - 获取的目标代币数量</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 函数 -->
-                <section id="functions" class="api-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-header-title">函数</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <h3 class="subtitle is-4">构造函数</h3>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        constructor(address _fairdaoManager, address _stakedToken) ERC20("Fair Reward Token", "FR")
-                                    </div>
-                                    <p class="mt-2">初始化 Fair Reward Token 合约。</p>
-                                    <p><strong>参数：</strong></p>
-                                    <ul>
-                                        <li>_fairdaoManager - FairDAO 管理合约地址</li>
-                                        <li>_stakedToken - 用户质押的 ERC20 代币地址</li>
-                                    </ul>
-                                </div>
-                                
-                                <h3 class="subtitle is-4">暂停控制函数</h3>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function pause() external isOwner
-                                    </div>
-                                    <p class="mt-2">暂停合约操作。只有所有者可以调用。</p>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function unpause() external isOwner
-                                    </div>
-                                    <p class="mt-2">恢复合约操作。只有所有者可以调用。</p>
-                                </div>
-                                
-                                <h3 class="subtitle is-4">质押相关函数</h3>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function stake(uint256 _amount) external whenNotPaused nonReentrant
-                                    </div>
-                                    <p class="mt-2">质押 ERC20 代币以获取 Fair Reward Token 奖励。</p>
-                                    <p><strong>参数：</strong></p>
-                                    <ul>
-                                        <li>_amount - 要质押的代币数量</li>
-                                    </ul>
-                                    <p><strong>注意事项：</strong></p>
-                                    <ul>
-                                        <li>质押前会自动领取已有的奖励</li>
-                                        <li>需要先授权合约访问代币</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function requestUnstake(uint256 _amount, uint256 _waitDays) external whenNotPaused nonReentrant returns (bool)
-                                    </div>
-                                    <p class="mt-2">请求解除质押，支持15-60天可配置的解锁期。</p>
-                                    <p><strong>参数：</strong></p>
-                                    <ul>
-                                        <li>_amount - 要解除质押的代币数量</li>
-                                        <li>_waitDays - 解锁等待天数（必须在15-60天之间）</li>
-                                    </ul>
-                                    <p><strong>返回值：</strong> 请求是否成功</p>
-                                    <p><strong>注意事项：</strong></p>
-                                    <ul>
-                                        <li>请求时会自动领取已有的奖励</li>
-                                        <li>等待天数越少，提前解锁的费率越高</li>
-                                        <li>15天解锁费率最高，60天解锁费率最低</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function unstake() external whenNotPaused nonReentrant
-                                    </div>
-                                    <p class="mt-2">在30天锁定期后完成解除质押。</p>
-                                    <p><strong>注意事项：</strong></p>
-                                    <ul>
-                                        <li>必须已经提交了解除质押请求</li>
-                                        <li>必须等待30天锁定期结束</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function claimReward() external whenNotPaused nonReentrant returns (uint256)
-                                    </div>
-                                    <p class="mt-2">领取已获得的 Fair Reward Token 奖励。</p>
-                                    <p><strong>返回值：</strong> 领取的奖励数量</p>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function calculateEarnedTokens(address _user) public view returns (uint256)
-                                    </div>
-                                    <p class="mt-2">计算用户未领取的 Fair Reward Token 奖励。</p>
-                                    <p><strong>参数：</strong></p>
-                                    <ul>
-                                        <li>_user - 用户地址</li>
-                                    </ul>
-                                    <p><strong>返回值：</strong> 用户应获得的 FairVoteToken 数量</p>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function getUserStakeInfo(address _user) external view returns (uint256, uint256, uint256, uint256, uint256)
-                                    </div>
-                                    <p class="mt-2">获取用户质押信息。</p>
-                                    <p><strong>参数：</strong></p>
-                                    <ul>
-                                        <li>_user - 用户地址</li>
-                                    </ul>
-                                    <p><strong>返回值：</strong></p>
-                                    <ul>
-                                        <li>质押数量</li>
-                                        <li>质押开始时间</li>
-                                        <li>最后领取奖励时间</li>
-                                        <li>解除质押请求数量</li>
-                                        <li>解除质押请求时间</li>
-                                    </ul>
-                                </div>
-                                
-                                <h3 class="subtitle is-4">代币管理函数</h3>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function getRate() public view returns (uint256)
-                                    </div>
-                                    <p class="mt-2">获取当前的奖励率，基于总质押量计算。奖励率范围在100到500之间。</p>
-                                </div>
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function burn(uint256 amount) external whenNotPaused
-                                    </div>
-                                    <p class="mt-2">销毁发送者账户中的代币。</p>
-                                    <p><strong>参数：</strong></p>
-                                    <ul>
-                                        <li>amount - 要销毁的代币数量</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function setTokenExchangeRate(address tokenAddress, uint256 rate, uint256 startTime) external isOwner returns (bool)
-                                    </div>
-                                    <p class="mt-2">设置代币兑换率和开始时间。</p>
-                                    <p><strong>参数：</strong></p>
-                                    <ul>
-                                        <li>tokenAddress - 代币地址</li>
-                                        <li>rate - 兑换率（每个 Fair Reward Token 可兑换的目标代币数量）</li>
-                                        <li>startTime - 兑换开始时间（时间戳）</li>
-                                    </ul>
-                                    <p><strong>返回值：</strong> 设置是否成功</p>
-                                    <p><strong>注意事项：</strong></p>
-                                    <ul>
-                                        <li>不能为零地址、自身代币或质押代币设置兑换率</li>
-                                        <li>只有管理员可以调用</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function exchangeByBurn(address tokenAddress, uint256 frAmount) external whenNotPaused nonReentrant returns (uint256)
-                                    </div>
-                                    <p class="mt-2">通过销毁 Fair Reward Token 来兑换其他代币。</p>
-                                    <p><strong>参数：</strong></p>
-                                    <ul>
-                                        <li>tokenAddress - 要接收的代币地址</li>
-                                        <li>frAmount - 要销毁的 Fair Reward Token 数量</li>
-                                    </ul>
-                                    <p><strong>返回值：</strong> 获得的代币数量</p>
-                                    <p><strong>注意事项：</strong></p>
-                                    <ul>
-                                        <li>必须设置了相应的兑换率</li>
-                                        <li>必须达到兑换开始时间</li>
-                                        <li>合约中必须有足够的目标代币余额</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <div class="function-def">
-                                        function decimals() public view virtual override returns (uint8)
-                                    </div>
-                                    <p class="mt-2">返回代币使用的小数位数。</p>
-                                    <p><strong>返回值：</strong> 18（代币精度为18位小数）</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 修饰器 -->
-                <section id="modifiers" class="api-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-header-title">修饰器</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <div class="mb-4">
-                                    <div class="function-def">
-                                        modifier isOwner()
-                                    </div>
-                                    <p class="mt-2">检查调用者是否为所有者。</p>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <div class="function-def">
-                                        modifier whenNotPaused()
-                                    </div>
-                                    <p class="mt-2">检查合约是否未被暂停。</p>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <div class="function-def">
-                                        modifier nonReentrant()
-                                    </div>
-                                    <p class="mt-2">防止重入攻击的修饰器。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 合约结构 -->
-                <section id="contracts" class="api-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-header-title">合约</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <!-- FairdaoManagement -->
-                                <div class="mb-6">
-                                    <h3 class="subtitle is-4">FairdaoManagement</h3>
-                                    <p>FAIR DAO 管理合约，提供管理员、所有者和密钥管理器的管理功能。</p>
-                                    <p>实现了 IFairdaoManager 接口，处理访问控制、紧急停止机制和密钥管理操作。</p>
-                                </div>
-                                
-                                <!-- UserDataStorage -->
-                                <div class="mb-6">
-                                    <h3 class="subtitle is-4">UserDataStorage</h3>
-                                    <p>用户数据存储合约，负责管理特定于用户的数据。</p>
-                                    <p>允许密钥管理员为特定用户存储和检索数据。</p>
-                                </div>
-                                
-                                <!-- SharedDataStorage -->
-                                <div class="mb-6">
-                                    <h3 class="subtitle is-4">SharedDataStorage</h3>
-                                    <p>共享数据存储合约，负责管理所有用户共享的数据。</p>
-                                    <p>允许密钥管理员存储和检索可被所有用户访问的数据。</p>
-                                </div>
-                                
-                                <h3 class="subtitle is-4">数据结构</h3>
-                                
-                                <div class="mb-4">
-                                    <h4 class="title is-5">Storage 结构 (UserDataStorage 和 SharedDataStorage)</h4>
-                                    <div class="code-block">
-<pre>struct Storage {
-    uint64 timestamp; // 时间戳
-    bytes data;       // 数据内容
-}</pre>
-                                    </div>
-                                    <p class="mt-2">用于存储数据及其时间戳的结构。</p>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <h4 class="title is-5">ManagerInfo 结构 (FairdaoManagement)</h4>
-                                    <div class="code-block">
-<pre>struct ManagerInfo {
-    uint64 timestamp; // 时间戳
-    bool isOwner;     // 是否为所有者
-}</pre>
-                                    </div>
-                                    <p class="mt-2">存储管理员信息的结构，包括创建时间戳和所有者权限标记。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 事件 -->
-                <section id="events" class="api-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-header-title">事件</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <!-- FairdaoManagement 事件 -->
-                                <div id="fairdao-events" class="mb-6">
-                                    <h3 class="subtitle is-4">FairdaoManagement 事件</h3>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event ManagerAdded(
-                                                address indexed manager,
-                                                bool isOwner,
-                                                address indexed operator
-                                            )
-                                        </div>
-                                        <div class="tag is-success">添加</div>
-                                        <div class="tag is-light">indexed</div>
-                                        <p class="mt-2">当添加新管理员时触发。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>manager</code> - 被添加的管理员地址</li>
-                                            <li><code>isOwner</code> - 该管理员是否为所有者</li>
-                                            <li><code>operator</code> - 执行添加操作的地址</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event ManagerRemoved(
-                                                address indexed manager,
-                                                bool wasOwner,
-                                                address indexed operator
-                                            )
-                                        </div>
-                                        <div class="tag is-danger">移除</div>
-                                        <div class="tag is-light">indexed</div>
-                                        <p class="mt-2">当移除管理员时触发。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>manager</code> - 被移除的管理员地址</li>
-                                            <li><code>wasOwner</code> - 该管理员是否曾经是所有者</li>
-                                            <li><code>operator</code> - 执行移除操作的地址</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event AddKeyManager(
-                                                bytes32 indexed key,
-                                                address manager,
-                                                address indexed operator
-                                            )
-                                        </div>
-                                        <div class="tag is-success">添加</div>
-                                        <div class="tag is-light">indexed</div>
-                                        <p class="mt-2">当添加密钥管理员时触发。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>key</code> - 被管理的密钥</li>
-                                            <li><code>manager</code> - 密钥管理员的地址</li>
-                                            <li><code>operator</code> - 执行添加操作的地址</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event TransferKeyManager(
-                                                bytes32 indexed key,
-                                                address oldManager,
-                                                address newManager,
-                                                address indexed operator
-                                            )
-                                        </div>
-                                        <div class="tag is-warning">转移</div>
-                                        <div class="tag is-light">indexed</div>
-                                        <p class="mt-2">当密钥管理权限被转移时触发。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>key</code> - 被管理的密钥</li>
-                                            <li><code>oldManager</code> - 先前的管理员地址</li>
-                                            <li><code>newManager</code> - 新的管理员地址</li>
-                                            <li><code>operator</code> - 执行转移操作的地址</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">event EmergencyStopped(address indexed operator)</div>
-                                        <div class="tag is-info">紧急状态</div>
-                                        <div class="tag is-light">indexed</div>
-                                        <p class="mt-2">当启用紧急停止时触发。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>operator</code> - 触发紧急停止的地址</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">event EmergencyResumed(address indexed operator)</div>
-                                        <div class="tag is-success">恢复操作</div>
-                                        <div class="tag is-light">indexed</div>
-                                        <p class="mt-2">当禁用紧急停止时触发。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>operator</code> - 恢复操作的地址</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                
-                                <!-- UserDataStorage 事件 -->
-                                <div id="user-events" class="mb-6">
-                                    <h3 class="subtitle is-4">UserDataStorage 事件</h3>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event UserDataUpdated(
-                                                address indexed user,
-                                                bytes32 indexed key,
-                                                uint256 dataLength,
-                                                address indexed operator
-                                            )
-                                        </div>
-                                        <div class="tag is-info">更新</div>
-                                        <div class="tag is-light">indexed</div>
-                                        <p class="mt-2">当用户数据被更新时触发。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>user</code> - 用户地址</li>
-                                            <li><code>key</code> - 用于存储数据的密钥</li>
-                                            <li><code>dataLength</code> - 存储数据的长度</li>
-                                            <li><code>operator</code> - 执行更新操作的地址</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event FairdaoManagerSet(
-                                                address indexed managerAddress,
-                                                address indexed operator
-                                            )
-                                        </div>
-                                        <div class="tag is-info">更新</div>
-                                        <div class="tag is-light">indexed</div>
-                                        <p class="mt-2">当FairdaoManager地址被设置或更新时触发。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>managerAddress</code> - 新的FairdaoManager地址</li>
-                                            <li><code>operator</code> - 执行更新操作的地址</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                
-                                <!-- SharedDataStorage 事件 -->
-                                <div id="shared-events" class="mb-6">
-                                    <h3 class="subtitle is-4">SharedDataStorage 事件</h3>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event SharedDataUpdated(
-                                                bytes32 indexed key,
-                                                bytes32 indexed valueId,
-                                                uint256 dataLength,
-                                                address indexed operator
-                                            )
-                                        </div>
-                                        <div class="tag is-info">更新</div>
-                                        <div class="tag is-light">indexed</div>
-                                        <p class="mt-2">当共享数据被更新时触发。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>key</code> - 用于存储数据的密钥</li>
-                                            <li><code>valueId</code> - 值的唯一标识符</li>
-                                            <li><code>dataLength</code> - 存储数据的长度</li>
-                                            <li><code>operator</code> - 执行更新操作的地址</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">
-                                            event FairdaoManagerSet(
-                                                address indexed managerAddress,
-                                                address indexed operator
-                                            )
-                                        </div>
-                                        <div class="tag is-info">更新</div>
-                                        <div class="tag is-light">indexed</div>
-                                        <p class="mt-2">当FairdaoManager地址被设置或更新时触发。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>managerAddress</code> - 新的FairdaoManager地址</li>
-                                            <li><code>operator</code> - 执行更新操作的地址</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Modifiers -->
-                <section id="modifiers" class="api-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-header-title">修饰器</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <div class="mb-4">
-                                    <div class="function-def">modifier isOwner()</div>
-                                    <p class="mt-2">检查调用者是否为合约所有者。</p>
-                                    <p><strong>要求：</strong>调用者必须是合约所有者</p>
-                                    <p><strong>失败消息：</strong>"Not owner"</p>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <div class="function-def">modifier onlyManager()</div>
-                                    <p class="mt-2">检查调用者是否为合约管理员。</p>
-                                    <p><strong>要求：</strong>调用者必须是合约管理员</p>
-                                    <p><strong>失败消息：</strong>"Not manager"</p>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <div class="function-def">modifier notEmergency()</div>
-                                    <p class="mt-2">检查合约是否处于紧急停止状态。</p>
-                                    <p><strong>要求：</strong>合约不能处于紧急停止状态</p>
-                                    <p><strong>失败消息：</strong>"Emergency stop active"</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Functions -->
-                <section id="functions" class="api-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-header-title">函数</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <!-- FairdaoManagement 函数 -->
-                                <div id="fairdao-functions" class="mb-6">
-                                    <h3 class="subtitle is-4">FairdaoManagement 函数</h3>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">constructor()</div>
-                                        <p class="mt-2">构造函数，初始化合约并设置部署者地址为第一个所有者。</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function isManager(address user) external view returns (bool)</div>
-                                        <p class="mt-2">检查地址是否为管理员。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>user</code> - 要检查的地址</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong>bool - 是否为管理员</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function checkIsOwner(address account) external view returns (bool)</div>
-                                        <p class="mt-2">检查地址是否具有所有者权限。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>user</code> - 要检查的地址</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong>bool - 是否具有所有者权限</p>
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <div class="function-def">function addManager(address manager, bool withOwnerPermission) external isOwner notEmergency returns (bool)</div>
-                                        <p class="mt-2">添加新的管理员。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>manager</code> - 新管理员地址</li>
-                                            <li><code>withOwnerPermission</code> - 是否具有所有者权限</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong>bool - 操作是否成功</p>
-                                        <p><strong>事件：</strong>ManagerAdded(manager, withOwnerPermission, msg.sender)</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function getManagerCount() external view returns (uint256)</div>
-                                        <p class="mt-2">获取管理员数量。</p>
-                                        <p><strong>返回值：</strong>uint256 - 管理员数量</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function removeManager(uint256 index, address manager) external isOwner notEmergency returns (bool)</div>
-                                        <p class="mt-2">移除管理员。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>index</code> - 管理员在数组中的索引</li>
-                                            <li><code>manager</code> - 要移除的管理员地址</li>
-                                        </ul>
-                                        <p><strong>要求：</strong></p>
-                                        <ul>
-                                            <li>index 必须有效</li>
-                                            <li>manager 必须在指定的索引位置</li>
-                                        </ul>
-                                        <p><strong>失败消息：</strong></p>
-                                        <ul>
-                                            <li>"Bad index"</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong>bool - 操作是否成功</p>
-                                        <p><strong>事件：</strong>ManagerRemoved(manager, wasOwner, msg.sender)</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function getManagerAtIndex(uint256 index) external view returns (address)</div>
-                                        <p class="mt-2">获取指定索引处的管理员地址。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>index</code> - 数组中的索引</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong>address - 管理员地址</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function getManagerInfo(address user) external view returns (uint256 timestamp, bool isOwner)</div>
-                                        <p class="mt-2">获取指定地址的管理员信息。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>user</code> - 要获取信息的地址</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong></p>
-                                        <ul>
-                                            <li><code>timestamp</code> - 管理员添加时间戳（如果不是管理员则为0）</li>
-                                            <li><code>isOwner</code> - 该管理员是否具有所有者权限</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function isKeyManager(bytes32 key, address user) external view returns (bool)</div>
-                                        <p class="mt-2">检查地址是否为指定密钥的管理器。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>key</code> - 要检查的密钥</li>
-                                            <li><code>user</code> - 要检查的地址</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong>bool - 是否为密钥管理器</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function getKeyManager(bytes32 key) external view returns (address manager)</div>
-                                        <p class="mt-2">获取特定密钥的管理器地址。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>key</code> - 要查询的密钥</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong>address - 密钥管理器地址，如果没有则为 address(0)</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function addKeyManager(bytes32 key, address manager) external onlyManager notEmergency returns (bool)</div>
-                                        <p class="mt-2">为单个密钥添加管理器。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>key</code> - 要添加管理器的密钥</li>
-                                            <li><code>manager</code> - 管理器地址</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong>bool - 操作是否成功</p>
-                                        <p><strong>事件：</strong>AddKeyManager(key, manager, msg.sender)</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function transferKeyManager(bytes32 key, address newManager) external notEmergency isOwner returns (bool)</div>
-                                        <p class="mt-2">将密钥管理权限转移给另一个地址。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>key</code> - 要转移管理权限的密钥</li>
-                                            <li><code>newManager</code> - 新管理器地址</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong>bool - 操作是否成功</p>
-                                        <p><strong>事件：</strong>TransferKeyManager(key, oldManager, newManager, msg.sender)</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function isEmergencyStopped() external view returns (bool)</div>
-                                        <p class="mt-2">检查合约是否处于紧急停止状态。</p>
-                                        <p><strong>返回值：</strong>bool - 合约是否处于紧急停止状态</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function enableEmergencyStop() external isOwner returns (bool)</div>
-                                        <p class="mt-2">启用紧急停止（仅限所有者）。</p>
-                                        <p><strong>返回值：</strong>bool - 操作是否成功</p>
-                                        <p><strong>事件：</strong>EmergencyStopped(msg.sender)</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function disableEmergencyStop() external isOwner returns (bool)</div>
-                                        <p class="mt-2">禁用紧急停止（仅限所有者）。</p>
-                                        <p><strong>返回值：</strong>bool - 操作是否成功</p>
-                                        <p><strong>事件：</strong>EmergencyResumed(msg.sender)</p>
-                                    </div>
-                                </div>
-                                
-                                <!-- UserDataStorage 函数 -->
-                                <div id="user-functions" class="mb-6">
-                                    <h3 class="subtitle is-4">UserDataStorage 函数</h3>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">constructor()</div>
-                                        <p class="mt-2">构造函数，将合约所有者设置为部署者。</p>
-                                        <p><strong>参数：</strong> 无</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function setFairdaoManager(address fairdaoManagerAddress) external returns (bool)</div>
-                                        <p class="mt-2">设置FairdaoManager合约地址。调用者首次设置时必须是合约所有者，且指定的fairdaoManagerAddress必须是FairdaoManager合约的所有者。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>fairdaoManagerAddress</code> - FairdaoManager合约的地址</li>
-                                        </ul>
-                                        <p><strong>要求：</strong></p>
-                                        <ul>
-                                            <li>如果FairdaoManager未设置，调用者必须是合约所有者</li>
-                                            <li>调用者必须是fairdaoManager.isOwner认可的所有者</li>
-                                            <li>fairdaoManagerAddress 不能为 address(0)</li>
-                                        </ul>
-                                        <p><strong>失败消息：</strong></p>
-                                        <ul>
-                                            <li>"Not owner"</li>
-                                            <li>"Invalid manager addr"</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong> bool - 操作是否成功</p>
-                                        <p><strong>事件：</strong> FairdaoManagerSet(fairdaoManagerAddress, msg.sender)</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function setUserData(address user, bytes32 key, bytes calldata data) external returns (bool)</div>
-                                        <p class="mt-2">存储用户数据。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>user</code> - 用户地址</li>
-                                            <li><code>key</code> - 存储数据的键</li>
-                                            <li><code>data</code> - 要存储的数据</li>
-                                        </ul>
-                                        <p><strong>要求：</strong></p>
-                                        <ul>
-                                            <li>必须已设置FairdaoManager</li>
-                                            <li>user 不能为 address(0)</li>
-                                            <li>key 不能为 bytes32(0)</li>
-                                            <li>调用者必须是指定密钥的密钥管理员</li>
-                                        </ul>
-                                        <p><strong>失败消息：</strong></p>
-                                        <ul>
-                                            <li>"Manager not set"</li>
-                                            <li>"Zero user"</li>
-                                            <li>"Zero key"</li>
-                                            <li>"Not key manager"</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong>bool - 操作是否成功</p>
-                                        <p><strong>事件：</strong>UserDataUpdated(user, key, data.length, msg.sender)</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function getUserData(address user, bytes32 key) external view returns (bytes memory data, uint64 timestamp)</div>
-                                        <p class="mt-2">获取存储的用户数据。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>user</code> - 用户地址</li>
-                                            <li><code>key</code> - 检索数据的键</li>
-                                        </ul>
-                                        <p><strong>要求：</strong></p>
-                                        <ul>
-                                            <li>必须已设置FairdaoManager</li>
-                                            <li>user 不能为 address(0)</li>
-                                            <li>key 不能为 bytes32(0)</li>
-                                        </ul>
-                                        <p><strong>失败消息：</strong></p>
-                                        <ul>
-                                            <li>"Manager not set"</li>
-                                            <li>"Zero user"</li>
-                                            <li>"Zero key"</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong></p>
-                                        <ul>
-                                            <li><code>data</code> - 存储的数据</li>
-                                            <li><code>timestamp</code> - 最后更新的时间戳</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <div class="function-def">function getFairdaoManager() external view returns (address)</div>
-                                        <p class="mt-2">获取FairdaoManager合约的地址。</p>
-                                        <p><strong>参数：</strong> 无</p>
-                                        <p><strong>返回值：</strong> address - FairdaoManager合约的地址</p>
-                                    </div>
-                                </div>
-                                
-                                <!-- SharedDataStorage 函数 -->
-                                <div id="shared-functions" class="mb-6">
-                                    <h3 class="subtitle is-4">SharedDataStorage 函数</h3>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">constructor()</div>
-                                        <p class="mt-2">构造函数，将合约所有者设置为部署者。</p>
-                                        <p><strong>参数：</strong> 无</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function setFairdaoManager(address fairdaoManagerAddress) external returns (bool)</div>
-                                        <p class="mt-2">设置FairdaoManager合约地址。调用者首次设置时必须是合约所有者，且指定的fairdaoManagerAddress必须是FairdaoManager合约的所有者。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>fairdaoManagerAddress</code> - FairdaoManager合约的地址</li>
-                                        </ul>
-                                        <p><strong>要求：</strong></p>
-                                        <ul>
-                                            <li>如果FairdaoManager未设置，调用者必须是合约所有者</li>
-                                            <li>调用者必须是fairdaoManager.isOwner认可的所有者</li>
-                                            <li>fairdaoManagerAddress 不能为 address(0)</li>
-                                        </ul>
-                                        <p><strong>失败消息：</strong></p>
-                                        <ul>
-                                            <li>"Not owner"</li>
-                                            <li>"Invalid manager addr"</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong> bool - 操作是否成功</p>
-                                        <p><strong>事件：</strong> FairdaoManagerSet(fairdaoManagerAddress, msg.sender)</p>
-                                    </div>
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function setSharedData(bytes32 key, bytes32 sharedValueId, bytes calldata data) external returns (bool)</div>
-                                        <p class="mt-2">存储共享数据。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>key</code> - 存储数据的键</li>
-                                            <li><code>sharedValueId</code> - 值的唯一标识符</li>
-                                            <li><code>data</code> - 要存储的数据</li>
-                                        </ul>
-                                        <p><strong>要求：</strong></p>
-                                        <ul>
-                                            <li>必须已设置FairdaoManager</li>
-                                            <li>key 不能为 bytes32(0)</li>
-                                            <li>sharedValueId 不能为 bytes32(0)</li>
-                                            <li>调用者必须是指定密钥的密钥管理员</li>
-                                        </ul>
-                                        <p><strong>失败消息：</strong></p>
-                                        <ul>
-                                            <li>"Manager not set"</li>
-                                            <li>"Zero key"</li>
-                                            <li>"Zero value ID"</li>
-                                            <li>"Not key manager"</li>
-                                        </ul>
-                                    </div>
-                                    
-
-                                    
-                                    <div class="mb-4">
-                                        <div class="function-def">function getSharedData(bytes32 key, bytes32 sharedValueId) external view returns (bytes memory data, uint64 timestamp)</div>
-                                        <p class="mt-2">获取共享数据。</p>
-                                        <p><strong>参数：</strong></p>
-                                        <ul>
-                                            <li><code>key</code> - 检索数据的键</li>
-                                            <li><code>sharedValueId</code> - 值的唯一标识符</li>
-                                        </ul>
-                                        <p><strong>要求：</strong></p>
-                                        <ul>
-                                            <li>必须已设置FairdaoManager</li>
-                                            <li>key 不能为 bytes32(0)</li>
-                                            <li>sharedValueId 不能为 bytes32(0)</li>
-                                        </ul>
-                                        <p><strong>失败消息：</strong></p>
-                                        <ul>
-                                            <li>"Manager not set"</li>
-                                            <li>"Zero key"</li>
-                                            <li>"Zero value ID"</li>
-                                        </ul>
-                                        <p><strong>返回值：</strong></p>
-                                        <ul>
-                                            <li><code>data</code> - 存储的共享数据</li>
-                                            <li><code>timestamp</code> - 最后更新的时间戳</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <div class="function-def">function getFairdaoManager() external view returns (address)</div>
-                                        <p class="mt-2">获取FairdaoManager合约的地址。</p>
-                                        <p><strong>参数：</strong> 无</p>
-                                        <p><strong>返回值：</strong> address - FairdaoManager合约的地址</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
             </div>
         </div>
     </div>
 
-    <!-- 页脚 -->
-    <footer class="footer mt-8">
+    <!-- Footer --<footer class="footer mt-8">
         <div class="container">
             <div class="content has-text-centered">
-                <p>FairdaoStorage 非接口合约 API 文档 &copy; 2025</p>
+                <p>FairStakeToken 合约 API 文档 &copy; 2025</p>
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script src="/js/doc.js"></script>
+    <script>
+        // Language switch function
+        function switchLanguage(language) {
+            if (language === 'en') {
+                window.location.href = 'en.html';
+            } else {
+                window.location.href = 'zh.html';
+            }
+        }
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

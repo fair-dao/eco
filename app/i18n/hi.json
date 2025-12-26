@@ -1,0 +1,83 @@
+{
+  "network": {
+    "warnning": "वर्तमान वातावरण टेस्टनेट है, सभी लेन-देन केवल टेस्टनेट में ही मान्य हैं और मुख्य नेटवर्क को प्रभावित नहीं करेंगे।",
+    "disconnect": "वॉलेट डिस्कनेक्ट हो गई है",
+    "connect": {
+      "error": "वॉलेट कनेक्शन असफल"
+    }
+  },
+  "navigation": {
+    "doc": "दस्तावेज़",
+    "staking": "स्टेक किया गया",
+    "burn": "जलाया गया",
+    "exchange": "兑换",
+    "whitepaper": "व्हाइटपेपर",
+    "contributing": "योगदान",
+    "forum": "फोरम",
+    "serviceagreement": "सेवा समझौता",
+    "privacypolicy": "गोपनीयता नीति",
+    "disclaimers": "अस्वीकरण",
+    "legal": "कानूनी नियम",
+    "contact": "हमसे संपर्क करें",
+    "email": "ईमेल",
+    "phone": "फोन",
+    "address": "पता",
+    "governance": "शासन",
+    "mission": "मिशन",
+    "about": "हमारे बारे में",
+    "allrightsreserved": "सर्वाधिकार सुरक्षित",
+    "resources": "संसाधन",
+    "links": "लिंक",
+    "accountinfo": "खाता जानकारी",
+    "admin": {
+      "exchangeSetup": "टोकन विनिमय दर सेटअप"
+    }
+  },
+  "title": "FAIR पारिस्थितिकी",
+  "logs": {
+    "contractLogs": "नियतकालिक लॉग",
+    "noData": "कोई ऑपरेशन रिकॉर्ड नहीं",
+    "table": {
+      "user": "पता",
+      "from": "प्रेषक पता",
+      "eventName": "ऑपरेशन",
+      "amount": "मात्रा",
+      "timestamp": "समय",
+      "status": "स्थिति",
+      "transactionId": "लेन-देन हैश",
+      "tokenAmount": "代币数量",
+      "frAmount": "FR数量",
+      "fairAmount": "FAIR数量",
+      "value": "मात्रा",
+      "to": "प्राप्तकर्ता पता",
+      "operator": "ऑपरेटर"
+    },
+    "eventNames": {
+      "Staked": "स्टेक किया गया",
+      "Unstaked": "अस्टेक किया गया",
+      "RewardClaimed": "पुरस्कार दावा करें",
+      "Withdrawn": "निकालें",
+      "UnstakeRequested": "अस्टेक अनुरोध करें",
+      "Paused": "रोका गया",
+      "Unpaused": "फिर से शुरू",
+      "ContributorRewardMinted": "योगदान पुरस्कार मिंट किया",
+      "Burnt": "जलाया गया",
+      "Transfer": "स्थानांतरित",
+      "Mint": "मिंट",
+      "Burn": "जलाया गया",
+      "Reward": "पुरस्कार",
+      "TokenExchanged": "टोकन विनिमय"
+    },
+    "status": {
+      "success": "सफल",
+      "pending": "प्रक्रिया में",
+      "failed": "विफल"
+    }
+  },
+  "admin": {
+    "title": "एडमिन टूल्स",
+    "exchange": {
+      "title": "टोकन विनिमय दर सेटअप"
+    }
+  }
+}

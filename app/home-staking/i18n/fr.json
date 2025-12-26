@@ -1,0 +1,44 @@
+{
+  "labels": {
+    "stakedFairBalance": "已质押FAIR / FAIR余额",
+    "earnedFrBalance": "可领取FR / FR余额",
+    "unstakeRequestAmount": "申请解押数量",
+    "unstakeCountdown": "解押倒计时",
+    "stakeAmountFair": "质押数量 (FAIR)",
+    "unstakeAmountFair": "解押数量 (FAIR)",
+    "unstakeWaitPeriod": "解押等待期"
+  },
+  "buttons": {
+    "stake": "Staking",
+    "claim": "领取",
+    "withdraw": "提取",
+    "requestUnstake": "申请解押",
+    "cancel": "取消",
+    "confirmStake": "确认质押",
+    "confirmUnstake": "确认申请解押",
+    "confirmClaim": "确认领取",
+    "refreshStats": "刷新统计数据",
+    "refreshLogs": "刷新日志"
+  },
+  "modals": {
+    "stakeFair": "质押 FAIR",
+    "requestUnstake": "申请解押",
+    "claimRewards": "领取奖励",
+    "confirmClaim": "确认要领取奖励吗？"
+  },
+  "unstakeWaitDays": {
+    "30days": "30天",
+    "15days": "15天",
+    "60days": "60天"
+  },
+  "placeholders": {
+    "enterStakeAmount": "请输入质押数量",
+    "enterUnstakeAmount": "请输入解押数量"
+  },
+  "title": {
+    "stakeAndUnstake": "质押与解押",
+    "stakeOperations": "质押操作",
+    "unstakeOperations": "解押操作",
+    "operationsHistory": "操作历史"
+  }
+}
