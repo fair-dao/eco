@@ -304,7 +304,7 @@ class FairStakeApp {
                 event.result[field] / Math.pow(10, 18),
                 4
               );
-              fieldHtml = `<td>${amount}</td>`;
+              fieldHtml = `<td>${amount}${(event.eventName==='Staked' || event.eventName==='UnstakeRequested') && field==='fairAmount' ?' ('+event.result["rate"]/100+'%)':''}</td>`;
               break;
             case "exchangeTokenAmount":
               debugger;

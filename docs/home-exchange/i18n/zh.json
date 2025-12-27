@@ -15,6 +15,7 @@
   },
   "exchange": {
     "notOpen": "未开通兑换",
+    "longTime":"长期",
     "end": "已结束",
     "endTime": "结束时间",
     "remainingAmount": "可兑换",

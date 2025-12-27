@@ -782,7 +782,8 @@ class Common {
    */
   async getContractEvents(contractAddress, eventName, fromBlock, toBlock) {
     try {
-      const tronWeb = this.tronWebConnector.getTronWeb();
+      debugger;
+      const tronWeb = this.tronWebConnector.getReadTronWeb();
       const contractAddressHex = tronWeb.address.toHex(contractAddress);
 
       let eventOptions = {

@@ -1,33 +1,34 @@
 {
   "burn": {
     "reward": {
-      "title": "Échange de tokens",
-      "amount": "Quantité de FR à brûler",
-      "placeholder": "Entrez la quantité à brûler",
-      "token": "Token de récompense",
-      "token_placeholder": "Veuillez sélectionner un token de récompense",
-      "button": "Brûler FR",
-      "frBalance": "Solde des tokens FR"
+      "title": "Token Exchange",
+      "amount": "Burn FR Amount",
+      "placeholder": "Enter burn amount",
+      "token": "Reward Token",
+      "token_placeholder": "Please select reward token",
+      "button": "Burn FR",
+      "frBalance": "FR Token Balance"
     }
   },
   "logs": {
-    "burnLogs": "Journal de combustion"
+    "burnLogs": "Burn Logs"
   },
   "exchange": {
-    "notOpen": "Échange non disponible",
-    "end": "Terminé",
-    "endTime": "结束时间",
-    "remainingAmount": "Échangeable",
-    "canGet": "Vous pouvez obtenir",
-    "start": "Bientôt",
-    "minutes": "Minutes",
-    "contractBalance": "Solde du contrat",
+    "notOpen": "Exchange not opened",
+    "longTime": "长期",
+    "end": "Ended",
+    "endTime": "End Time",
+    "remainingAmount": "Remaining",
+    "canGet": "获得",
+    "start": "即将开始",
+    "minutes": "分钟",
+    "contractBalance": "合约余额",
     "rule": {
-      "title": "Règles d'échange",
-      "item1": "Les utilisateurs peuvent échanger d'autres types de tokens en brûlant des tokens FR",
-      "item2": "Dans les 24 heures avant l'échange, le montant de chaque échange ne peut pas dépasser 1% du solde échangeable",
-      "item3": "Veuillez vous assurer d'avoir un solde suffisant en tokens FR pour l'échange",
-      "item4": "Après l'achèvement de la transaction d'échange, les tokens FR correspondants seront brûlés définitivement"
+      "title": "兑换规则",
+      "item1": "FAIR DAO所有收益最终都将打入 FR 合约，用户可以通过销毁 FR 代币来兑换DAO收益。",
+      "item2": "兑换开启后的24小时内，每次兑换金额不能超过可兑换余额的1%。",
+      "item3": "兑换交易完成后，相应的 FR 代币将被永久销毁。",
+      "item4": "兑换功能仅在指定时间段内开放，过期将无法参与"
     }
   }
 }

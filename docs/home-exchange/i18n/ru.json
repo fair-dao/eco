@@ -1,33 +1,34 @@
 {
   "burn": {
     "reward": {
-      "title": "Обмен токенов",
-      "amount": "Количество FR для сжигания",
-      "placeholder": "Введите количество для сжигания",
-      "token": "Награда в токенах",
-      "token_placeholder": "Пожалуйста, выберите токен награды",
-      "button": "Сжечь FR",
-      "frBalance": "Баланс токенов FR"
+      "title": "Экосистема FAIR",
+      "amount": "Количество",
+      "placeholder": "Enter burn amount",
+      "token": "Reward Token",
+      "token_placeholder": "Please select reward token",
+      "button": "Burn FR",
+      "frBalance": "FR Token Balance"
     }
   },
   "logs": {
-    "burnLogs": "Журнал сжигания"
+    "burnLogs": "Burn Logs"
   },
   "exchange": {
-    "notOpen": "Обмен недоступен",
-    "end": "Завершено",
-    "endTime": "结束时间",
-    "remainingAmount": "Обменный",
-    "canGet": "Можно получить",
-    "start": "Скоро начнется",
-    "minutes": "Минуты",
-    "contractBalance": "Баланс контракта",
+    "notOpen": "Exchange not opened",
+    "longTime": "长期",
+    "end": "Ended",
+    "endTime": "End Time",
+    "remainingAmount": "Remaining",
+    "canGet": "获得",
+    "start": "即将开始",
+    "minutes": "分钟",
+    "contractBalance": "合约余额",
     "rule": {
-      "title": "Правила обмена",
-      "item1": "Пользователи могут обменять другие типы токенов, сжигая токены FR",
-      "item2": "В течение 24 часов до обмена доступно, каждый обмен сумма не может превышать 1% от обменного баланса",
-      "item3": "Пожалуйста, убедитесь, что у вас есть достаточно баланса токенов FR для обмена",
-      "item4": "После завершения обменной транзакции соответствующие токены FR будут навсегда сожжены"
+      "title": "Экосистема FAIR",
+      "item1": "You can stake FAIR tokens to earn FR token rewards. The FR token yield is related to the number of FAIR tokens staked. The minimum annual yield is 1%, and the maximum annual yield is 5%. Staked tokens will be locked in the smart contract, and the maximum staking amount per user is 35,000,000.",
+      "item2": "Unstaking requires an application and a waiting period. The minimum waiting time is 15 days, and the maximum is 60 days. Waiting 60 days allows free unlocking, and each day less waiting requires paying a 0.2% fee on the unlocking amount.",
+      "item3": "You need to claim earnings every 180 days, otherwise FR token production will stop. Please make sure to fully understand the relevant rules and risks before operating.",
+      "item4": "兑换功能仅在指定时间段内开放，过期将无法参与"
     }
   }
 }

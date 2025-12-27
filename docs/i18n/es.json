@@ -1,25 +1,25 @@
 {
   "network": {
-    "warnning": "El entorno actual es una red de prueba, todas las transacciones solo son válidas en la red de prueba y no afectan la red principal.",
-    "disconnect": "Billetera desconectada",
+    "warnning": "El entorno actual es testnet, todas las transacciones son válidas solo en testnet y no afectarán a la mainnet.",
+    "disconnect": "Wallet desconectada",
     "connect": {
-      "error": "Error al conectar billetera"
+      "error": "Fallo en la conexión de wallet"
     }
   },
   "navigation": {
-    "doc": "Documentos",
-    "staking": "Está participando",
-    "burn": "Destruir",
-    "exchange": "兑换",
-    "whitepaper": "Libro blanco",
-    "contributing": "Contribuciones",
+    "doc": "Documentación",
+    "staking": "Staking",
+    "burn": "Quemar",
+    "exchange": "Intercambio",
+    "whitepaper": "Whitepaper",
+    "contributing": "Contribución",
     "forum": "Foro",
     "serviceagreement": "Acuerdo de servicio",
     "privacypolicy": "Política de privacidad",
-    "disclaimers": "Descargo de responsabilidad",
-    "legal": "Términos legales",
-    "contact": "Contáctenos",
-    "email": "Correo electrónico",
+    "disclaimers": "Exenciones",
+    "legal": "Legal",
+    "contact": "Contacto",
+    "email": "Email",
     "phone": "Teléfono",
     "address": "Dirección",
     "governance": "Gobernanza",
@@ -30,54 +30,54 @@
     "links": "Enlaces",
     "accountinfo": "Información de cuenta",
     "admin": {
-      "exchangeSetup": "Configuración de tasa de intercambio de tokens"
+      "exchangeSetup": "Configuración del tipo de cambio de tokens"
     }
   },
   "title": "Ecosistema FAIR",
   "logs": {
-    "contractLogs": "Registros de contrato",
-    "noData": "No hay registros de operaciones",
+    "contractLogs": "Registros del contrato",
+    "noData": "Aún no hay registros de operaciones",
     "table": {
       "user": "Dirección",
-      "from": "Dirección de envío",
+      "from": "Dirección de origen",
       "eventName": "Operación",
       "amount": "Cantidad",
-      "timestamp": "Tiempo",
+      "timestamp": "Hora",
       "status": "Estado",
-      "transactionId": "Hash de transacción",
-      "tokenAmount": "代币数量",
-      "frAmount": "FR数量",
-      "fairAmount": "FAIR数量",
-      "value": "Cantidad",
-      "to": "Dirección de recepción",
+      "transactionId": "Hash de la transacción",
+      "tokenAmount": "Cantidad de tokens",
+      "frAmount": "Cantidad de FR",
+      "fairAmount": "Cantidad de FAIR",
+      "value": "Valor",
+      "to": "Dirección de destino",
       "operator": "Operador"
     },
     "eventNames": {
-      "Staked": "Está participando",
-      "Unstaked": "No está participando",
+      "Staked": "Staked",
+      "Unstaked": "Unstaked",
       "RewardClaimed": "Reclamar recompensa",
-      "Withdrawn": "Retirar",
-      "UnstakeRequested": "Solicitar retiro de participación",
+      "Withdrawn": "Retirado",
+      "UnstakeRequested": "Solicitar unstake",
       "Paused": "Pausado",
-      "Unpaused": "Reanudado",
-      "ContributorRewardMinted": "Compensación por contribución",
-      "Burnt": "Destruir",
+      "Unpaused": "Repausado",
+      "ContributorRewardMinted": "铸造贡献奖励",
+      "Burnt": "Quemado",
       "Transfer": "Transferir",
       "Mint": "Mint",
-      "Burn": "Destruir",
+      "Burn": "Quemar",
       "Reward": "Recompensa",
-      "TokenExchanged": "Intercambio de tokens"
+      "TokenExchanged": "Token intercambiado"
     },
     "status": {
-      "success": "Éxito",
-      "pending": "En proceso",
-      "failed": "Fracasado"
+      "success": "Exitoso",
+      "pending": "Procesando",
+      "failed": "Fallido"
     }
   },
   "admin": {
     "title": "Herramientas de administrador",
     "exchange": {
-      "title": "Configuración de tasa de intercambio de tokens"
+      "title": "Configuración del tipo de cambio de tokens"
     }
   }
 }

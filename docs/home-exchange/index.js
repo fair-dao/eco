@@ -338,9 +338,13 @@ class BurnRewardModule {
               debugger
               time = end - curTime;
               if (time > 0) {
+                if(time>10000000){
+                  tokenExchangeInfo.innerHTML = `<span data-i18n='exchange.longTime'></span>`;
+                }else {
                 tokenExchangeInfo.innerHTML = `<span data-i18n='exchange.endTime'></span> ${formatTimestamp(
                   data.endTime
                 )}`;
+              }
                 const button = card.querySelector("button");
                 button.addEventListener("click", (e) => {
                   const tokenAddress =

@@ -15,19 +15,20 @@
   },
   "exchange": {
     "notOpen": "Exchange not opened",
+    "longTime": "长期",
     "end": "Ended",
     "endTime": "End Time",
     "remainingAmount": "Remaining",
-    "canGet": "Can Get",
-    "start": "Upcoming",
-    "minutes": "Minutes",
-    "contractBalance": "Contract Balance",
+    "canGet": "获得",
+    "start": "即将开始",
+    "minutes": "分钟",
+    "contractBalance": "合约余额",
     "rule": {
-      "title": "Exchange Rules",
-      "item1": "Users can exchange other types of tokens by burning FR tokens",
-      "item2": "Exchange ratio is dynamically calculated according to the specific rules of the smart contract",
-      "item3": "Please ensure you have sufficient FR token balance for the exchange",
-      "item4": "Corresponding FR tokens will be permanently destroyed after the exchange transaction is completed"
+      "title": "Token Exchange",
+      "item1": "FAIR DAO所有收益最终都将打入 FR 合约，用户可以通过销毁 FR 代币来兑换DAO收益。",
+      "item2": "兑换开启后的24小时内，每次兑换金额不能超过可兑换余额的1%。",
+      "item3": "兑换交易完成后，相应的 FR 代币将被永久销毁。",
+      "item4": "兑换功能仅在指定时间段内开放，过期将无法参与"
     }
   }
 }

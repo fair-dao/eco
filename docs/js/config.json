@@ -59,11 +59,10 @@
       "eventServer": "https://nile.trongrid.io",
       "browser": "https://nile.tronscan.org",
       "launcherAddress":"TD9gYEPVWnbSQQ8fWdFpS3haAgmmoAL1jU",
-      "diamondAddress":"TU89M6qk2xPsHfNzdKctjFVhQXnbL6beSR",
-      "cutAddress0000":"TR9ciRSToTz8sJT9CSn9mE3VnXzUPdRvv9",      
-      "lookAddress":"TMRws2H7z97XySNqXCyaBEEHf3VwTq7qgQ",
+      "diamondAddress":"TJScPkChdaSGorkBmASdaKKfTQFeqLc555",
       "rewardToken": {
-        "address": "TJ8kgrLYDG48jFJAJmmCHcHipMMp5aCfLE",
+        "address": "TZ5CWUecLFJ2X3nqWy1x8JbFb8vkc7xxVU",
+        "address27":"TAuZtQt5DZ3Lt2ctvT2q5AUidHRu32dc6p",
         "address2": "TXaRSUxXZvdQXw5z84Quz4aJH7g31HTSXF",
         "decimals": 18,
         "symbol": "FR"
@@ -89,8 +88,8 @@
           "icon": "https://static.tronscan.org/production/logo/usdtlogo.png"
         },
         {
-          "address": "TF17BgPaZYbz8oxbjhriubPDsA7ArKoLX3",
-          "symbol": "JST",
+          "address": "TNuoKL1ni8aoshfFL1ASca1Gou9RXwAzfn",
+          "symbol": "BTT",
           "type": 0,
           "decimals": 18,
           "icon": "https://static.tronscan.org/production/logo/just_icon.png"

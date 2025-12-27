@@ -49,7 +49,7 @@
         "failed": "Failed"
       },
       "transactionId": "Transaction Hash",
-      "tokenAmount": "Token Amount",
+      "exchangeTokenAmount": "代币数量",
       "frAmount": "FR Amount",
       "fairAmount": "FAIR Amount",
       "value": "Amount",

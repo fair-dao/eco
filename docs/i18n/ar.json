@@ -1,83 +1,83 @@
 {
   "network": {
-    "warnning": "البيئة الحالية هي شبكة اختبارية، وتعتبر جميع الصفقات فقط فعالة في الشبكة الاختبارية ولا تأثر على الشبكة الرئيسية.",
-    "disconnect": "تم فصل المحفظة",
+    "warnning": "البيئة الحالية هي شبكة اختبارية، وتكون جميع المعاملات صالحة فقط على الشبكة التجريبية ولا ستؤثر على الشبكة الرئيسية.",
+    "disconnect": "المحفظة مفصولة",
     "connect": {
-      "error": "فشل في الاتصال بالمحفظة"
+      "error": "فشل الاتصال بالمحفظة"
     }
   },
   "navigation": {
     "doc": "الوثائق",
-    "staking": "الرهن",
+    "staking": "الرهان",
     "burn": "الحرق",
-    "exchange": "兑换",
-    "whitepaper": "الكتاب الأبيض",
-    "contributing": "التعاون",
+    "exchange": "التبادل",
+    "whitepaper": "الوثيقة البيضاء",
+    "contributing": "المساهمة",
     "forum": "المنتدى",
     "serviceagreement": "اتفاقية الخدمة",
     "privacypolicy": "سياسة الخصوصية",
-    "disclaimers": "إفصاحات التخلص من المسؤولية",
-    "legal": "الشروط القانونية",
+    "disclaimers": "الإخلاء من المسؤولية",
+    "legal": "القانون",
     "contact": "اتصل بنا",
     "email": "البريد الإلكتروني",
     "phone": "الهاتف",
     "address": "العنوان",
-    "governance": "التنظيم",
+    "governance": "الحكم",
     "mission": "الرسالة",
-    "about": "عن нас",
+    "about": "عن الشركة",
     "allrightsreserved": "كل الحقوق محفوظة",
     "resources": "الموارد",
     "links": "الروابط",
     "accountinfo": "معلومات الحساب",
     "admin": {
-      "exchangeSetup": "إعداد معدل تبادل العملات الرقمية"
+      "exchangeSetup": "إعداد سعر التبادل للعملات"
     }
   },
-  "title": "بيئة FAIR",
+  "title": "نظام FAIR",
   "logs": {
     "contractLogs": "سجلات العقد",
-    "noData": "لا توجد سجلات للعمليات حتى الآن",
+    "noData": "لا توجد سجلات عمليات حتى الآن",
     "table": {
       "user": "العنوان",
-      "from": "عنوان الإرسال",
+      "from": "العنوان المرسل من",
       "eventName": "العملية",
-      "amount": "الكمية",
+      "amount": "المبلغ",
       "timestamp": "الوقت",
       "status": "الحالة",
-      "transactionId": "هاش الصفقة",
-      "tokenAmount": "代币数量",
-      "frAmount": "FR数量",
-      "fairAmount": "FAIR数量",
-      "value": "الكمية",
-      "to": "عنوان الاستلام",
-      "operator": "المنشئ"
+      "transactionId": "كود العملية",
+      "tokenAmount": "مبلغ العملة",
+      "frAmount": "مبلغ FR",
+      "fairAmount": "مبلغ FAIR",
+      "value": "القيمة",
+      "to": "العنوان المستلم",
+      "operator": "المشغل"
     },
     "eventNames": {
-      "Staked": "الرهن",
-      "Unstaked": "إلغاء الرهن",
+      "Staked": "رهان",
+      "Unstaked": "إلغاء الرهان",
       "RewardClaimed": "استلام المكافأة",
-      "Withdrawn": "السحب",
-      "UnstakeRequested": "طلب إلغاء الرهن",
-      "Paused": "إيقاف مؤقت",
-      "Unpaused": "استئناف",
-      "ContributorRewardMinted": "تصنيع مكافأة المساهم",
-      "Burnt": "الحرق",
-      "Transfer": "التحويل",
-      "Mint": "التصنيع",
-      "Burn": "الحرق",
-      "Reward": "المكافأة",
-      "TokenExchanged": "تبادل العملات الرقمية"
+      "Withdrawn": "سحب",
+      "UnstakeRequested": "طلب إلغاء الرهان",
+      "Paused": "متوقف",
+      "Unpaused": "متابعة",
+      "ContributorRewardMinted": "铸造贡献奖励",
+      "Burnt": "محترق",
+      "Transfer": "تحويل",
+      "Mint": "铸造",
+      "Burn": "销毁",
+      "Reward": "奖励",
+      "TokenExchanged": "代币兑换"
     },
     "status": {
-      "success": "نجاح",
+      "success": "ناجح",
       "pending": "قيد المعالجة",
       "failed": "فشل"
     }
   },
   "admin": {
-    "title": "أدوات المسؤول",
+    "title": "أدوات الإدارة",
     "exchange": {
-      "title": "إعداد معدل تبادل العملات الرقمية"
+      "title": "إعداد سعر التبادل للعملات"
     }
   }
 }

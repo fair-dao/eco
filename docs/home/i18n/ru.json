@@ -1,23 +1,23 @@
 {
   "warning": {
-    "title": "FR代币说明",
-    "tip1": "FR代币(FAIR Reward Token)是 FAIR DAO 奖励性代币，初始供应量为0。",
-    "tip2": "获取FR代币的途径只有两种：一是通过质押FAIR代币领取(每次最多可领取90天收益)；二是通过参与FAIR DAO建设获取。",
-    "tip3": "FR代币是兑换FAIR DAO 收益的唯一凭证，DAO所有收益最终都将打入FR合约，只能通过销毁FR代币来换取DAO收益。"
+    "title": "Экосистема FAIR",
+    "tip1": "FR Token (FAIR Reward Token) is the reward token of FAIR DAO, initial supply is 0.",
+    "tip2": "Ways to obtain FR tokens: 1. Claim by staking FAIR tokens; 2. Obtain by participating in FAIR DAO construction.",
+    "tip3": "FR Token is the only proof for exchanging FAIR DAO earnings. All DAO earnings will be transferred to FR contract, and you can only exchange DAO earnings by burning FR tokens."
   },
   "stats": {
     "global": {
-      "title": "全局统计"
+      "title": "Экосистема FAIR"
     },
-    "currentNetwork": "当前网络",
-    "totalSupply": "FR 总供应量",
-    "totalStaked": "FAIR 总质押量",
-    "totalUnstaking": "正在解押数量",
-    "fairContract": "FAIR 合约地址",
-    "frContract": "FR 合约地址"
+    "currentNetwork": "Current Network",
+    "totalSupply": "Total FR Supply",
+    "totalStaked": "Total Staked FAIR",
+    "totalUnstaking": "Unstaking Amount",
+    "fairContract": "FAIR Contract Address",
+    "frContract": "FR Contract Address"
   },
   "logs": {
-    "fairContract": "FAIR 日志",
-    "frContract": "FR 日志"
+    "fairContract": "FAIR Contract Address",
+    "frContract": "FR Contract Address"
   }
 }

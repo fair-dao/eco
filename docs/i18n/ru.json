@@ -1,24 +1,24 @@
 {
   "network": {
-    "warnning": "Текущая среда - тестовая сеть, все транзакции действительны только в тестовой сети и не влияют на основную сеть.",
+    "warnning": "Текущая среда - тестовая сеть, все транзакции действительны только в тестовой сети и не повлияют на основную сеть.",
     "disconnect": "Кошелек отключен",
     "connect": {
       "error": "Ошибка подключения кошелька"
     }
   },
   "navigation": {
-    "doc": "Документы",
-    "staking": "Стейкод",
-    "burn": "Сожгнуть",
-    "exchange": "兑换",
+    "doc": "Документация",
+    "staking": "Стейкинг",
+    "burn": "Сжигание",
+    "exchange": "Обмен",
     "whitepaper": "Белая книга",
-    "contributing": "Вклад",
+    "contributing": "Участие",
     "forum": "Форум",
-    "serviceagreement": "Соглашение об обслуживании",
+    "serviceagreement": "Соглашение о предоставлении услуг",
     "privacypolicy": "Политика конфиденциальности",
     "disclaimers": "Отказ от ответственности",
-    "legal": "Юридические условия",
-    "contact": "Свяжитесь с нами",
+    "legal": "Юридическое",
+    "contact": "Контакты",
     "email": "Электронная почта",
     "phone": "Телефон",
     "address": "Адрес",
@@ -39,45 +39,49 @@
     "noData": "Нет записей о операциях",
     "table": {
       "user": "Адрес",
-      "from": "Адрес отправителя",
+      "from": "Отправитель",
       "eventName": "Операция",
       "amount": "Количество",
       "timestamp": "Время",
-      "status": "Статус",
+      "status": {
+        "success": "Успешно",
+        "pending": "В процессе",
+        "failed": "Не выполнено"
+      },
       "transactionId": "Хэш транзакции",
-      "tokenAmount": "代币数量",
-      "frAmount": "FR数量",
-      "fairAmount": "FAIR数量",
-      "value": "Количество",
-      "to": "Адрес получателя",
+      "exchangeTokenAmount": "代币数量",
+      "frAmount": "Количество FR",
+      "fairAmount": "Количество FAIR",
+      "value": "Значение",
+      "to": "Получатель",
       "operator": "Оператор"
     },
     "eventNames": {
-      "Staked": "Стейкод",
-      "Unstaked": "Анстейкод",
+      "Staked": "Стейкинг",
+      "Unstaked": "Анстейкинг",
       "RewardClaimed": "Получить награду",
       "Withdrawn": "Вывести",
       "UnstakeRequested": "Запрос на анстейкинг",
       "Paused": "Приостановлено",
       "Unpaused": "Возобновлено",
-      "ContributorRewardMinted": "Награда за вклад",
-      "Burnt": "Сожгнуть",
-      "Transfer": "Перевести",
+      "ContributorRewardMinted": "Минт награды за вклад",
+      "Burnt": "Сожжено",
+      "Transfer": "Перевод",
       "Mint": "Минт",
-      "Burn": "Сожгнуть",
+      "Burn": "Сжигание",
       "Reward": "Награда",
       "TokenExchanged": "Обмен токенов"
     },
     "status": {
-      "success": "Успех",
+      "success": "Успешно",
       "pending": "В процессе",
-      "failed": "Неудача"
+      "failed": "Не выполнено"
     }
   },
   "admin": {
-    "title": "Инструменты админа",
+    "title": "Экосистема FAIR",
     "exchange": {
-      "title": "Настройка курса обмена токенов"
+      "title": "Экосистема FAIR"
     }
   }
 }

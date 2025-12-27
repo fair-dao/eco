@@ -24,6 +24,25 @@ class TronWebConnector {
     return tronWeb.defaultAddress.base58;
   }
 
+  #readTronWebs={};
+
+  getReadTronWeb(){
+    const network=this.common.network;
+    const curNetworkName=network.name;
+    if(this.#readTronWebs[curNetworkName]){
+      return this.#readTronWebs[curNetworkName];
+    }else {
+         const TronWeb = window.TronWeb.TronWeb;
+         const web = new TronWeb({
+          fullHost: network.fullNode,
+          solidityNode: network.solidityNode,
+          eventServer: network.eventServer
+        });
+       this.#readTronWebs[curNetworkName]=web;
+       return web;
+    }
+  }
+
   /**
    * 初始化TronWeb实例
    */

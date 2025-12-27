@@ -1,9 +1,9 @@
 {
   "warning": {
-    "title": "FR代币说明",
-    "tip1": "FR代币(FAIR Reward Token)是 FAIR DAO 奖励性代币，初始供应量为0。",
-    "tip2": "获取FR代币的途径只有两种：一是通过质押FAIR代币领取(每次最多可领取90天收益)；二是通过参与FAIR DAO建设获取。",
-    "tip3": "FR代币是兑换FAIR DAO 收益的唯一凭证，DAO所有收益最终都将打入FR合约，只能通过销毁FR代币来换取DAO收益。"
+    "title": "FR 代币说明",
+    "tip1": "FR 代币（FAIR 奖励代币）是 FAIR DAO 的奖励代币，初始发行量为 0。",
+    "tip2": "获取 FR 代币的方式：1. 通过质押 FAIR 代币领取；2. 通过参与 FAIR DAO 建设获得。",
+    "tip3": "FR 代币是兑换 FAIR DAO 收益的唯一凭证。所有 DAO 收益将转入 FR 合约，您只有通过销毁 FR 代币才能兑换 DAO 收益。"
   },
   "stats": {
     "global": {
@@ -11,8 +11,8 @@
     },
     "currentNetwork": "当前网络",
     "totalSupply": "FR 总供应量",
-    "totalStaked": "FAIR 总质押量",
-    "totalUnstaking": "正在解押数量",
+    "totalStaked": "已质押 FAIR 总量",
+    "totalUnstaking": "解押中数量",
     "fairContract": "FAIR 合约地址",
     "frContract": "FR 合约地址"
   },

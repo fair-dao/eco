@@ -7,6 +7,7 @@ class ContractInteraction {
   constructor(tronWebConnector) {
     this.tronWebConnector = tronWebConnector;
     this.contract = null;
+    this.readFrContract = null;
     this.fairContract = null;
     this.frContract = null;
     this.contractAddress = null;
@@ -49,6 +50,11 @@ class ContractInteraction {
       );
       this.frContract = await tronWeb.contract(
         this.config.abis.ierc20,
+        this.contractAddress
+      );
+      const readWeb = this.tronWebConnector.getReadTronWeb();
+      this.readFrContract= await readWeb.contract(
+        contractABI,
         this.contractAddress
       );
     } else {
@@ -934,8 +940,7 @@ class ContractInteraction {
       // 计算结束时间（一周有604800秒）
       const endTime =
         parseInt(exchangeInfo.startTime) +
-        parseInt(exchangeInfo.exchangeDurationWeeks) * 604800;
-
+        parseInt(exchangeInfo.exchangeDurationWeeks>254 ? 100000 : exchangeInfo.exchangeDurationWeeks) * 604800;
       // 获取FR代币和目标代币的小数点位数
       let frDecimals =
         this.config.networks[this.config.currentNetwork]?.rewardToken

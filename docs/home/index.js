@@ -248,7 +248,7 @@ class HomeModule {
         [
         "user,contributor",
         "eventName",
-        "frAmount",
+        "frAmount,value",
         "fairAmount",
         "to",
         "timestamp",

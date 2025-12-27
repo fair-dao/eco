@@ -1,33 +1,34 @@
 {
   "burn": {
     "reward": {
-      "title": "Trao đổi token",
-      "amount": "Số lượng FR cần tiêu hủy",
-      "placeholder": "Nhập số lượng cần tiêu hủy",
-      "token": "Token thưởng",
-      "token_placeholder": "Vui lòng chọn token thưởng",
-      "button": "Tiêu hủy FR",
-      "frBalance": "Số dư token FR"
+      "title": "代币兑换",
+      "amount": "销毁 FR 数量",
+      "placeholder": "请输入销毁数量",
+      "token": "奖励代币",
+      "token_placeholder": "请选择奖励代币",
+      "button": "销毁 FR",
+      "frBalance": "FR 代币余额"
     }
   },
   "logs": {
-    "burnLogs": "Nhật ký tiêu hủy"
+    "burnLogs": "销毁记录"
   },
   "exchange": {
-    "notOpen": "Chưa mở trao đổi",
-    "end": "Đã kết thúc",
+    "notOpen": "兑换暂未开放",
+    "longTime": "长期",
+    "end": "已结束",
     "endTime": "结束时间",
-    "remainingAmount": "Có thể trao đổi",
-    "canGet": "Có thể nhận được",
-    "start": "Sắp bắt đầu",
-    "minutes": "Phút",
-    "contractBalance": "Số dư hợp đồng",
+    "remainingAmount": "剩余数量",
+    "canGet": "获得",
+    "start": "即将开始",
+    "minutes": "分钟",
+    "contractBalance": "合约余额",
     "rule": {
-      "title": "Quy tắc trao đổi",
-      "item1": "Người dùng có thể trao đổi các loại token khác bằng cách tiêu hủy token FR",
-      "item2": "Trong vòng 24 giờ trước khi có thể trao đổi, mỗi lần trao đổi không được vượt quá 1% của số dư có thể trao đổi",
-      "item3": "Vui lòng đảm bảo bạn có đủ số dư token FR để trao đổi",
-      "item4": "Sau khi hoàn thành giao dịch trao đổi, token FR tương ứng sẽ bị tiêu hủy vĩnh viễn"
+      "title": "兑换规则",
+      "item1": "FAIR DAO所有收益最终都将打入 FR 合约，用户可以通过销毁 FR 代币来兑换DAO收益。",
+      "item2": "兑换开启后的24小时内，每次兑换金额不能超过可兑换余额的1%。",
+      "item3": "兑换交易完成后，相应的 FR 代币将被永久销毁。",
+      "item4": "兑换功能仅在指定时间段内开放，过期将无法参与"
     }
   }
 }

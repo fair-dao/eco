@@ -1,56 +1,56 @@
 {
   "network": {
-    "warnning": "当前环境为测试网络,所有交易仅在测试网络有效，不会对主网产生影响。",
+    "warnning": "当前环境为测试网，所有交易仅在测试网有效，不会对主网产生影响。",
     "disconnect": "钱包已断开连接",
     "connect": {
-      "error": "钱包连接失败"
+      "error": "连接钱包失败"
     }
   },
   "navigation": {
-    "doc": "文档",
+    "doc": "帮助文档",
     "staking": "质押",
     "burn": "销毁",
     "exchange": "兑换",
     "whitepaper": "白皮书",
-    "contributing": "贡献",
-    "forum": "论坛",
+    "contributing": "参与贡献",
+    "forum": "社区论坛",
     "serviceagreement": "服务协议",
     "privacypolicy": "隐私政策",
     "disclaimers": "免责声明",
     "legal": "法律条款",
     "contact": "联系我们",
-    "email": "邮箱",
-    "phone": "电话",
-    "address": "地址",
+    "email": "电子邮箱",
+    "phone": "联系电话",
+    "address": "联系地址",
     "governance": "治理",
     "mission": "使命",
     "about": "关于我们",
-    "allrightsreserved": "所有权利保留",
-    "resources": "资源",
-    "links": "链接",
-    "accountinfo":"账户信息",
-    "admin":{
-      "exchangeSetup":"代币兑换率设置"
+    "allrightsreserved": "版权所有",
+    "resources": "资源中心",
+    "links": "相关链接",
+    "accountinfo": "账户信息",
+    "admin": {
+      "exchangeSetup": "代币汇率设置"
     }
   },
-  "title": "FAIR 生态",  
+  "title": "FAIR 生态系统",
   "logs": {
     "contractLogs": "合约日志",
     "noData": "暂无操作记录",
     "table": {
       "user": "地址",
-      "from": "发送地址",
+      "from": "转出地址",
       "eventName": "操作",
       "amount": "数量",
       "timestamp": "时间",
       "status": "状态",
       "transactionId": "交易哈希",
-      "exchangeTokenAmount": "代币数量",
-      "frAmount": "FR数量",
-      "fairAmount": "FAIR数量",
+      "tokenAmount": "代币数量",
+      "frAmount": "FR 数量",
+      "fairAmount": "FAIR 数量",
       "value": "数量",
-      "to":"接收地址",
-      "operator":"操作人"
+      "to": "转入地址",
+      "operator": "操作者"
     },
     "eventNames": {
       "Staked": "质押",
@@ -60,13 +60,13 @@
       "UnstakeRequested": "申请解押",
       "Paused": "暂停",
       "Unpaused": "恢复",
-      "ContributorRewardMinted": "贡献奖励",
+      "ContributorRewardMinted": "铸造贡献奖励",
       "Burnt": "销毁",
       "Transfer": "转账",
       "Mint": "铸造",
       "Burn": "销毁",
       "Reward": "奖励",
-      "TokenExchanged": "代币兑换"
+      "TokenExchanged": "代币已兑换"
     },
     "status": {
       "success": "成功",
@@ -75,10 +75,9 @@
     }
   },
   "admin": {
-    "title": "管理员工具",
+    "title": "管理工具",
     "exchange": {
-      "title": "代币兑换率设置"
+      "title": "代币汇率设置"
     }
   }
-
 }

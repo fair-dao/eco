@@ -43,15 +43,16 @@ contract FairStakeToken is ERC20 {
     error ExceedsMaxSupply(uint256 requested, uint256 maxSupply, uint256 currentSupply);
     
     /**
-     * @dev Maximum supply of FR tokens
-     * @notice 1 billion FR tokens with 18 decimals
+     * @dev Contract constants - All constants are centralized here for easy management and maintenance
      */
-    uint256 private constant MAX_TOKEN_SUPPLY = 1_000_000_000_000 * 10**18;
-    uint256 private constant MAX_USER_STAKE = 20_000_000 * 10**18;
+    uint256 private constant PRECISION_MULTIPLIER = 10 ** 18;
+    uint256 private constant MAX_TOKEN_SUPPLY = 1_000_000_000_000 * PRECISION_MULTIPLIER;
+    uint256 private constant MAX_USER_STAKE = 30_000_000 * PRECISION_MULTIPLIER;
     uint256 private constant SECONDS_PER_DAY = 1 days;
     uint256 private constant SECONDS_PER_WEEK = SECONDS_PER_DAY * 7;
-    uint256 private constant MAX_STAKE_DURATION = SECONDS_PER_DAY * 90;
-
+    uint256 private constant MAX_STAKE_DURATION = SECONDS_PER_DAY * 180;    
+    uint256 private constant BASE_REWARD_RATE = 10000 * PRECISION_MULTIPLIER;
+    
     /**
      * @dev Immutable addresses (set during construction)
      */
@@ -92,20 +93,7 @@ contract FairStakeToken is ERC20 {
      * @dev Total amount of tokens in the unstaking period
      */
     uint256 public totalUnstaking;
-    
-    /**
-     * @dev Contract constants
-     */
-    /**
-     * @dev Standard token precision
-     */
-    uint256 private constant PRECISION_MULTIPLIER = 10 ** 18;
-    
-    /**
-     * @dev Base rate for stake reward calculations
-     */
-    uint256 private constant BASE_REWARD_RATE = 1000 * PRECISION_MULTIPLIER;
-    
+
     // Token transfer type enum
     enum TokenTransferType {
         STANDARD,        // Standard ERC20 transfer that returns boolean

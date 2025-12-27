@@ -1,23 +1,23 @@
 {
   "network": {
-    "warnning": "현재 환경은 테스트넷입니다. 모든 거래는 테스트넷에서만 유효하며 메인넷에 영향을 미치지 않습니다.",
-    "disconnect": "지갑이 연결 해제되었습니다",
+    "warnning": "Current environment is testnet, all transactions are only valid on testnet and will not affect mainnet.",
+    "disconnect": "Wallet disconnected",
     "connect": {
-      "error": "지갑 연결 실패"
+      "error": "Wallet connection failed"
     }
   },
   "navigation": {
     "doc": "문서",
-    "staking": "스테이크 됨",
+    "staking": "스테이킹",
     "burn": "버닝",
-    "exchange": "兑换",
-    "whitepaper": "화이트페이퍼",
+    "exchange": "교환",
+    "whitepaper": "백서",
     "contributing": "기여",
     "forum": "포럼",
     "serviceagreement": "서비스 약관",
-    "privacypolicy": "개인정보 처리방침",
-    "disclaimers": "免責声援",
-    "legal": "법적 조항",
+    "privacypolicy": "개인 정보 보호 정책",
+    "disclaimers": "면책 사항",
+    "legal": "법적",
     "contact": "문의하기",
     "email": "이메일",
     "phone": "전화",
@@ -25,59 +25,59 @@
     "governance": "거버넌스",
     "mission": "미션",
     "about": "회사 소개",
-    "allrightsreserved": "모든 권리 보유",
+    "allrightsreserved": "All Rights Reserved",
     "resources": "자원",
     "links": "링크",
     "accountinfo": "계정 정보",
     "admin": {
-      "exchangeSetup": "토큰 교환율 설정"
+      "exchangeSetup": "Token Exchange Rate Setup"
     }
   },
-  "title": "FAIR 생태계",
+  "title": "FAIR Ecosystem",
   "logs": {
-    "contractLogs": "계약 로그",
-    "noData": "작업 기록 없음",
+    "contractLogs": "Contract Logs",
+    "noData": "No operation records yet",
     "table": {
-      "user": "주소",
-      "from": "발신 주소",
-      "eventName": "작업",
-      "amount": "수량",
-      "timestamp": "시간",
-      "status": "상태",
-      "transactionId": "트랜잭션 해시",
-      "tokenAmount": "代币数量",
-      "frAmount": "FR数量",
-      "fairAmount": "FAIR数量",
-      "value": "수량",
-      "to": "수신 주소",
-      "operator": "작업자"
+      "user": "Address",
+      "from": "From Address",
+      "eventName": "Operation",
+      "amount": "Amount",
+      "timestamp": "Time",
+      "status": "Status",
+      "transactionId": "Transaction Hash",
+      "tokenAmount": "Token Amount",
+      "frAmount": "FR Amount",
+      "fairAmount": "FAIR Amount",
+      "value": "Amount",
+      "to": "To Address",
+      "operator": "Operator"
     },
     "eventNames": {
-      "Staked": "스테이크 됨",
-      "Unstaked": "언스테이크 됨",
-      "RewardClaimed": "보상 수령",
-      "Withdrawn": "출금",
-      "UnstakeRequested": "언스테이크 신청",
-      "Paused": "일시 중지",
-      "Unpaused": "재개",
-      "ContributorRewardMinted": "기여 보상 민트",
-      "Burnt": "버닝",
-      "Transfer": "이체",
-      "Mint": "민트",
-      "Burn": "버닝",
-      "Reward": "보상",
-      "TokenExchanged": "토큰 교환"
+      "Staked": "Staked",
+      "Unstaked": "Unstaked",
+      "RewardClaimed": "Claim Reward",
+      "Withdrawn": "Withdrawn",
+      "UnstakeRequested": "Request Unstake",
+      "Paused": "Paused",
+      "Unpaused": "Unpaused",
+      "ContributorRewardMinted": "铸造贡献奖励",
+      "Burnt": "Burnt",
+      "Transfer": "Transfer",
+      "Mint": "Mint",
+      "Burn": "Burn",
+      "Reward": "Reward",
+      "TokenExchanged": "Token Exchanged"
     },
     "status": {
-      "success": "성공",
-      "pending": "처리 중",
-      "failed": "실패"
+      "success": "Success",
+      "pending": "Processing",
+      "failed": "Failed"
     }
   },
   "admin": {
-    "title": "관리자 도구",
+    "title": "Admin Tools",
     "exchange": {
-      "title": "토큰 교환율 설정"
+      "title": "Token Exchange Rate Setup"
     }
   }
 }

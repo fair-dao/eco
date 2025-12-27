@@ -1,83 +1,83 @@
 {
   "network": {
-    "warnning": "Môi trường hiện tại là mạng thử nghiệm, tất cả các giao dịch chỉ có hiệu lực trên mạng thử nghiệm và không ảnh hưởng đến mạng chính.",
-    "disconnect": "Ví được ngắt kết nối",
+    "warnning": "Current environment is testnet, all transactions are only valid on testnet and will not affect mainnet.",
+    "disconnect": "Wallet disconnected",
     "connect": {
-      "error": "Không kết nối được ví"
+      "error": "Wallet connection failed"
     }
   },
   "navigation": {
     "doc": "Tài liệu",
-    "staking": "Đặt cược",
-    "burn": "Hủy",
-    "exchange": "兑换",
-    "whitepaper": "Bảng trắng",
-    "contributing": "Đóng góp",
+    "staking": "Staking",
+    "burn": "Burn",
+    "exchange": "Exchange",
+    "whitepaper": "Whitepaper",
+    "contributing": "Contributing",
     "forum": "Diễn đàn",
-    "serviceagreement": "Điều khoản dịch vụ",
+    "serviceagreement": "Thỏa thuận dịch vụ",
     "privacypolicy": "Chính sách bảo mật",
-    "disclaimers": "Tuyên bố từ chối trách nhiệm",
-    "legal": "Điều khoản pháp lý",
-    "contact": "Liên hệ với chúng tôi",
+    "disclaimers": "Từ chối trách nhiệm",
+    "legal": "Legal",
+    "contact": "Liên hệ",
     "email": "Email",
     "phone": "Điện thoại",
     "address": "Địa chỉ",
-    "governance": "Quản trị",
-    "mission": "Sứ mệnh",
+    "governance": "Quy định",
+    "mission": "Nhiệm vụ",
     "about": "Về chúng tôi",
-    "allrightsreserved": "Tất cả quyền được bảo lưu",
+    "allrightsreserved": "All Rights Reserved",
     "resources": "Tài nguyên",
     "links": "Liên kết",
     "accountinfo": "Thông tin tài khoản",
     "admin": {
-      "exchangeSetup": "Cấu hình tỷ lệ trao đổi token"
+      "exchangeSetup": "Token Exchange Rate Setup"
     }
   },
-  "title": "Hệ sinh thái FAIR",
+  "title": "FAIR Ecosystem",
   "logs": {
-    "contractLogs": "Nhật ký hợp đồng",
-    "noData": "Không có bản ghi hoạt động",
+    "contractLogs": "Contract Logs",
+    "noData": "No operation records yet",
     "table": {
-      "user": "Địa chỉ",
-      "from": "Địa chỉ gửi",
-      "eventName": "Hoạt động",
-      "amount": "Số lượng",
-      "timestamp": "Thời gian",
-      "status": "Trạng thái",
-      "transactionId": "Mã giao dịch",
-      "tokenAmount": "代币数量",
-      "frAmount": "FR数量",
-      "fairAmount": "FAIR数量",
-      "value": "Số lượng",
-      "to": "Địa chỉ nhận",
-      "operator": "Người thực hiện"
+      "user": "Address",
+      "from": "From Address",
+      "eventName": "Operation",
+      "amount": "Amount",
+      "timestamp": "Time",
+      "status": "Status",
+      "transactionId": "Transaction Hash",
+      "tokenAmount": "Token Amount",
+      "frAmount": "FR Amount",
+      "fairAmount": "FAIR Amount",
+      "value": "Amount",
+      "to": "To Address",
+      "operator": "Operator"
     },
     "eventNames": {
-      "Staked": "Đặt cược",
-      "Unstaked": "Hủy đặt cược",
-      "RewardClaimed": "Nhận thưởng",
-      "Withdrawn": "Rút tiền",
-      "UnstakeRequested": "Yêu cầu hủy đặt cược",
-      "Paused": "Tạm dừng",
-      "Unpaused": "Khôi phục",
-      "ContributorRewardMinted": "Đóng góp thưởng",
-      "Burnt": "Hủy",
-      "Transfer": "Chuyển tiền",
+      "Staked": "Staked",
+      "Unstaked": "Unstaked",
+      "RewardClaimed": "Claim Reward",
+      "Withdrawn": "Withdrawn",
+      "UnstakeRequested": "Request Unstake",
+      "Paused": "Paused",
+      "Unpaused": "Unpaused",
+      "ContributorRewardMinted": "Contributor Reward Minted",
+      "Burnt": "Burnt",
+      "Transfer": "Transfer",
       "Mint": "Mint",
-      "Burn": "Hủy",
-      "Reward": "Thưởng",
-      "TokenExchanged": "Trao đổi token"
+      "Burn": "Burn",
+      "Reward": "Reward",
+      "TokenExchanged": "Token Exchanged"
     },
     "status": {
-      "success": "Thành công",
-      "pending": "Đang xử lý",
-      "failed": "Thất bại"
+      "success": "Success",
+      "pending": "Processing",
+      "failed": "Failed"
     }
   },
   "admin": {
-    "title": "Công cụ quản trị viên",
+    "title": "Admin Tools",
     "exchange": {
-      "title": "Cấu hình tỷ lệ trao đổi token"
+      "title": "Token Exchange Rate Setup"
     }
   }
 }

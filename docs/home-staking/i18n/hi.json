@@ -1,51 +1,53 @@
 {
   "labels": {
-    "stakedFairBalance": "已质押FAIR / FAIR余额",
-    "earnedFrBalance": "可领取FR / FR余额",
-    "unstakeRequestAmount": "申请解押数量",
-    "unstakeCountdown": "解押倒计时",
-    "stakeAmountFair": "质押数量 (FAIR)",
-    "unstakeAmountFair": "解押数量 (FAIR)",
-    "unstakeWaitPeriod": "解押等待期"
+    "stakedFairBalance": "Staked FAIR / FAIR Balance",
+    "earnedFrBalance": "Claimable FR / FR Balance",
+    "unstakeRequestAmount": "Unstake Request Amount",
+    "unstakeCountdown": "Unstake Countdown",
+    "stakeAmountFair": "Stake Amount (FAIR)",
+    "unstakeAmountFair": "Unstake Amount (FAIR)",
+    "unstakeWaitPeriod": "Unstake Waiting Period"
   },
   "buttons": {
-    "stake": "स्टेकिंग",
-    "claim": "领取",
-    "withdraw": "提取",
-    "requestUnstake": "申请解押",
-    "cancel": "取消",
-    "confirmStake": "确认质押",
-    "confirmUnstake": "确认申请解押",
-    "confirmClaim": "确认领取",
-    "refreshStats": "刷新统计数据",
-    "refreshLogs": "刷新日志"
+    "stake": "Stake",
+    "claim": "Claim",
+    "withdraw": "Withdraw",
+    "requestUnstake": "Request Unstake",
+    "cancel": "Cancel",
+    "confirmStake": "Confirm Stake",
+    "confirmUnstake": "Confirm Unstake Request",
+    "confirmClaim": "Confirm Claim",
+    "refreshStats": "Refresh Statistics",
+    "refreshLogs": "Refresh Logs"
   },
   "modals": {
-    "stakeFair": "质押 FAIR",
-    "requestUnstake": "申请解押",
-    "claimRewards": "领取奖励",
-    "confirmClaim": "确认要领取奖励吗？"
+    "stakeFair": "Stake FAIR",
+    "requestUnstake": "Request Unstake",
+    "claimRewards": "Claim Rewards",
+    "confirmClaim": "Confirm Claim"
   },
   "unstakeWaitDays": {
-    "30days": "30天",
-    "15days": "15天",
-    "60days": "60天"
+    "60days": "60 Days",
+    "45days": "45天 (3%手续费)",
+    "30days": "30 Days",
+    "20days": "20天 (8%手续费)",
+    "15days": "15 Days"
   },
   "placeholders": {
-    "enterStakeAmount": "请输入质押数量",
-    "enterUnstakeAmount": "请输入解押数量"
+    "enterStakeAmount": "Please enter stake amount",
+    "enterUnstakeAmount": "Please enter unstake amount"
   },
   "title": {
-    "stakeAndUnstake": "质押与解押",
-    "stakeOperations": "质押操作",
-    "unstakeOperations": "解押操作",
-    "operationsHistory": "操作历史",
-    "stakingRules": "质押与解押规则"
+    "stakeAndUnstake": "Stake & Unstake",
+    "stakeOperations": "Stake Operations",
+    "unstakeOperations": "Unstake Operations",
+    "operationsHistory": "Operations History",
+    "stakingRules": "Staking & Unstaking Rules"
   },
   "rules": {
-    "title": "质押与解押规则",
-    "item1": "用户可以将 FAIR 代币质押以获得 FR 奖励",
-    "item2": "质押的 FAIR 代币会在智能合约中被锁定",
-    "item3": "解押需要申请并等待一定的锁定期"
+    "title": "फेयर इकोसिस्टम",
+    "item1": "You can stake FAIR tokens to earn FR token rewards. The FR token yield is related to the number of FAIR tokens staked. The minimum annual yield is 1%, and the maximum annual yield is 5%. Staked tokens will be locked in the smart contract, and the maximum staking amount per user is 30,000,000.",
+    "item2": "Unstaking requires an application and a waiting period. The minimum waiting time is 15 days, and the maximum is 60 days. Waiting 60 days allows free unlocking, and each day less waiting requires paying a 0.2% fee on the unlocking amount.",
+    "item3": "You need to claim earnings every 180 days, otherwise FR token production will stop. Please make sure to fully understand the relevant rules and risks before operating."
   }
 }

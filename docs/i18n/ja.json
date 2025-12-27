@@ -1,83 +1,83 @@
 {
   "network": {
-    "warnning": "現在の環境はテストネットワークです。すべての取引はテストネットワークでのみ有効であり、メインネットワークには影響を与えません。",
-    "disconnect": "ウォレットが切断されました",
+    "warnning": "Current environment is testnet, all transactions are only valid on testnet and will not affect mainnet.",
+    "disconnect": "Wallet disconnected",
     "connect": {
-      "error": "ウォレット接続に失敗しました"
+      "error": "Wallet connection failed"
     }
   },
   "navigation": {
-    "doc": "ドキュメント",
-    "staking": "ステーク済み",
-    "burn": "バーン",
-    "exchange": "兑换",
-    "whitepaper": "ホワイトペーパー",
-    "contributing": "貢献",
-    "forum": "フォーラム",
-    "serviceagreement": "サービス契約",
-    "privacypolicy": "プライバシーポリシー",
-    "disclaimers": "免責事項",
-    "legal": "法律条項",
-    "contact": "お問い合わせ",
-    "email": "メール",
-    "phone": "電話",
-    "address": "住所",
-    "governance": "ガバナンス",
-    "mission": "使命",
-    "about": "私たちについて",
-    "allrightsreserved": "全著作権所有",
-    "resources": "リソース",
-    "links": "リンク",
-    "accountinfo": "アカウント情報",
+    "doc": "Documentation",
+    "staking": "Staking",
+    "burn": "Burn",
+    "exchange": "Exchange",
+    "whitepaper": "Whitepaper",
+    "contributing": "Contributing",
+    "forum": "Forum",
+    "serviceagreement": "Service Agreement",
+    "privacypolicy": "Privacy Policy",
+    "disclaimers": "Disclaimers",
+    "legal": "Legal",
+    "contact": "Contact Us",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "governance": "Governance",
+    "mission": "Mission",
+    "about": "About Us",
+    "allrightsreserved": "All Rights Reserved",
+    "resources": "Resources",
+    "links": "Links",
+    "accountinfo": "Account Info",
     "admin": {
-      "exchangeSetup": "トークン交換レート設定"
+      "exchangeSetup": "Token Exchange Rate Setup"
     }
   },
-  "title": "FAIR エコシステム",
+  "title": "FAIR Ecosystem",
   "logs": {
-    "contractLogs": "コントラクトログ",
-    "noData": "操作記録はありません",
+    "contractLogs": "Contract Logs",
+    "noData": "No operation records yet",
     "table": {
-      "user": "住所",
-      "from": "送信元アドレス",
-      "eventName": "操作",
-      "amount": "数量",
-      "timestamp": "時間",
-      "status": "状態",
-      "transactionId": "トランザクションハッシュ",
-      "tokenAmount": "代币数量",
-      "frAmount": "FR数量",
-      "fairAmount": "FAIR数量",
-      "value": "数量",
-      "to": "受信アドレス",
-      "operator": "操作人"
+      "user": "Address",
+      "from": "From Address",
+      "eventName": "Operation",
+      "amount": "Amount",
+      "timestamp": "Time",
+      "status": "Status",
+      "transactionId": "Transaction Hash",
+      "tokenAmount": "Token Amount",
+      "frAmount": "FR Amount",
+      "fairAmount": "FAIR Amount",
+      "value": "Amount",
+      "to": "To Address",
+      "operator": "Operator"
     },
     "eventNames": {
-      "Staked": "ステーク済み",
-      "Unstaked": "アンステーク済み",
-      "RewardClaimed": "報酬を請求",
-      "Withdrawn": "引き出し",
-      "UnstakeRequested": "アンステークを申請",
-      "Paused": "一時停止",
-      "Unpaused": "再開",
-      "ContributorRewardMinted": "貢献報酬ミント",
-      "Burnt": "バーン",
-      "Transfer": "転送",
-      "Mint": "ミント",
-      "Burn": "バーン",
-      "Reward": "報酬",
-      "TokenExchanged": "トークン交換"
+      "Staked": "Staked",
+      "Unstaked": "Unstaked",
+      "RewardClaimed": "Claim Reward",
+      "Withdrawn": "Withdrawn",
+      "UnstakeRequested": "Request Unstake",
+      "Paused": "Paused",
+      "Unpaused": "Unpaused",
+      "ContributorRewardMinted": "Contributor Reward Minted",
+      "Burnt": "Burnt",
+      "Transfer": "Transfer",
+      "Mint": "Mint",
+      "Burn": "Burn",
+      "Reward": "Reward",
+      "TokenExchanged": "Token Exchanged"
     },
     "status": {
-      "success": "成功",
-      "pending": "処理中",
-      "failed": "失敗"
+      "success": "Success",
+      "pending": "Processing",
+      "failed": "Failed"
     }
   },
   "admin": {
-    "title": "管理ツール",
+    "title": "Admin Tools",
     "exchange": {
-      "title": "トークン交換レート設定"
+      "title": "Token Exchange Rate Setup"
     }
   }
 }
