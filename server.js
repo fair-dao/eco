@@ -5,7 +5,7 @@ const path = require('path');
 // 服务器配置
 const PORT = 8080;
 const HOST = '127.0.0.1';
-const PUBLIC_DIR = path.join(__dirname, 'app');
+const PUBLIC_DIR = path.join(__dirname, 'docs');
 
 // 支持的文件类型和MIME类型映射
 const MIME_TYPES = {

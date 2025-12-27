@@ -16,6 +16,7 @@
   "exchange": {
     "notOpen": "Chưa mở trao đổi",
     "end": "Đã kết thúc",
+    "endTime": "结束时间",
     "remainingAmount": "Có thể trao đổi",
     "canGet": "Có thể nhận được",
     "start": "Sắp bắt đầu",
@@ -26,8 +27,7 @@
       "item1": "Người dùng có thể trao đổi các loại token khác bằng cách tiêu hủy token FR",
       "item2": "Trong vòng 24 giờ trước khi có thể trao đổi, mỗi lần trao đổi không được vượt quá 1% của số dư có thể trao đổi",
       "item3": "Vui lòng đảm bảo bạn có đủ số dư token FR để trao đổi",
-      "item4": "Sau khi hoàn thành giao dịch trao đổi, token FR tương ứng sẽ bị tiêu hủy vĩnh viễn",
-      "item5": "Chức năng trao đổi chỉ mở trong một khoảng thời gian cụ thể, sau khi hết hạn sẽ không thể tham gia"
+      "item4": "Sau khi hoàn thành giao dịch trao đổi, token FR tương ứng sẽ bị tiêu hủy vĩnh viễn"
     }
   }
 }

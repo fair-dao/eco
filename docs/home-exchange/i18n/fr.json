@@ -16,6 +16,7 @@
   "exchange": {
     "notOpen": "Échange non disponible",
     "end": "Terminé",
+    "endTime": "结束时间",
     "remainingAmount": "Échangeable",
     "canGet": "Vous pouvez obtenir",
     "start": "Bientôt",
@@ -26,8 +27,7 @@
       "item1": "Les utilisateurs peuvent échanger d'autres types de tokens en brûlant des tokens FR",
       "item2": "Dans les 24 heures avant l'échange, le montant de chaque échange ne peut pas dépasser 1% du solde échangeable",
       "item3": "Veuillez vous assurer d'avoir un solde suffisant en tokens FR pour l'échange",
-      "item4": "Après l'achèvement de la transaction d'échange, les tokens FR correspondants seront brûlés définitivement",
-      "item5": "La fonction d'échange est disponible uniquement pendant une période de temps spécifiée et ne peut pas être utilisée après la date limite"
+      "item4": "Après l'achèvement de la transaction d'échange, les tokens FR correspondants seront brûlés définitivement"
     }
   }
 }

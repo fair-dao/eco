@@ -122,8 +122,6 @@ class FairStakeApp {
 
       // 检查是否已连接
       if (this.tronWebConnector && this.tronWebConnector.getIsConnected()) {
-        this.account = this.tronWebConnector.getAccount();
-        console.log("钱包已连接,initWalletConnection:", this.account);
         await this.common.changeNetwork();
         if (this.contractInteraction) {
           this.contractInteraction.resetContract();
@@ -308,7 +306,8 @@ class FairStakeApp {
               );
               fieldHtml = `<td>${amount}</td>`;
               break;
-            case "tokenAmount":
+            case "exchangeTokenAmount":
+              debugger;
               let address = event.result["tokenAddress"];
               let tokenAmount = event.result[field];
               let token = null;
@@ -393,7 +392,7 @@ class FairStakeApp {
     this.account = await this.tronWebConnector.getAccount();
     await this.common.changeNetwork();
     this.contractInteraction.resetContract();
-    this.updateWalletUI(true);
+    this.updateWalletUI(true);    
     if (this.common.network.name !== "MAINNET") {
       this.common.showMessage(
         "warning",
@@ -457,6 +456,7 @@ class FairStakeApp {
    * 更新钱包UI显示
    */
   updateWalletUI(isConnected) {
+    console.log("Update Wallet UI connection state:",isConnected);
     const walletInfo = document.getElementById("walletInfo");
     const walletAddress = document.getElementById("walletAddress");
 
@@ -472,13 +472,13 @@ class FairStakeApp {
       // 添加到body，让CSS控制居中定位
       document.body.appendChild(loadingIndicator);
     }
-
     if (walletInfo && walletAddress) {
-      if (isConnected && this.account) {
+      if (isConnected) {
+        const acc= this.common.tronWebConnector.getAccount();
         // 截断显示地址
-        const shortAddress = this.truncateAddress(this.account);
+        const shortAddress = this.truncateAddress(acc);
         walletAddress.textContent = `${this.common.network.name}: ${shortAddress}`;
-        walletAddress.title = this.account;
+        walletAddress.title = acc;
 
         // 显示钱包信息，隐藏连接按钮
         walletInfo.classList.remove("is-hidden");

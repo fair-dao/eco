@@ -134,7 +134,7 @@ class BurnRewardModule {
         "user",
         "eventName",
         "frAmount",
-        "tokenAmount",
+        "exchangeTokenAmount",
         "timestamp",
         "transactionId",
       ]);
@@ -335,9 +335,10 @@ class BurnRewardModule {
               const minutes = Math.floor(time / 60);
               tokenExchangeInfo.innerHTML = `<span data-i18n='exchange.start'></span>${minutes} <span data-i18n='exchange.minutes'></span>`;
             } else {
+              debugger
               time = end - curTime;
               if (time > 0) {
-                tokenExchangeInfo.innerHTML = `<span data-i18n='exchange.end'></span> ${formatTimestamp(
+                tokenExchangeInfo.innerHTML = `<span data-i18n='exchange.endTime'></span> ${formatTimestamp(
                   data.endTime
                 )}`;
                 const button = card.querySelector("button");

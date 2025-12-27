@@ -16,7 +16,6 @@
   "exchange": {
     "notOpen": "Exchange not opened",
     "end": "Ended",
-    "startTime": "Start Time",
     "endTime": "End Time",
     "remainingAmount": "Remaining",
     "canGet": "Can Get",
@@ -28,8 +27,7 @@
       "item1": "Users can exchange other types of tokens by burning FR tokens",
       "item2": "Exchange ratio is dynamically calculated according to the specific rules of the smart contract",
       "item3": "Please ensure you have sufficient FR token balance for the exchange",
-      "item4": "Corresponding FR tokens will be permanently destroyed after the exchange transaction is completed",
-      "item5": "Exchange operations require a certain amount of on-chain confirmation time, please be patient"
+      "item4": "Corresponding FR tokens will be permanently destroyed after the exchange transaction is completed"
     }
   }
 }

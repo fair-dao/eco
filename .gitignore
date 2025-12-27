@@ -18,3 +18,5 @@ build
 migrations
 
 /.vs
+docs/update-translations.js
+translate-*.*

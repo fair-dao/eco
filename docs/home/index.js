@@ -246,7 +246,7 @@ class HomeModule {
       const events = await this.fetchFrContractOperationsHistory();
       this.app.displayContractLogs("frContractLogsTable",events,
         [
-        "user",
+        "user,contributor",
         "eventName",
         "frAmount",
         "fairAmount",

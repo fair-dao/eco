@@ -39,6 +39,13 @@
     "stakeAndUnstake": "质押与解押",
     "stakeOperations": "质押操作",
     "unstakeOperations": "解押操作",
-    "operationsHistory": "操作历史"
+    "operationsHistory": "操作历史",
+    "stakingRules": "质押与解押规则"
+  },
+  "rules": {
+    "title": "质押与解押规则",
+    "item1": "用户可以将 FAIR 代币质押以获得 FR 奖励",
+    "item2": "质押的 FAIR 代币会在智能合约中被锁定",
+    "item3": "解押需要申请并等待一定的锁定期"
   }
 }

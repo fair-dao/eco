@@ -16,6 +16,7 @@
   "exchange": {
     "notOpen": "Intercambio no disponible",
     "end": "Finalizado",
+    "endTime": "结束时间",
     "remainingAmount": "Intercambiable",
     "canGet": "Puede obtener",
     "start": "Próximamente",
@@ -26,8 +27,7 @@
       "item1": "Los usuarios pueden intercambiar otros tipos de tokens quemando tokens FR",
       "item2": "En las 24 horas antes del intercambio, el monto de cada intercambio no puede exceder el 1% del saldo intercambiable",
       "item3": "Por favor asegúrese de tener suficiente saldo de tokens FR para el intercambio",
-      "item4": "Los tokens FR correspondientes se destruirán permanentemente después de completar la transacción de intercambio",
-      "item5": "La función de intercambio solo está disponible durante un período de tiempo específico y no se puede participar después de la fecha de vencimiento"
+      "item4": "Los tokens FR correspondientes se destruirán permanentemente después de completar la transacción de intercambio"
     }
   }
 }
