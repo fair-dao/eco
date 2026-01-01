@@ -1,0 +1,32 @@
+using System;using System.ComponentModel.DataAnnotations;using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ForumServer.Models
+{
+    public class Comment
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        
+        [Required]
+        public string Content { get; set; }
+        
+        [Required]
+        public int PostId { get; set; }
+        
+        [ForeignKey("PostId")]
+        public Post Post { get; set; }
+        
+        [Required]
+        public int UserId { get; set; }
+        
+        [ForeignKey("UserId")]
+        public User User { get; set; }
+        
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        
+        public bool IsDeleted { get; set; } = false;
+    }
+}

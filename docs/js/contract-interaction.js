@@ -16,6 +16,7 @@ class ContractInteraction {
     this.fairAddress = null;
   }
 
+
   async resetContract() {
     // 获取合约地址
     if (this.config == null && !this.isInitialized()) {
@@ -918,13 +919,183 @@ class ContractInteraction {
     }
   }
 
+
+  /**
+   * 获取法定投票人数信息
+   * @returns {Promise} 返回法定投票人数信息
+   */
+  async getQuorumInfo() {
+    try {
+      if (!this.isInitialized()) {
+        await this.init();
+      }
+
+      const quorumInfo = await this.contract.getQuorum().call();
+      
+      return {
+        success: true,
+        numerator: quorumInfo.numerator.toString(),
+        denominator: quorumInfo.denominator.toString()
+      };
+    } catch (error) {
+      console.error("获取法定人数信息失败:", error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  /**
+   * 获取所有提案
+   * @returns {Promise} 返回所有提案列表
+   */
+  async getAllProposals() {
+    try {
+      const diamondContract = await this.common.getDiamondContract();
+      const proposalCount = await diamondContract.getProposalCount().call();
+      const proposals = [];
+      
+      for (let i = 0; i <proposalCount; i++) {
+        const r = await diamondContract.getProposal(i).call();
+        const proposal=r.proposal;
+
+        
+        // Map proposal status
+        const statusMap = {
+          0: "Pending",
+          1: "Active",
+          2: "Canceled",
+          3: "Defeated",
+          4: "Succeeded",
+          5: "Executed"
+        };
+        
+        proposals.push({
+          id: i,
+          proposer: proposal.proposer,
+          description: proposal.description,
+          status: statusMap[proposal.status] || "Unknown",
+          forVotes: proposal.forVotes.toString(),
+          againstVotes: proposal.againstVotes.toString(),
+          abstainVotes: proposal.abstainVotes.toString(),
+          createdAt: proposal.createdAt.toString(),
+          startBlock: proposal.startBlock.toString(),
+          endBlock: proposal.endBlock.toString()
+        });
+      }
+      
+      return {
+        success: true,
+        proposals: proposals
+      };
+    } catch (error) {
+      console.error("获取提案列表失败:", error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  /**
+   * 创建新提案
+   * @param {string} description - 提案描述
+   * @returns {Promise} 返回交易结果
+   */
+  async createProposal(description) {
+    try {
+      if (!this.isInitialized()) {
+        await this.init();
+      }
+
+      const account = this.tronWebConnector.getAccount();
+      
+      // 创建提案的目标地址和数据（这里使用空值作为示例，实际需要根据合约要求设置）
+      const targets = ["0x0000000000000000000000000000000000000000"];
+      const values = ["0"];
+      const signatures = [""];
+      const calldatas = ["0x"];
+      
+      return await this.common.send(
+        this.contract,
+        "createProposal",
+        "正在创建提案,请签名确认...",
+        {
+          from: account,
+        },
+        targets, // 目标地址
+        values,  // 发送的金额
+        signatures, // 函数签名
+        calldatas, // 调用数据
+        description // 提案描述
+      );
+    } catch (error) {
+      console.error("创建提案失败:", error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  /**
+   * 投票
+   * @param {number} proposalId - 提案ID
+   * @param {string} support - 投票支持类型 (for/against/abstain)
+   * @returns {Promise} 返回交易结果
+   */
+  async castVote(proposalId, support) {
+    try {
+      
+      const account = this.tronWebConnector.getAccount();
+      
+      // Map support to contract values
+      const supportMap = {
+        "for": 1,
+        "against": 0,
+        "abstain": 2
+      };
+      var c= await this.common.getDiamondContract();
+      const supportValue = supportMap[support.toLowerCase()] || 0;
+      
+      return await this.common.send(
+        c,
+        "castVote",
+        "正在投票,请签名确认...",
+        {
+          from: account,
+        },
+        proposalId, // 提案ID
+        supportValue // 支持类型
+      );
+    } catch (error) {
+      console.error("投票失败:", error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  /**
+   * 检查用户是否已经投票
+   * @param {string} account - 用户地址
+   * @param {number} proposalId - 提案ID
+   * @returns {boolean} 是否已投票
+   */
+  async hasVoted(account, proposalId) {
+    try {
+      if (!this.isInitialized()) {
+        await this.init();
+      }
+
+      const tronWeb = this.tronWebConnector.getTronWeb();
+      const hexAccount = tronWeb.address.toHex(account);
+      const diamondContract = await this.common.getDiamondContract();
+      const voted = await diamondContract.hasVoted(hexAccount, proposalId).call();
+      return voted.voted;
+    } catch (error) {
+      console.error("检查投票状态失败:", error);
+      return false;
+    }
+  }
+
   /**
    * 获取代币兑换信息（包括兑换率和时间范围）
    * @param {string} token - 目标代币地址
    * @returns {Promise} 返回代币兑换信息
    */
   async getTokenExchangeInfo(token) {
-    try {     
+    try {      
 
       const tronWeb = this.tronWebConnector.getTronWeb();
       const hexAddress = tronWeb.address.toHex(token.address);
@@ -938,18 +1109,13 @@ class ContractInteraction {
       }    
 
       // 计算结束时间（一周有604800秒）
-      const endTime =
-        parseInt(exchangeInfo.startTime) +
-        parseInt(exchangeInfo.exchangeDurationWeeks>254 ? 100000 : exchangeInfo.exchangeDurationWeeks) * 604800;
+      const endTime = parseInt(exchangeInfo.startTime) + parseInt(exchangeInfo.exchangeDurationWeeks>254 ? 100000 : exchangeInfo.exchangeDurationWeeks) * 604800;
       // 获取FR代币和目标代币的小数点位数
-      let frDecimals =
-        this.config.networks[this.config.currentNetwork]?.rewardToken
-          ?.decimals || 18;
+      let frDecimals = this.config.networks[this.config.currentNetwork]?.rewardToken?.decimals || 18;
       return {
         success: true,
         data: {
-          remainingExchangeAmount:
-            exchangeInfo.remainingExchangeAmount.toString(),
+          remainingExchangeAmount: exchangeInfo.remainingExchangeAmount.toString(),
           rateNumerator: exchangeInfo.rateNumerator.toString(),
           rateDenominator: exchangeInfo.rateDenominator.toString(),
           frDecimals: frDecimals,
@@ -1004,7 +1170,6 @@ class ContractInteraction {
         const e = events[i];
         const logIndex = e.event_index;
         let amount = 0;
-        console.log(e);
         const txId = e.transaction_id;
         if (e.result == {}) {
           const txInfo = await tronWeb.trx.getTransactionInfo(txId);
@@ -1042,3 +1207,4 @@ class ContractInteraction {
     }
   }
 }
+

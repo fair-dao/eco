@@ -42,8 +42,7 @@
         <a
           class="navbar-item logo"
           id="loadHome"
-          href="javascript:void(0);"
-          onclick="fairdao.loadModule('home')"
+          href="#/home"
         >
           <img src="https://fairdao.net/res/fair-192.png" />
           <div class="logo-title" data-i18n="title"></div>
@@ -69,12 +68,22 @@
 
       <div id="dvnav" class="navbar-menu">
         <div class="navbar-end">
-            <button class="is-text navbar-item"  onclick="fairdao.loadModule('home-staking')" data-i18n="navigation.staking"></button>          
-           <button class="is-text navbar-item"  onclick="fairdao.loadModule('home-exchange')" data-i18n="navigation.exchange"></button>          
+        <a
+          class="navbar-item is-hidden"
+          href="#/governance"  data-i18n="navigation.governance"
+        ></a>
+        <a
+          class="navbar-item"
+          href="#/staking"  data-i18n="navigation.staking"
+        ></a>
+        <a
+          class="navbar-item"
+          href="#/exchange"  data-i18n="navigation.exchange"
+        ></a>
           <div class="navbar-item">
             <div id="walletInfo">
               <div class="tags has-addons">
-                <button class="tag is-text is-dark is-medium" id="walletAddress" onclick="fairdao.loadModule('home-user')"  data-i18n="navigation.accountinfo"></button>           
+                     <a class="is-dark is-medium"  id="walletAddress" href="#/user"  data-i18n="navigation.accountinfo"></a>   
               </div>
             </div>
           </div>
@@ -84,7 +93,7 @@
             </a>
             <div class="navbar-dropdown lang" id="langList"></div>
           </div>
-        </div>
+       
       </div>
     </nav>
 

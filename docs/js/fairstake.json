@@ -1,6 +1,7 @@
 {
     "contractName": "FairStakeToken",    
-    "CreateTime": "251227 13:05",
+    "CreateTime": "251231 21:35",
+    "Sign": "3b377702edcd",
     "ABI": [
         {
             "inputs": [
@@ -239,6 +240,12 @@
             "Hash": "c79aaa44"
         },
         {
+            "inputs": [],
+            "name": "InvalidValue",
+            "type": "error",
+            "Hash": "aa7feadc"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -287,9 +294,32 @@
         },
         {
             "inputs": [],
+            "name": "ReentrancyGuardReentrantCall",
+            "type": "error",
+            "Hash": "3ee5aeb5"
+        },
+        {
+            "inputs": [],
             "name": "TRXTransferRejected",
             "type": "error",
             "Hash": "946a10ac"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "requested",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "available",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TransferAmountExceedsStakedBalance",
+            "type": "error",
+            "Hash": "0f1333c4"
         },
         {
             "inputs": [
@@ -833,6 +863,20 @@
             "Hash": "0587b20a"
         },
         {
+            "inputs": [],
+            "name": "getAllVotes",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "totalVotes",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "851b6ef2"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -851,6 +895,51 @@
             "stateMutability": "pure",
             "type": "function",
             "Hash": "57764094"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "tokenAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getTokenExchangeRate",
+            "outputs": [
+                {
+                    "internalType": "uint88",
+                    "name": "rateNumerator",
+                    "type": "uint88"
+                },
+                {
+                    "internalType": "uint88",
+                    "name": "rateDenominator",
+                    "type": "uint88"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "remainingExchangeAmount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "transferType",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "exchangeDurationWeeks",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint64",
+                    "name": "startTime",
+                    "type": "uint64"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "419aa50b"
         },
         {
             "inputs": [
@@ -896,6 +985,26 @@
             "stateMutability": "view",
             "type": "function",
             "Hash": "c32d3ae2"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserVotes",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "votes",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "950c7822"
         },
         {
             "inputs": [
@@ -971,7 +1080,7 @@
         {
             "inputs": [
                 {
-                    "internalType": "enum FairStakeToken.FunctionModule",
+                    "internalType": "uint8",
                     "name": "module",
                     "type": "uint8"
                 }
@@ -1309,7 +1418,7 @@
         {
             "inputs": [
                 {
-                    "internalType": "enum FairStakeToken.FunctionModule",
+                    "internalType": "uint8",
                     "name": "module",
                     "type": "uint8"
                 }
@@ -1339,5 +1448,4 @@
         "version": "0.8.30\u002Bcommit.73712a01",
         "InnerVersion": "EthereumV0.8.30"
     }
-    
 }

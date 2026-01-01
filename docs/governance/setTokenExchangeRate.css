@@ -1,0 +1,206 @@
+/* setTokenExchangeRate.css - Token Exchange Rate Proposal Module Styles */
+
+/* Token List Container */
+.tokens-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Token Card */
+.token-card {
+  border: 2px solid #dbdbdb;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.token-card:hover {
+  border-color: #3273dc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.token-card.active {
+  border-color: #3273dc;
+  background-color: #f0f7ff;
+  box-shadow: 0 2px 8px rgba(50, 115, 220, 0.2);
+}
+
+/* Token Card Content */
+.token-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.token-symbol {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3273dc;
+}
+
+.token-name {
+  font-size: 0.9rem;
+  color: #4a4a4a;
+}
+
+.token-address {
+  font-size: 0.75rem;
+  color: #9b9b9b;
+  font-family: monospace;
+}
+
+/* Exchange Rate Section */
+.exchange-rate-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.exchange-rate-divider {
+  font-size: 1.5rem;
+  color: #4a4a4a;
+  font-weight: bold;
+}
+
+/* Input with Icon */
+.input.has-icons-right {
+  position: relative;
+}
+
+.input.has-icons-right .icon.is-right {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Selected Token Info */
+#selectedTokenInfo .notification {
+  margin-bottom: 0;
+}
+
+/* Duration Select */
+.select select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  background: white;
+}
+
+/* Button States */
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button .fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Notification Styles */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  max-width: 400px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Info Box */
+.notification.is-info {
+  background-color: #3298dc;
+  color: white;
+}
+
+.notification.is-info ul {
+  list-style-position: inside;
+  margin: 0.5rem 0;
+}
+
+.notification.is-info li {
+  margin: 0.25rem 0;
+}
+
+/* Card Header Icons */
+.card-header-title .icon {
+  margin-right: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tokens-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .columns {
+    flex-direction: column;
+  }
+  
+  .column {
+    width: 100% !important;
+  }
+}
+
+/* Form Validation */
+.input.is-danger,
+.textarea.is-danger {
+  border-color: #f14668;
+}
+
+.help.is-danger {
+  color: #f14668;
+}
+
+/* Loading State */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Success/Error States */
+.notification.is-success {
+  background-color: #48c774;
+  color: white;
+}
+
+.notification.is-danger {
+  background-color: #f14668;
+  color: white;
+}
+
+/* Tag Styles */
+.tag {
+  font-weight: 600;
+}
+
+.tag.is-primary {
+  background-color: #3273dc;
+  color: white;
+}
+
+.tag.is-success {
+  background-color: #48c774;
+  color: white;
+}

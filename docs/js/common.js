@@ -7,6 +7,7 @@ class Common {
     this.diamondABI = null;
     this.funTronWeb = null;
     this.TronWeb = window.TronWeb;
+    this.diamondContract = null;
   }
 
   /**
@@ -23,6 +24,18 @@ class Common {
       console.error("检测合约字节码失败：", error.message);
       return false;
     }
+  }
+  #diamondContract = null;
+
+  async getDiamondContract() {
+    if (this.#diamondContract == null) {
+      const tronWeb = this.tronWebConnector.getTronWeb();
+      this.#diamondContract = await tronWeb.contract(
+        this.diamondABI,
+        this.network.diamondAddress
+      );
+    }
+    return this.#diamondContract;
   }
 
   async init() {
@@ -80,6 +93,7 @@ class Common {
           }
         });
       }
+      this.#diamondContract = null;
       this.diamondAddress = this.network.diamondAddress;
     } catch (e) {
       console.error("切换网络失败:", e.message);
@@ -730,7 +744,7 @@ class Common {
       throw new Error("Failed to load ierc20.json");
     }
     try {
-      const response = await fetch("/diamond/abi.json");
+      const response = await fetch("/js/diamond.json");
       if (response.ok) {
         const diamondJson = await response.json();
         this.diamondABI = diamondJson.abi || diamondJson;
@@ -744,35 +758,6 @@ class Common {
     return config;
   }
 
-  async getDiamondContract(diamondAddress) {
-    try {
-      let tronWeb = this.tronWebConnector.getTronWeb();
-      const diamondContract = await tronWeb.contract(
-        this.diamondABI,
-        diamondAddress
-      );
-      return diamondContract;
-    } catch (error) {
-      console.error("初始化钻石合约失败:", error);
-      throw error;
-    }
-  }
-
-  async getOwnerAddress(diamondAddress) {
-    try {
-      const contract = await this.getDiamondContract(diamondAddress);
-      const owner = await contract.owner().call();
-      if (!owner) {
-        throw new Error("未能获取到合约所有者信息");
-      }
-      let tronWeb = this.tronWebConnector.getTronWeb();
-      return tronWeb.address.fromHex(owner);
-    } catch (error) {
-      console.error("获取合约所有者失败:", error);
-      throw error;
-    }
-  }
-
   /**
    * 获取任意合约的链上事件
    * @param {string} contractAddress - 合约地址
@@ -782,7 +767,6 @@ class Common {
    */
   async getContractEvents(contractAddress, eventName, fromBlock, toBlock) {
     try {
-      debugger;
       const tronWeb = this.tronWebConnector.getReadTronWeb();
       const contractAddressHex = tronWeb.address.toHex(contractAddress);
 

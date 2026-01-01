@@ -307,7 +307,6 @@ class FairStakeApp {
               fieldHtml = `<td>${amount}${(event.eventName==='Staked' || event.eventName==='UnstakeRequested') && field==='fairAmount' ?' ('+event.result["rate"]/100+'%)':''}</td>`;
               break;
             case "exchangeTokenAmount":
-              debugger;
               let address = event.result["tokenAddress"];
               let tokenAmount = event.result[field];
               let token = null;
@@ -365,7 +364,6 @@ class FairStakeApp {
               fieldHtml = `<td>${formattedTime}</td>`;
               break;
             default:
-              debugger;
               let val = event[field];
               if (val === undefined || val === null) {
                 val = event.result[field] || "N/A";
@@ -560,8 +558,14 @@ window.addEventListener("DOMContentLoaded", async () => {
   const app = new FairStakeApp();
   await app.init();
   window.app = app;
-  const loadHome = document.getElementById("loadHome");
-  if (loadHome) {
-    loadHome.click();
+  // 如果地址栏路径里有模块id，则直接加载模块
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#/')) {
+    const moduleId = hash.substring(2);
+    fairdao.loadModule(moduleId);
+  }else {
+    // 否则加载默认模块
+    fairdao.loadModule("home");
   }
+ 
 });

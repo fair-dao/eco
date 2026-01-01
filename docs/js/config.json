@@ -9,20 +9,37 @@
       "launcherAddress":"TQZeb5KUfSRpBmUn9j2g1TqPxzYBvo23AC",
       "diamondAddress":"TJWwyWGeiggq8hrE3XnvNbVVvfiYCnzvcB",
       "rewardToken": {
-        "address": "",
+        "address": "TYBVy56NZww6Dm8Q46nPg3vebYG9QtCoRz",
         "decimals": 18,
         "symbol": "FR"
       },
       "stakedToken": {
-        "address": "",
+        "address": "TU6x2QQoiU6TU6iePvV9Kacv2fADvMT2F6",
         "decimals": 18,
         "symbol": "FAIR"
       },
       "burnRewards": [
+        
+           {
+          "address": "1",
+          "symbol": "TRX",
+          "decimals": 6,
+          "type": 2,
+          "icon": "https://static.tronscan.org/production/logo/trx.png"
+        },
         {
-          "address": "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs",
+          "address": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
           "symbol": "USDT",
-          "icon": "https://"
+          "type": 1,
+          "decimals": 6,
+          "icon": "https://static.tronscan.org/production/logo/usdtlogo.png"
+        },
+        {
+          "address": "TU6x2QQoiU6TU6iePvV9Kacv2fADvMT2F6",
+          "symbol": "FAIR",
+          "type": 0,
+          "decimals": 18,
+          "icon": "https://static.tronscan.org/production/upload/logo/new/TU6x2QQoiU6TU6iePvV9Kacv2fADvMT2F6.png?t=1755035293375"        
         }
       ],
       "chainId": "0x0"
@@ -48,7 +65,7 @@
         {
           "address": "TSXmWNXkK2wU5VY7mPp3gVdZ3jwKqL1NfN",
           "symbol": "USDT",
-          "icon": "https://static.tronscan.org/production/logo/usdtlogo.png"
+          "icon": "https://static.tronscan.org/production/upload/logo/new/TU6x2QQoiU6TU6iePvV9Kacv2fADvMT2F6.png?t=1755035293375"
         }
       ],
       "chainId": "0x1"
@@ -59,9 +76,9 @@
       "eventServer": "https://nile.trongrid.io",
       "browser": "https://nile.tronscan.org",
       "launcherAddress":"TD9gYEPVWnbSQQ8fWdFpS3haAgmmoAL1jU",
-      "diamondAddress":"TJScPkChdaSGorkBmASdaKKfTQFeqLc555",
+      "diamondAddress":"TAHFpqWeEFFUaE1YPjXPo2vpBa8vwMMYWW",
       "rewardToken": {
-        "address": "TZ5CWUecLFJ2X3nqWy1x8JbFb8vkc7xxVU",
+        "address": "TKEZTyT3XQ1XYvuKpF1iodzR7Lstcp1CrL",
         "address27":"TAuZtQt5DZ3Lt2ctvT2q5AUidHRu32dc6p",
         "address2": "TXaRSUxXZvdQXw5z84Quz4aJH7g31HTSXF",
         "decimals": 18,

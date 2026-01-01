@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // 服务器配置
-const PORT = 8080;
+const PORT = 8000;
 const HOST = '127.0.0.1';
 const PUBLIC_DIR = path.join(__dirname, 'docs');
 

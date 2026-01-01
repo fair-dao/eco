@@ -1,0 +1,160 @@
+<!-- home-governance.html -->
+<div class="container mt-4">
+  <!-- 治理规则信息框 -->
+  <div class="notification is-info">
+    <button class="delete" id="closeGovernanceRulesNotification"></button>
+    <h4 class="title is-5" data-i18n="governance.rules.title">治理规则</h4>
+    <ul>
+      <li data-i18n="governance.rules.item1">创建提案需要一定数量的投票权</li>
+      <li data-i18n="governance.rules.item2">投票期持续固定的区块数</li>
+      <li data-i18n="governance.rules.item3">提案通过需要达到法定投票人数并获得多数支持</li>
+    </ul>
+  </div>
+
+  <!-- 提案列表卡片 -->
+  <div class="card mb-6">
+    <div class="card-header">
+      <p class="card-header-title" data-i18n="governance.title.proposalsList">提案列表</p>
+      <button id="openCreateProposalModalBtn" class="card-header-icon button is-small is-primary" title="创建提案">
+        <span class="icon">
+          <i class="fas fa-plus"></i>
+        </span>
+      </button>
+    </div>
+    <div class="card-content">
+      <div class="field">
+        <div class="control">
+          <div class="select">
+            <select id="proposalStatusFilter">
+              <option value="all" selected data-i18n="governance.filters.all">全部</option>
+              <option value="pending" data-i18n="governance.filters.pending">待开始</option>
+              <option value="active" data-i18n="governance.filters.active">进行中</option>
+              <option value="succeeded" data-i18n="governance.filters.succeeded">已通过</option>
+              <option value="defeated" data-i18n="governance.filters.defeated">已失败</option>
+              <option value="executed" data-i18n="governance.filters.executed">已执行</option>
+              <option value="canceled" data-i18n="governance.filters.canceled">已取消</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="proposalsList">
+        <!-- 提案列表将通过JavaScript动态生成 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 投票信息卡片 -->
+  <div class="card">
+    <div class="card-header">
+      <p class="card-header-title" data-i18n="governance.title.votingInfo">投票信息</p>
+    </div>
+    <div class="card-content">
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <h4 class="title is-5" data-i18n="governance.title.yourVotingPower">您的投票权</h4>
+            <div class="field">
+              <div class="control">
+                <input id="votingPower" type="text" class="input is-readonly" readonly />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box">
+            <h4 class="title is-5" data-i18n="governance.title.quorumRequirements">法定投票人数</h4>
+            <div class="field">
+              <div class="control">
+                <input id="quorumInfo" type="text" class="input is-readonly" readonly />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 创建提案模态框 -->
+<div class="modal" id="createProposalModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title" data-i18n="governance.title.createProposal">创建提案</p>
+      <button class="delete" aria-label="close" id="closeCreateProposalModal"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label" data-i18n="governance.labels.proposalType">Proposal Type</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select id="proposalType">
+              <option value="" data-i18n="governance.placeholders.selectProposalType">Please select proposal type</option>
+              <option value="setTokenExchangeRate" data-i18n="governance.proposalTypes.setTokenExchangeRate">Set Token Exchange Rate</option>
+              <option value="mintContributorReward" data-i18n="governance.proposalTypes.mintContributorReward">Mint Contributor Reward</option>
+              <option value="pause" data-i18n="governance.proposalTypes.pause">Pause Contract</option>
+              <option value="unpause" data-i18n="governance.proposalTypes.unpause">Unpause Contract</option>
+              <option value="pauseModule" data-i18n="governance.proposalTypes.pauseModule">Pause Module</option>
+              <option value="unpauseModule" data-i18n="governance.proposalTypes.unpauseModule">Unpause Module</option>
+              <option value="setVotingPeriod" data-i18n="governance.proposalTypes.setVotingPeriod">Set Voting Period</option>
+              <option value="setProposalThreshold" data-i18n="governance.proposalTypes.setProposalThreshold">Set Proposal Threshold</option>
+              <option value="setQuorum" data-i18n="governance.proposalTypes.setQuorum">Set Quorum</option>
+              <option value="setExecutionDelay" data-i18n="governance.proposalTypes.setExecutionDelay">Set Execution Delay</option>
+              <option value="createProposal" data-i18n="governance.proposalTypes.createProposal">Create Proposal</option>
+              <option value="createDiamondCutProposal" data-i18n="governance.proposalTypes.createDiamondCutProposal">Create Diamond Cut Proposal</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div id="dynamicFormFields">
+        <!-- 动态表单字段将通过JavaScript生成 -->
+      </div>
+      <div class="field">
+        <label class="label" data-i18n="governance.labels.proposalDescription">提案描述</label>
+        <div class="control">
+          <textarea id="proposalDescription" class="textarea" placeholder="请输入提案描述" data-i18n-placeholder="governance.placeholders.enterDescription"></textarea>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" id="cancelCreateProposalModal" data-i18n="governance.buttons.cancel">取消</button>
+      <button id="createProposalBtn" class="button is-primary" disabled>
+        <i class="fas fa-file-alt mr-1"></i><span data-i18n="governance.buttons.createProposal">创建提案</span>
+      </button>
+    </footer>
+  </div>
+</div>
+
+<!-- 投票模态框 -->
+<div class="modal" id="voteModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title" data-i18n="governance.modals.vote">投票</p>
+      <button class="delete" aria-label="close" id="closeVoteModal"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label" data-i18n="governance.labels.voteChoice">投票选择</label>
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="voteChoice" value="for" checked>
+            <span data-i18n="governance.voteOptions.for">支持</span>
+          </label>
+          <label class="radio ml-4">
+            <input type="radio" name="voteChoice" value="against">
+            <span data-i18n="governance.voteOptions.against">反对</span>
+          </label>
+          <label class="radio ml-4">
+            <input type="radio" name="voteChoice" value="abstain">
+            <span data-i18n="governance.voteOptions.abstain">弃权</span>
+          </label>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" id="cancelVoteModal" data-i18n="governance.buttons.cancel">取消</button>
+      <button class="button is-primary" id="confirmVote" data-i18n="governance.buttons.confirmVote">确认投票</button>
+    </footer>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum - FairDAO</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h1 id="forumTitle"></h1>
+            
+            <!-- Login Section -->
+            <div id="loginSection" class="card">
+                <h2 id="loginTitle"></h2>
+                <button id="connectWalletBtn" class="btn-primary"></button>
+            </div>
+            
+            <!-- Forum Main Section -->
+            <div id="forumMain" style="display: none;">
+                <!-- Create Post Button -->
+                <div class="create-post-section">
+                    <button id="createPostBtn" class="btn-primary"></button>
+                </div>
+                
+                <!-- Filter Section -->
+                <div class="filter-section">
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="General">General</option>
+                        <option value="Governance">Governance</option>
+                        <option value="Development">Development</option>
+                        <option value="Support">Support</option>
+                    </select>
+                </div>
+                
+                <!-- Posts List -->
+                <div id="postsList" class="posts-list"></div>
+                
+                <!-- Pagination -->
+                <div id="pagination" class="pagination"></div>
+            </div>
+        </div>
+        
+        <!-- Create Post Modal -->
+        <div id="createPostModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="createPostModalTitle"></h2>
+                <form id="createPostForm">
+                    <div class="form-group">
+                        <label for="postTitle"></label>
+                        <input type="text" id="postTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="postContent"></label>
+                        <textarea id="postContent" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="postCategory"></label>
+                        <select id="postCategory">
+                            <option value="General">General</option>
+                            <option value="Governance">Governance</option>
+                            <option value="Development">Development</option>
+                            <option value="Support">Support</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary"></button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Post Detail Modal -->
+        <div id="postDetailModal" class="modal">
+            <div class="modal-content large">
+                <span class="close">&times;</span>
+                <div id="postDetailContent"></div>
+                <div id="commentsSection"></div>
+                <div class="comment-form">
+                    <textarea id="newComment" rows="3" placeholder="Write a comment..."></textarea>
+                    <button id="submitCommentBtn" class="btn-primary"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="tronweb-connector.js"></script>
+    <script src="common.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

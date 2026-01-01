@@ -23,5 +23,5 @@ translate-*.*
 /compiled-solcjs
 /docs/.vs
 /src/server/.vs
-/src/server/bin/Debug/net10.0
+/src/server/bin
 /src/server/obj

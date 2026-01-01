@@ -24,7 +24,7 @@ body {
     display:inline;
 }
 .test button.test-show{
-    display:inline-block;
+    display:inline-block !important;
 }
 
 .tab-content>*{
@@ -661,8 +661,7 @@ a{
 
 /* 响应式设计 */
 @media screen and (max-width: 1023px) {
-    .navbar-menu {
-        background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%);
+    .navbar-menu {        
         border-radius: 0 0 12px 12px;
         margin-top: 0.5rem;
     }
@@ -758,6 +757,7 @@ a{
     background: #a8a8a8;
 }
 
+
 /*模板*/
  [data-bind], [data-i18n],[data-if],[data-array] > * {
     display: none !important;
@@ -782,6 +782,48 @@ a{
     /* 横向滚动条优化 */
     ::-webkit-scrollbar {
         height: 4px;
+    }
+    
+    /* 输入框和按钮尺寸优化 */
+    .input {
+        height: 2.5rem;
+        font-size: 0.85rem;
+        padding-left: 0.75rem;
+    }
+    
+    .button {
+        height: 2.5rem;
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .button i {
+        font-size: 0.9rem;
+        margin-right: 0.35rem;
+    }
+    
+    /* 质押模块按钮布局优化 */
+    .field.has-addons {
+        flex-direction: column;
+    }
+    
+    .field.has-addons .control {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .field.has-addons .control:last-child {
+        margin-bottom: 0;
+    }
+    
+    .field.has-addons .button {
+        width: 100%;
+        border-radius: 10px;
+    }
+    
+    /* 所有按钮在手机模式下都保持圆角 */
+    .button {
+        border-radius: 10px !important;
     }
 }
 
@@ -816,3 +858,6 @@ a{
         border: 1px solid #ddd;
     }
 }
+
+
+

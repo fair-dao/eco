@@ -2,7 +2,7 @@ class FairDaoModule {
   constructor(baseUrl) {
     this.baseUrl = baseUrl || "/";
     this.kvs = {};
-    this.translator=null;
+    this.translator = null;
   }
 
   // 修复 getLang 方法，添加 getQuery 功能和正确的浏览器语言检测
@@ -57,6 +57,18 @@ class FairDaoModule {
       this.lang = this.langdata.Lang;
     }
     document.body.setAttribute("lang", this.lang.toLowerCase());
+    window.addEventListener("hashchange", function (event) {
+      console.log("哈希值改变：");
+      console.log("旧地址：", event.oldURL);
+      console.log("新地址：", event.newURL);
+      // 如果地址栏路径里有模块id，则直接加载模块
+      const hash = window.location.hash;
+      console.log("当前哈希：", window.location.hash);
+      if (hash && hash.startsWith("#/")) {
+        const moduleId = hash.substring(2);
+        fairdao.loadModule(moduleId);
+      }
+    });
 
     let data = null;
     try {
@@ -66,16 +78,16 @@ class FairDaoModule {
     }
     this.kvs = await data.json();
     this.translator = new Translator(this.kvs);
-    
+
     this.processDataHtml(document.body, this.translator);
     try {
       this.i18nElement(document.body, this.translator);
     } catch (ex) {
       console.log(ex);
-    }    
+    }
   }
 
-  async processDataHtml(element,translator) {    
+  async processDataHtml(element, translator) {
     element.querySelectorAll("[data-html]").forEach((e) => {
       let key = e.getAttribute("data-html");
       fetch(`${this.baseUrl}${key}`)
@@ -86,11 +98,16 @@ class FairDaoModule {
         });
     });
   }
-
-  async loadModule(module) {
+  /**
+   * 加载模块
+   * @param {string} module - 模块名称
+   * @param {string} fun - 功能名称，默认值为"index"
+   */
+  async loadModule(module, fun = null) {
+    fun = fun || "index";
     const path = `${this.baseUrl}${module}/`;
-    let js = `${path}index.js`;
-    let res = await fetch(`${path}index.html`);
+    let js = `${path}${fun}.js`;
+    let res = await fetch(`${path}${fun}.html`);
     let data = await res.text();
     let pageEl = document.getElementById(module);
     if (!pageEl) {
@@ -105,13 +122,13 @@ class FairDaoModule {
         moduleObj.container = pageEl;
         moduleObj.fairdao = this;
         moduleObj.path = path;
-        moduleObj.app=window.app;
+        moduleObj.app = window.app;
         moduleObj.i18n = function () {
           return this.fairdao.i18n(moduleObj);
         };
         moduleObj.template = function () {
           return this.fairdao.template(moduleObj);
-        };        
+        };
         await moduleObj.init();
         return moduleObj;
       }
@@ -131,18 +148,22 @@ class FairDaoModule {
     }
     let data = await response.json();
     moduleObj.i18nData = data;
-    moduleObj.translator = new Translator(data,moduleObj.fairdao.translator);
+    moduleObj.translator = new Translator(data, moduleObj.fairdao.translator);
     this.i18nElement(moduleObj.container, moduleObj.translator);
     return moduleObj;
   }
   i18nElement(element, translator) {
     const dataI18n = "data-i18n";
-    const dataI18nAttrs=["data-i18n-title","data-i18n-placeholder","data-i18n-aria-label"];    
+    const dataI18nAttrs = [
+      "data-i18n-title",
+      "data-i18n-placeholder",
+      "data-i18n-aria-label",
+    ];
     this.processTemplate(element, translator.data);
     // 处理 data-i18n 属性
     element.querySelectorAll(`[${dataI18n}]`).forEach((e) => {
       let key = e.getAttribute(dataI18n);
-      try {        
+      try {
         let value = translator.translate(key);
         // 检测 value 是否包含 HTML 标签，如果包含则使用 innerHTML 渲染
         if (/<[^>]+>/.test(value)) {
@@ -151,7 +172,7 @@ class FairDaoModule {
           e.textContent = value || key;
         }
       } catch (ex) {
-        console.log(ex);        
+        console.log(ex);
         e.textContent = key;
       }
       e.removeAttribute(dataI18n);
@@ -160,14 +181,14 @@ class FairDaoModule {
     dataI18nAttrs.forEach((attr) => {
       element.querySelectorAll(`[${attr}]`).forEach((e) => {
         let key = e.getAttribute(attr);
-      try {
-        let value = translator.translate(key);
-        e.setAttribute(attr.substring(10), value || key);
-      } catch (ex) {
-        console.log(ex);
-        e.setAttribute(attr.substring(10), key);
-      }
-      e.removeAttribute(attr);
+        try {
+          let value = translator.translate(key);
+          e.setAttribute(attr.substring(10), value || key);
+        } catch (ex) {
+          console.log(ex);
+          e.setAttribute(attr.substring(10), key);
+        }
+        e.removeAttribute(attr);
       });
     });
   }
@@ -312,112 +333,143 @@ class FairDaoModule {
   bulma(element) {
     // 初始化 Bulma 常用交互事件
     // 1. Navbar-burger 响应式菜单切换
-    element.querySelectorAll('.navbar-burger').forEach(burger => {
-      burger.addEventListener('click', () => {
+    element.querySelectorAll(".navbar-burger").forEach((burger) => {
+      const navbar = burger.closest(".navbar");
+      if (navbar) {
+        navbar.querySelectorAll(".navbar-item").forEach((item) => {
+          item.addEventListener("click", () => {
+            burger.classList.remove("is-active");
+            burger
+              .closest(".navbar")
+              .querySelector(".navbar-menu")
+              .classList.remove("is-active");
+          });
+        });
+      }
+      burger.addEventListener("click", () => {
         const targetId = burger.dataset.target;
         const target = document.getElementById(targetId);
         if (target) {
-          burger.classList.toggle('is-active');
-          target.classList.toggle('is-active');
+          burger.classList.toggle("is-active");
+          target.classList.toggle("is-active");
         }
       });
     });
 
     // 2. Modal 打开/关闭
-    element.querySelectorAll('[data-bulma-modal]').forEach(trigger => {
+    element.querySelectorAll("[data-bulma-modal]").forEach((trigger) => {
       const modalId = trigger.dataset.bulmaModal;
       const modal = document.getElementById(modalId);
       if (!modal) return;
       // 打开
-      trigger.addEventListener('click', () => modal.classList.add('is-active'));
+      trigger.addEventListener("click", () => modal.classList.add("is-active"));
       // 关闭（modal-background、modal-close、modal-card-head .delete）
-      modal.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete')
-        .forEach(close => close.addEventListener('click', () => modal.classList.remove('is-active')));
+      modal
+        .querySelectorAll(
+          ".modal-background, .modal-close, .modal-card-head .delete"
+        )
+        .forEach((close) =>
+          close.addEventListener("click", () =>
+            modal.classList.remove("is-active")
+          )
+        );
     });
 
     // 3. Dropdown 点击切换
-    element.querySelectorAll('.dropdown-trigger').forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const dropdown = trigger.closest('.dropdown');
-        if (dropdown) dropdown.classList.toggle('is-active');
+    element.querySelectorAll(".dropdown-trigger").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const dropdown = trigger.closest(".dropdown");
+        if (dropdown) dropdown.classList.toggle("is-active");
       });
     });
     // 点击外部关闭 dropdown
-    element.addEventListener('click', e => {
-      if (!e.target.closest('.dropdown')) {
-        element.querySelectorAll('.dropdown').forEach(d => d.classList.remove('is-active'));
+    element.addEventListener("click", (e) => {
+      if (!e.target.closest(".dropdown")) {
+        element
+          .querySelectorAll(".dropdown")
+          .forEach((d) => d.classList.remove("is-active"));
       }
     });
 
     // 4. Tabs 切换
-    element.querySelectorAll('.tabs li').forEach(tab => {
-      tab.addEventListener('click', () => {
-        const tabContainer = tab.closest('.tabs');
+    element.querySelectorAll(".tabs li").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const tabContainer = tab.closest(".tabs");
         if (!tabContainer) return;
         const targetPanel = tab.dataset.target;
         // 移除所有激活态
-        tabContainer.querySelectorAll('li').forEach(t => t.classList.remove('is-active'));
+        tabContainer
+          .querySelectorAll("li")
+          .forEach((t) => t.classList.remove("is-active"));
         // 激活当前
-        tab.classList.add('is-active');
+        tab.classList.add("is-active");
         // 同步切换内容
         const contentContainer = tabContainer.nextElementSibling;
-        if (contentContainer && contentContainer.classList.contains('tab-content')) {
-          contentContainer.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('is-active'));
+        if (
+          contentContainer &&
+          contentContainer.classList.contains("tab-content")
+        ) {
+          contentContainer
+            .querySelectorAll(".tab-pane")
+            .forEach((p) => p.classList.remove("is-active"));
           const activePane = contentContainer.querySelector(`#${targetPanel}`);
-          if (activePane) activePane.classList.add('is-active');
+          if (activePane) activePane.classList.add("is-active");
         }
       });
     });
 
     // 5. Message 关闭
-    element.querySelectorAll('.message .delete').forEach(del => {
-      del.addEventListener('click', () => {
-        const message = del.closest('.message');
+    element.querySelectorAll(".message .delete").forEach((del) => {
+      del.addEventListener("click", () => {
+        const message = del.closest(".message");
         if (message) message.remove();
       });
     });
 
     // 6. Notification 关闭
-    element.querySelectorAll('.notification .delete').forEach(del => {
-      del.addEventListener('click', () => {
-        const notification = del.closest('.notification');
+    element.querySelectorAll(".notification .delete").forEach((del) => {
+      del.addEventListener("click", () => {
+        const notification = del.closest(".notification");
         if (notification) notification.remove();
       });
     });
 
     // 7. Collapsible（自定义 data-bulma-collapse）
-    element.querySelectorAll('[data-bulma-collapse]').forEach(trigger => {
+    element.querySelectorAll("[data-bulma-collapse]").forEach((trigger) => {
       const targetId = trigger.dataset.bulmaCollapse;
       const target = document.getElementById(targetId);
       if (!target) return;
-      trigger.addEventListener('click', () => {
-        target.style.display = target.style.display === 'none' ? 'block' : 'none';
+      trigger.addEventListener("click", () => {
+        target.style.display =
+          target.style.display === "none" ? "block" : "none";
       });
     });
-
   }
 }
 class Translator {
-  constructor(data,parentTranslator) {
+  constructor(data, parentTranslator) {
     this.data = data;
     this.parentTranslator = parentTranslator;
   }
   translate(key) {
-        let value = this.data;
-        const keys = key.split(".");
-        for (let k of keys) {
-          if (value && typeof value === "object" && k in value) {
-            value = value[k];
-          } else {          
-            if(this.parentTranslator)  {
-              value = this.parentTranslator.translate(key);
-            }else{
-              value = key;
-            }
-            break;
-          }
+    let value = this.data;
+    if (this.data[key]) {
+      return this.data[key];
+    }
+    const keys = key.split(".");
+    for (let k of keys) {
+      if (value && typeof value === "object" && k in value) {
+        value = value[k];
+      } else {
+        if (this.parentTranslator) {
+          value = this.parentTranslator.translate(key);
+        } else {
+          value = key;
         }
-        return value;
+        break;
+      }
+    }
+    return value;
   }
 }
 export default FairDaoModule;
