@@ -77,6 +77,7 @@ class TronWebConnector {
      
       }
       const TronWeb = window.TronWeb.TronWeb;
+      /*
       this.mnemonic =
           "crash special upset cruise garment laundry armed arena unaware marriage robot analyst";
         const privateKeys = [
@@ -93,7 +94,10 @@ class TronWebConnector {
           solidityNode: "https://nile.trongrid.io",
           eventServer: "https://nile.trongrid.io",
           privateKey: privateKey,
-        });
+        });*/
+        debugger;
+        const network= this.common.config.networks["mainnet"];
+        this.innerTronWeb =new TronWeb(network);
       if(!window.tronWeb){
         this.isConnected = true;
         this.notifyListeners("connected");
