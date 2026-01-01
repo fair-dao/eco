@@ -134,6 +134,7 @@ a{
 /* 卡片内容样式 */
 .card-content {
     padding: 1.5rem;
+    overflow: auto;
 }
 
 /* 盒子样式优化 */
@@ -169,12 +170,12 @@ a{
 .card-header {
     background-color: #f8f9fa;
     border-bottom: 1px solid #e9ecef;
-    padding: 1.25rem 1.5rem;
+    padding: 0.25rem 1.5rem;
     border-radius: 16px 16px 0 0;
 }
 
 .card-header-title {
-    font-size: 1.35rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #1565C0;
     margin-bottom: 0.25rem;
@@ -775,13 +776,39 @@ a{
     .navbar-menu {
         border-radius: 0 0 8px 8px;
     }
-    .card {
-        overflow:auto;
-    } 
+    
 
     /* 横向滚动条优化 */
     ::-webkit-scrollbar {
         height: 4px;
+    }
+    
+    /* 表格容器优化 - 允许横向滚动 */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* 表格优化 */
+    .table {
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+    
+    .table th,
+    .table td {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .table th {
+        font-weight: 600;
+        font-size: 0.8rem;
+    }
+    
+    /* 交易哈希链接优化 */
+    .table td.is-family-monospace a {
+        font-size: 0.7rem;
+        word-break: break-all;
     }
     
     /* 输入框和按钮尺寸优化 */
@@ -858,6 +885,7 @@ a{
         border: 1px solid #ddd;
     }
 }
+
 
 
 
