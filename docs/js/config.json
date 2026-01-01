@@ -10,7 +10,8 @@
       "launcherAddress":"TQZeb5KUfSRpBmUn9j2g1TqPxzYBvo23AC",
       "diamondAddress":"TJWwyWGeiggq8hrE3XnvNbVVvfiYCnzvcB",
       "rewardToken": {
-        "address": "TYBVy56NZww6Dm8Q46nPg3vebYG9QtCoRz",
+        "address1": "TYBVy56NZww6Dm8Q46nPg3vebYG9QtCoRz",
+        "address": "TVCS8gVK6mxUEiiHttNUVtDgcmsB6GDKtQ",
         "decimals": 18,
         "symbol": "FR"
       },
@@ -79,7 +80,7 @@
       "launcherAddress":"TD9gYEPVWnbSQQ8fWdFpS3haAgmmoAL1jU",
       "diamondAddress":"TAHFpqWeEFFUaE1YPjXPo2vpBa8vwMMYWW",
       "rewardToken": {
-        "address": "TKEZTyT3XQ1XYvuKpF1iodzR7Lstcp1CrL",
+        "address": "TVWYxxexpBNNmunKEdWmm9Jebi6iorhTqQ",
         "address27":"TAuZtQt5DZ3Lt2ctvT2q5AUidHRu32dc6p",
         "address2": "TXaRSUxXZvdQXw5z84Quz4aJH7g31HTSXF",
         "decimals": 18,

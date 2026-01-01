@@ -608,7 +608,7 @@ class ContractInteraction {
 
       // 调用合约获取可领取的奖励代币数量
       const earnedTokens = await this.contract
-        .calculateEarnedTokens(hexAccount)
+        .getEarnedTokens(hexAccount)
         .call();
 
       // 转换回可读格式

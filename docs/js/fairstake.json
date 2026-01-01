@@ -1,7 +1,7 @@
 {
     "contractName": "FairStakeToken",    
-    "CreateTime": "251231 21:35",
-    "Sign": "3b377702edcd",
+    "CreateTime": "260102 04:42",
+    "Sign": "63254dacdbf1",
     "ABI": [
         {
             "inputs": [
@@ -14,12 +14,6 @@
             "stateMutability": "nonpayable",
             "type": "constructor",
             "Hash": "45fd0674"
-        },
-        {
-            "inputs": [],
-            "name": "CalculationOverflow",
-            "type": "error",
-            "Hash": "9c154db9"
         },
         {
             "inputs": [
@@ -240,12 +234,6 @@
             "Hash": "c79aaa44"
         },
         {
-            "inputs": [],
-            "name": "InvalidValue",
-            "type": "error",
-            "Hash": "aa7feadc"
-        },
-        {
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -297,29 +285,6 @@
             "name": "ReentrancyGuardReentrantCall",
             "type": "error",
             "Hash": "3ee5aeb5"
-        },
-        {
-            "inputs": [],
-            "name": "TRXTransferRejected",
-            "type": "error",
-            "Hash": "946a10ac"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "requested",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "available",
-                    "type": "uint256"
-                }
-            ],
-            "name": "TransferAmountExceedsStakedBalance",
-            "type": "error",
-            "Hash": "0f1333c4"
         },
         {
             "inputs": [
@@ -773,26 +738,6 @@
             "inputs": [
                 {
                     "internalType": "address",
-                    "name": "user",
-                    "type": "address"
-                }
-            ],
-            "name": "calculateEarnedTokens",
-            "outputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function",
-            "Hash": "afc92dd1"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
                     "name": "account",
                     "type": "address"
                 }
@@ -875,6 +820,26 @@
             "stateMutability": "view",
             "type": "function",
             "Hash": "851b6ef2"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                }
+            ],
+            "name": "getEarnedTokens",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "Hash": "adeef5c1"
         },
         {
             "inputs": [

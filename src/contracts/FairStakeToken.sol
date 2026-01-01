@@ -206,6 +206,13 @@ contract FairStakeToken is ERC20, IFairStakeToken, IVoting, ReentrancyGuard { //
         if (maxExchangeAmount <= 0) revert ZeroAmount();
         if (tokenAddress != address(1) && transferType > 2) revert InvalidTransferType();
         if (rateNumerator <= 0 || rateDenominator <= 0) revert InvalidRate();
+        if (tokenAddress == address(stakedToken)) {
+                uint256 availableBalance = stakedToken.balanceOf(address(this)) - totalStaked - totalUnstaking;
+                if (maxExchangeAmount > availableBalance) {
+                    revert ExceedsExchangeLimit(maxExchangeAmount, availableBalance);
+                }
+        }
+        
         if (durationWeeks == 0) revert ZeroAmount();
 
         uint64 startTime;
