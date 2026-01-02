@@ -164,10 +164,10 @@
             <div class="navbar-start">
                 <a class="navbar-item nav-link" href="#overview">概述</a>
                 <a class="navbar-item nav-link" href="#contract">合约信息</a>
+                <a class="navbar-item nav-link" href="#errors">错误类型</a>
                 <a class="navbar-item nav-link" href="#events">事件</a>
                 <a class="navbar-item nav-link" href="#functions">函数</a>
                 <a class="navbar-item nav-link" href="#modifiers">修饰器</a>
-                <a class="navbar-item nav-link" href="#errors">错误类型</a>
             </div>
             
             <div class="navbar-end">
@@ -185,32 +185,37 @@
         </div>
     </nav>
 
-    <!-- Header --<section class="header-section">
+    <!-- Header -->
+    <section class="header-section">
         <div class="container">
             <h1 class="title">FairStakeToken 合约 API 文档</h1>
-            <p class="subtitle">质押与通证兑换协议</p>
+            <p class="subtitle">质押奖励通证与治理投票协议</p>
         </div>
     </section>
 
-    <!-- Main Content --<div class="container">
+    <!-- Main Content -->
+    <div class="container">
         <div class="columns">
             <div class="column is-three-quarters is-offset-one-eighth">
                 
-                <!-- Overview --<section id="overview" class="content-card">
+                <!-- Overview -->
+                <section id="overview" class="content-card">
                     <h2 class="section-title">概述</h2>
                     <div class="content">
-                        <p>FairStakeToken 合约是基于 TRON 区块链的通证质押与兑换协议，提供以下核心功能：</p>
+                        <p>FairStakeToken 合约是基于 ERC20 标准的质押奖励通证，集成了质押功能、通证兑换机制和治理投票接口。该合约提供以下核心功能：</p>
                         <ul>
-                            <li>通证质押与奖励系统</li>
-                            <li>Fair Reward (FR) 与 FairToken 兑换机制</li>
-                            <li>提前赎回机制及罚金率计算</li>
+                            <li>通证质押与动态奖励系统</li>
+                            <li>Fair Reward (FR) 通证与其他通证的兑换机制</li>
+                            <li>灵活的赎回机制及罚金计算</li>
                             <li>模块化函数暂停控制</li>
-                            <li>多维度奖励计算与发放</li>
+                            <li>贡献者奖励铸造功能</li>
+                            <li>治理投票接口实现</li>
                         </ul>
                     </div>
                 </section>
 
-                <!-- Contract Basic Information --<section id="contract" class="content-card">
+                <!-- Contract Basic Information -->
+                <section id="contract" class="content-card">
                     <h2 class="section-title">合约基础信息</h2>
                     <div class="content">
                         <table class="table is-striped is-hoverable is-fullwidth">
@@ -220,117 +225,178 @@
                                     <td>FairStakeToken</td>
                                 </tr>
                                 <tr>
+                                    <th>通证名称</th>
+                                    <td>Fair Reward Token</td>
+                                </tr>
+                                <tr>
+                                    <th>通证符号</th>
+                                    <td>FR</td>
+                                </tr>
+                                <tr>
                                     <th>继承关系</th>
-                                    <td>ERC20</td>
+                                    <td>ERC20, IFairStakeToken, IVoting, ReentrancyGuard</td>
                                 </tr>
                                 <tr>
                                     <th>编译版本</th>
-                                    <td>^0.8.23</td>
+                                    <td>^0.8.24</td>
                                 </tr>
                                 <tr>
                                     <th>许可证</th>
-                                    <td>MIT</td>
+                                    <td>GPL-3.0</td>
+                                </tr>
+                                <tr>
+                                    <th>最大供应量</th>
+                                    <td>1,000,000,000,000 FR (1万亿)</td>
+                                </tr>
+                                <tr>
+                                    <th>单用户最大质押</th>
+                                    <td>30,000,000 通证</td>
+                                </tr>
+                                <tr>
+                                    <th>最大质押时长</th>
+                                    <td>180 天</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </section>
 
-                <!-- Error Types --<section id="errors" class="content-card">
+                <!-- Error Types -->
+                <section id="errors" class="content-card">
                     <h2 class="section-title">错误类型</h2>
                     <div class="content">
                         <div class="mb-4">
-                            <div class="error-def">TransferFailed()</div>
-                            <p class="mt-2">当通证转账失败时抛出的错误。</p>
+                            <div class="error-def">error InsufficientBalance(uint256 required, uint256 available)</div>
+                            <p class="mt-2">当账户余额不足时抛出的错误。</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">InsufficientFROnChain()</div>
-                            <p class="mt-2">当链上 FR 奖励不足时抛出的错误。</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="error-def">AddressIsZero()</div>
-                            <p class="mt-2">当地址为零地址时抛出的错误。</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="error-def">AmountIsZero()</div>
+                            <div class="error-def">error ZeroAmount()</div>
                             <p class="mt-2">当金额为零时抛出的错误。</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">UserNotStaked()</div>
-                            <p class="mt-2">当用户未进行任何质押时抛出的错误。</p>
+                            <div class="error-def">error NotAuthorized()</div>
+                            <p class="mt-2">当调用者未被授权时抛出的错误。</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">UserAlreadyStaked()</div>
-                            <p class="mt-2">当用户已进行质押时抛出的错误。</p>
+                            <div class="error-def">error PausedContract()</div>
+                            <p class="mt-2">当合约或模块暂停时抛出的错误。</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">UnstakeRequestNotReady()</div>
-                            <p class="mt-2">当赎回请求未就绪时抛出的错误。</p>
+                            <div class="error-def">error ExceedsMaxStake()</div>
+                            <p class="mt-2">当超过单用户最大质押限额时抛出的错误。</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">UnstakeRequestAlreadyExists()</div>
-                            <p class="mt-2">当用户已存在待处理的赎回请求时抛出的错误。</p>
+                            <div class="error-def">error LockPeriodNotCompleted(uint256 requiredDays, uint256 elapsedDays)</div>
+                            <p class="mt-2">当赎回锁定期未完成时抛出的错误。</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">NoPendingUnstakeRequest()</div>
+                            <div class="error-def">error NoUnstakeRequest()</div>
                             <p class="mt-2">当不存在待处理的赎回请求时抛出的错误。</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">ExchangeLimitExceeded()</div>
-                            <p class="mt-2">当兑换金额超过限制时抛出的错误。</p>
+                            <div class="error-def">error NoTokensToClaim(address user)</div>
+                            <p class="mt-2">当用户没有可领取的奖励时抛出的错误。</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">ExchangeAmountExceedsOnePercentLimit()</div>
+                            <div class="error-def">error TransferFailed(uint256 amount)</div>
+                            <p class="mt-2">当通证转账失败时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">error InvalidReturnDataLength(uint256 expected, uint256 actual)</div>
+                            <p class="mt-2">当返回数据长度无效时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">error InvalidRate()</div>
+                            <p class="mt-2">当兑换比率无效时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">error ExchangeNotYetAvailable()</div>
+                            <p class="mt-2">当兑换尚未开始时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">error ExchangeExpired()</div>
+                            <p class="mt-2">当兑换已过期时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">error ExceedsExchangeLimit(uint256 requested, uint256 available)</div>
+                            <p class="mt-2">当兑换金额超过可用限额时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">error InvalidAddress()</div>
+                            <p class="mt-2">当地址无效时抛出的错误。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">error ExchangeAmountExceedsOnePercentLimit(uint256 requested, uint256 maxAllowed)</div>
                             <p class="mt-2">当单笔兑换金额在 48 小时内超过剩余额度的 1% 时抛出的错误。</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">ContractIsPaused()</div>
-                            <p class="mt-2">当合约函数暂停时抛出的错误。</p>
+                            <div class="error-def">error InvalidTransferType()</div>
+                            <p class="mt-2">当转账类型无效时抛出的错误。</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">OnlyOwner()</div>
-                            <p class="mt-2">当只有合约所有者可以调用该函数时抛出的错误。</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="error-def">TokenExchangeTypeInvalid()</div>
-                            <p class="mt-2">当通证兑换类型无效时抛出的错误。</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="error-def">BurnAmountTooLarge()</div>
-                            <p class="mt-2">当销毁金额过大时抛出的错误。</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="error-def">RewardAmountZero()</div>
-                            <p class="mt-2">当奖励金额为零时抛出的错误。</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="error-def">NotEnoughTokensToUnstake()</div>
-                            <p class="mt-2">当用户没有足够的通证可以赎回时抛出的错误。</p>
+                            <div class="error-def">error ExceedsMaxSupply(uint256 requested, uint256 maxSupply, uint256 currentSupply)</div>
+                            <p class="mt-2">当超过最大供应量时抛出的错误。</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- Events --<section id="events" class="content-card">
+                <!-- Events -->
+                <section id="events" class="content-card">
                     <h2 class="section-title">事件</h2>
                     <div class="content">
                         <div class="mb-4">
-                            <div class="event-def">event Staked(address indexed user, uint256 amount, uint256 rewardAmount)</div>
+                            <div class="event-def">event Paused(address indexed operator)</div>
+                            <p class="mt-2">当合约暂停时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>operator</code> - 执行暂停操作的操作员地址</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event Unpaused(address indexed operator)</div>
+                            <p class="mt-2">当合约取消暂停时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>operator</code> - 执行取消暂停操作的操作员地址</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event ModulePaused(FunctionModule indexed module, address indexed operator)</div>
+                            <p class="mt-2">当特定功能模块暂停时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>module</code> - 暂停的功能模块</li>
+                                <li><code>operator</code> - 执行暂停操作的操作员地址</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event ModuleUnpaused(FunctionModule indexed module, address indexed operator)</div>
+                            <p class="mt-2">当特定功能模块取消暂停时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>module</code> - 取消暂停的功能模块</li>
+                                <li><code>operator</code> - 执行取消暂停操作的操作员地址</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event Staked(address indexed user, uint256 fairAmount, uint256 rate)</div>
                             <p class="mt-2">当用户成功质押通证时触发的事件。</p>
                             <p><strong>参数：</strong></p>
                             <ul class="parameter-list">
                                 <li><code>user</code> - 质押用户地址</li>
-                                <li><code>amount</code> - 质押通证数量</li>
-                                <li><code>rewardAmount</code> - FR 奖励数量</li>
+                                <li><code>fairAmount</code> - 质押通证数量</li>
+                                <li><code>rate</code> - 奖励比率</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="event-def">event UnstakeRequested(address indexed user, uint256 amount, uint256 timestamp)</div>
+                            <div class="event-def">event UnstakeRequested(address indexed user, uint256 fairAmount, uint64 waitDays, uint256 rate)</div>
                             <p class="mt-2">当用户成功请求赎回时触发的事件。</p>
                             <p><strong>参数：</strong></p>
                             <ul class="parameter-list">
                                 <li><code>user</code> - 赎回用户地址</li>
-                                <li><code>amount</code> - 赎回通证数量</li>
-                                <li><code>timestamp</code> - 请求时间戳</li>
+                                <li><code>fairAmount</code> - 赎回通证数量</li>
+                                <li><code>waitDays</code> - 等待天数</li>
+                                <li><code>rate</code> - 奖励比率</li>
                             </ul>
                         </div>
                         <div class="mb-4">
@@ -339,144 +405,357 @@
                             <p><strong>参数：</strong></p>
                             <ul class="parameter-list">
                                 <li><code>user</code> - 赎回用户地址</li>
-                                <li><code>fairAmount</code> - 获得的 FR 数量</li>
+                                <li><code>fairAmount</code> - 赎回通证数量</li>
                                 <li><code>fee</code> - 提前赎回的罚金数量</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="event-def">event RewardClaimed(address indexed user, uint256 amount)</div>
+                            <div class="event-def">event RewardClaimed(address indexed user, uint256 frAmount)</div>
                             <p class="mt-2">当用户成功申领奖励时触发的事件。</p>
                             <p><strong>参数：</strong></p>
                             <ul class="parameter-list">
                                 <li><code>user</code> - 申领奖励的用户地址</li>
-                                <li><code>amount</code> - 申领的 FR 奖励数量</li>
+                                <li><code>frAmount</code> - 申领的 FR 奖励数量</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="event-def">event TokenExchanged(address indexed user, uint256 frAmount, uint256 tokenAmount, uint256 timestamp)</div>
+                            <div class="event-def">event Burnt(address indexed user, uint256 frAmount)</div>
+                            <p class="mt-2">当通证被销毁时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - 销毁通证的用户地址</li>
+                                <li><code>frAmount</code> - 销毁的 FR 数量</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event TokenExchangeRateSet(address indexed tokenAddress, uint88 rateNumerator, uint88 rateDenominator, uint256 maxExchangeAmount)</div>
+                            <p class="mt-2">当通证兑换汇率设置时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>tokenAddress</code> - 通证地址</li>
+                                <li><code>rateNumerator</code> - 汇率分子</li>
+                                <li><code>rateDenominator</code> - 汇率分母</li>
+                                <li><code>maxExchangeAmount</code> - 最大兑换金额</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event TokenExchanged(address indexed user, address indexed tokenAddress, uint256 frAmount, uint256 exchangeTokenAmount)</div>
                             <p class="mt-2">当用户成功兑换通证时触发的事件。</p>
                             <p><strong>参数：</strong></p>
                             <ul class="parameter-list">
                                 <li><code>user</code> - 兑换通证的用户地址</li>
+                                <li><code>tokenAddress</code> - 兑换的目标通证地址</li>
                                 <li><code>frAmount</code> - 支付的 FR 数量</li>
-                                <li><code>tokenAmount</code> - 获得的通证数量</li>
-                                <li><code>timestamp</code> - 兑换时间戳</li>
+                                <li><code>exchangeTokenAmount</code> - 获得的通证数量</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event ContributorRewardMinted(address indexed contributor, uint256 indexed proposalId, uint256 frAmount, string description, address operator)</div>
+                            <p class="mt-2">当贡献者奖励铸造时触发的事件。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>contributor</code> - 贡献者地址</li>
+                                <li><code>proposalId</code> - 提案 ID</li>
+                                <li><code>frAmount</code> - 铸造的 FR 数量</li>
+                                <li><code>description</code> - 描述</li>
+                                <li><code>operator</code> - 操作员地址</li>
                             </ul>
                         </div>
                     </div>
                 </section>
 
-                <!-- Functions --<section id="functions" class="content-card">
+                <!-- Functions -->
+                <section id="functions" class="content-card">
                     <h2 class="section-title">函数</h2>
                     <div class="content">
                         <div class="mb-4">
-                            <div class="function-def">function stake(uint256 amount) external</div>
-                            <p class="mt-2">用户质押通证的主要函数。</p>
-                            <p><strong>参数：</strong> <code>amount</code> - 质押的通证数量（TRX 单位）</p>
-                            <p><strong>操作流程：</strong></p>
+                            <div class="function-def">function stake(uint256 amount) external whenModuleNotPaused(FunctionModule.STAKE) nonReentrant returns (bool)</div>
+                            <p class="mt-2">用户质押通证以开始赚取奖励。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>amount</code> - 质押的通证数量</li>
+                            </ul>
+                            <p><strong>返回值：</strong> <code>bool</code> - 操作是否成功</p>
+                            <p><strong>功能说明：</strong></p>
                             <ul>
-                                <li>验证输入参数</li>
-                                <li>计算用户的 FR 奖励（含未领取奖励）</li>
-                                <li>处理用户质押操作</li>
-                                <li>更新质押记录</li>
+                                <li>验证质押金额不为零</li>
+                                <li>检查是否超过单用户最大质押限额（30,000,000 通证）</li>
+                                <li>从用户账户转移通证到合约</li>
+                                <li>计算并发放未领取的 FR 奖励</li>
+                                <li>更新用户质押信息和总质押量</li>
                                 <li>触发 Staked 事件</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="function-def">function requestUnstake(uint256 amount) external</div>
+                            <div class="function-def">function requestUnstake(uint256 amount, uint64 waitDays) external whenModuleNotPaused(FunctionModule.UNSTAKE) nonReentrant returns (bool)</div>
                             <p class="mt-2">用户请求赎回质押的通证。</p>
-                            <p><strong>参数：</strong> <code>amount</code> - 赎回的通证数量</p>
-                            <p><strong>功能特点：</strong></p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>amount</code> - 赎回的通证数量</li>
+                                <li><code>waitDays</code> - 等待天数（15-60 天，超出范围会自动调整）</li>
+                            </ul>
+                            <p><strong>返回值：</strong> <code>bool</code> - 操作是否成功</p>
+                            <p><strong>功能说明：</strong></p>
                             <ul>
-                                <li>需要 15-60 天等待期，具体天数根据质押金额计算</li>
-                                <li>计算用户未领取的 FR 奖励</li>
-                                <li>设置赎回请求到期时间</li>
-                                <li>更新用户质押信息</li>
+                                <li>验证赎回金额不为零且不超过已质押金额</li>
+                                <li>自动调整等待天数在 15-60 天范围内</li>
+                                <li>计算并发放未领取的 FR 奖励</li>
+                                <li>将通证从质押状态转移到赎回等待状态</li>
+                                <li>设置赎回请求时间和等待天数</li>
                                 <li>触发 UnstakeRequested 事件</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="function-def">function unstake() external</div>
+                            <div class="function-def">function unstake() external whenModuleNotPaused(FunctionModule.UNSTAKE) nonReentrant returns (bool)</div>
                             <p class="mt-2">用户执行实际的赎回操作。</p>
-                            <p><strong>功能特点：</strong></p>
+                            <p><strong>返回值：</strong> <code>bool</code> - 操作是否成功</p>
+                            <p><strong>功能说明：</strong></p>
                             <ul>
-                                <li>检查赎回请求是否到期</li>
-                                <li>计算提前赎回的罚金率（每天 0.2%）</li>
-                                <li>执行通证转账</li>
-                                <li>更新用户质押记录</li>
+                                <li>检查是否存在待处理的赎回请求</li>
+                                <li>验证锁定期是否已完成</li>
+                                <li>计算提前赎回罚金（等待天数小于 60 天时，每天 0.2%）</li>
+                                <li>扣除罚金后将剩余通证转回用户账户</li>
+                                <li>更新用户质押记录和总赎回量</li>
                                 <li>触发 Unstaked 事件</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="function-def">function claimReward() external</div>
-                            <p class="mt-2">用户申领未领取的 FR 奖励。</p>
-                            <p><strong>操作流程：</strong></p>
+                            <div class="function-def">function claimReward() external whenModuleNotPaused(FunctionModule.REWARD) nonReentrant returns (bool)</div>
+                            <p class="mt-2">用户申领未领取的 FR 奖励，无需赎回质押。</p>
+                            <p><strong>返回值：</strong> <code>bool</code> - 操作是否成功</p>
+                            <p><strong>功能说明：</strong></p>
                             <ul>
-                                <li>计算已获得的 FR 奖励</li>
-                                <li>更新用户奖励记录</li>
+                                <li>计算用户自上次领取以来赚取的 FR 奖励</li>
+                                <li>验证奖励金额不为零</li>
+                                <li>铸造 FR 通证到用户账户</li>
+                                <li>更新最后领取时间</li>
                                 <li>触发 RewardClaimed 事件</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="function-def">function exchangeFRForToken(uint256 frAmount, TokenTransferType transferType) external</div>
-                            <p class="mt-2">核心通证兑换函数，允许用户用 FR 兑换 FairToken。</p>
+                            <div class="function-def">function burn(uint256 amount) external whenModuleNotPaused(FunctionModule.BURN) nonReentrant</div>
+                            <p class="mt-2">销毁用户账户中的 FR 通证。</p>
                             <p><strong>参数：</strong></p>
                             <ul class="parameter-list">
-                                <li><code>frAmount</code> - 要兑换的 FR 数量</li>
-                                <li><code>transferType</code> - 转账类型（即时或其他）</li>
+                                <li><code>amount</code> - 要销毁的 FR 数量</li>
                             </ul>
-                            <p><strong>重要限制：</strong></p>
+                            <p><strong>功能说明：</strong></p>
                             <ul>
-                                <li><strong>48 小时单笔兑换限制</strong>：48 小时内单笔兑换不超过剩余额度的 1%</li>
-                                <li>检查合约是否暂停</li>
-                                <li>验证输入参数</li>
-                                <li>计算兑换汇率和兑换数量</li>
-                                <li>更新用户兑换记录</li>
-                                <li>执行通证转账</li>
+                                <li>验证销毁金额不为零</li>
+                                <li>从用户账户销毁指定数量的 FR 通证</li>
+                                <li>触发 Burnt 事件</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function exchangeFRForToken(address tokenAddress, uint256 frAmount) external whenModuleNotPaused(FunctionModule.EXCHANGE) nonReentrant returns (uint256)</div>
+                            <p class="mt-2">通过销毁 FR 通证兑换其他通证。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>tokenAddress</code> - 要兑换的目标通证地址</li>
+                                <li><code>frAmount</code> - 要兑换的 FR 数量</li>
+                            </ul>
+                            <p><strong>返回值：</strong> <code>uint256</code> - 兑换获得的通证数量</p>
+                            <p><strong>功能说明：</strong></p>
+                            <ul>
+                                <li>验证目标通证地址和 FR 金额有效</li>
+                                <li>检查兑换汇率是否已设置且有效</li>
+                                <li>验证兑换是否在有效时间窗口内</li>
+                                <li>检查兑换金额是否超过可用限额</li>
+                                <li>在前 48 小时内，单笔兑换不能超过剩余额度的 1%</li>
+                                <li>销毁 FR 通证并转移目标通证到用户账户</li>
+                                <li>更新剩余兑换额度</li>
                                 <li>触发 TokenExchanged 事件</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="function-def">function getUserStakeInfo(address user) external view returns (StakeInfo memory)</div>
-                            <p class="mt-2">获取用户的质押信息。</p>
-                            <p><strong>参数：</strong> <code>user</code> - 用户地址</p>
-                            <p><strong>返回值：</strong> <code>StakeInfo</code> - 用户质押信息结构体</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="function-def">function burn(uint256 amount) external</div>
-                            <p class="mt-2">销毁指定数量的通证。</p>
-                            <p><strong>参数：</strong> <code>amount</code> - 要销毁的通证数量</p>
-                            <p><strong>权限：</strong> 只有合约所有者可以调用</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="function-def">function setTokenExchangeRate(uint256 rate, uint256 maxExchangeAmountPerDay, TokenTransferType transferType) external</div>
-                            <p class="mt-2">设置通证兑换汇率和每日最大兑换量。</p>
+                            <div class="function-def">function calculateEarnedTokens(address user) public view returns (uint256)</div>
+                            <p class="mt-2">计算用户未领取的 FR 奖励数量。</p>
                             <p><strong>参数：</strong></p>
                             <ul class="parameter-list">
-                                <li><code>rate</code> - 兑换汇率（每单位通证的 FR 数量）</li>
-                                <li><code>maxExchangeAmountPerDay</code> - 每日最大兑换量</li>
-                                <li><code>transferType</code> - 转账类型</li>
+                                <li><code>user</code> - 用户地址</li>
                             </ul>
-                            <p><strong>权限：</strong> 只有合约所有者可以调用</p>
+                            <p><strong>返回值：</strong> <code>uint256</code> - 未领取的 FR 奖励数量</p>
+                            <p><strong>功能说明：</strong></p>
+                            <ul>
+                                <li>获取用户的质押信息</li>
+                                <li>计算自上次领取以来的时间差（最多 180 天）</li>
+                                <li>根据质押金额计算奖励比率</li>
+                                <li>使用公式：质押金额 × 时间 × 比率 / (86400 × 3650000) 计算奖励</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getRate(uint256 amount) public pure returns (uint256)</div>
+                            <p class="mt-2">根据质押金额计算奖励比率。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>amount</code> - 质押金额</li>
+                            </ul>
+                            <p><strong>返回值：</strong> <code>uint256</code> - 奖励比率</p>
+                            <p><strong>功能说明：</strong></p>
+                            <ul>
+                                <li>基础比率为 100（当质押金额小于 10,000 × 10^18 时）</li>
+                                <li>质押金额在 10,000-20,000 × 10^18 之间时，比率等于金额除以 10,000 × 10^18</li>
+                                <li>质押金额超过 20,000 × 10^18 时，比率为 200 + (金额 - 20,000 × 10^18) / 40,000 × 10^18</li>
+                                <li>最大比率为 500</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getUserStakeInfo(address _user) external view returns (uint256 amount, uint64 startTime, uint64 lastClaimed, uint256 unstakeRequestAmount, uint64 unstakeRequestTime, uint64 unstakeWaitDays)</div>
+                            <p class="mt-2">获取用户的质押信息。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>_user</code> - 用户地址</li>
+                            </ul>
+                            <p><strong>返回值：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>amount</code> - 当前质押金额</li>
+                                <li><code>startTime</code> - 首次质押时间</li>
+                                <li><code>lastClaimed</code> - 最后领取奖励时间</li>
+                                <li><code>unstakeRequestAmount</code> - 待赎回金额</li>
+                                <li><code>unstakeRequestTime</code> - 赎回请求时间</li>
+                                <li><code>unstakeWaitDays</code> - 赎回等待天数</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function setTokenExchangeRate(address tokenAddress, uint88 rateNumerator, uint88 rateDenominator, uint256 maxExchangeAmount, uint8 transferType, uint8 durationWeeks) external isOwner returns (bool)</div>
+                            <p class="mt-2">设置通证兑换汇率（仅所有者）。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>tokenAddress</code> - 通证地址（address(1) 表示 TRX）</li>
+                                <li><code>rateNumerator</code> - 汇率分子</li>
+                                <li><code>rateDenominator</code> - 汇率分母</li>
+                                <li><code>maxExchangeAmount</code> - 最大兑换金额</li>
+                                <li><code>transferType</code> - 转账类型（0=标准，1=非标准，2=TRX）</li>
+                                <li><code>durationWeeks</code> - 兑换持续周数（255 表示永久）</li>
+                            </ul>
+                            <p><strong>返回值：</strong> <code>bool</code> - 操作是否成功</p>
+                            <p><strong>功能说明：</strong></p>
+                            <ul>
+                                <li>验证参数有效性</li>
+                                <li>如果兑换质押通证，检查合约余额是否足够</li>
+                                <li>设置兑换开始时间为当前时间 + 1 天</li>
+                                <li>存储兑换信息</li>
+                                <li>触发 TokenExchangeRateSet 事件</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getTokenExchangeRate(address tokenAddress) external view returns (uint88 rateNumerator, uint88 rateDenominator, uint256 remainingExchangeAmount, uint8 transferType, uint8 exchangeDurationWeeks, uint64 startTime)</div>
+                            <p class="mt-2">获取通证兑换汇率信息。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>tokenAddress</code> - 通证地址</li>
+                            </ul>
+                            <p><strong>返回值：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>rateNumerator</code> - 汇率分子</li>
+                                <li><code>rateDenominator</code> - 汇率分母</li>
+                                <li><code>remainingExchangeAmount</code> - 剩余可兑换金额</li>
+                                <li><code>transferType</code> - 转账类型</li>
+                                <li><code>exchangeDurationWeeks</code> - 兑换持续周数</li>
+                                <li><code>startTime</code> - 兑换开始时间</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function mintContributorReward(address contributor, uint256 proposalId, uint256 amount, string calldata description) external isOwner returns (bool)</div>
+                            <p class="mt-2">为贡献者铸造奖励通证（仅所有者）。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>contributor</code> - 贡献者地址</li>
+                                <li><code>proposalId</code> - 提案 ID</li>
+                                <li><code>amount</code> - 奖励金额</li>
+                                <li><code>description</code> - 描述</li>
+                            </ul>
+                            <p><strong>返回值：</strong> <code>bool</code> - 操作是否成功</p>
+                            <p><strong>功能说明：</strong></p>
+                            <ul>
+                                <li>验证贡献者地址和金额有效</li>
+                                <li>检查是否超过最大供应量</li>
+                                <li>铸造 FR 通证到贡献者账户</li>
+                                <li>触发 ContributorRewardMinted 事件</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function transferOwnership(address _newOwner) external isOwner</div>
+                            <p class="mt-2">转移合约所有权（仅所有者）。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>_newOwner</code> - 新所有者地址</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function renounceOwnership() external isOwner</div>
+                            <p class="mt-2">放弃合约所有权（仅所有者）。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function checkIsOwner(address account) external view returns (bool)</div>
+                            <p class="mt-2">检查地址是否为合约所有者。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>account</code> - 要检查的地址</li>
+                            </ul>
+                            <p><strong>返回值：</strong> <code>bool</code> - 是否为所有者</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function pause() external isOwner</div>
+                            <p class="mt-2">暂停合约（仅所有者）。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function unpause() external isOwner</div>
+                            <p class="mt-2">取消暂停合约（仅所有者）。</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function pauseModule(uint8 module) external isOwner</div>
+                            <p class="mt-2">暂停特定功能模块（仅所有者）。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>module</code> - 模块索引（0=STAKE, 1=UNSTAKE, 2=REWARD, 3=EXCHANGE, 4=BURN）</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function unpauseModule(uint8 module) external isOwner</div>
+                            <p class="mt-2">取消暂停特定功能模块（仅所有者）。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>module</code> - 模块索引</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getUserVotes(address user) external view override returns (uint256 votes)</div>
+                            <p class="mt-2">获取用户的投票数（实现 IVoting 接口）。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - 用户地址</li>
+                            </ul>
+                            <p><strong>返回值：</strong> <code>uint256</code> - 用户的投票数（等于质押金额）</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getAllVotes() external view override returns (uint256 totalVotes)</div>
+                            <p class="mt-2">获取总投票数（实现 IVoting 接口）。</p>
+                            <p><strong>返回值：</strong> <code>uint256</code> - 总投票数（等于总质押金额）</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function decimals() public view virtual override returns (uint8)</div>
+                            <p class="mt-2">返回通证的小数位数。</p>
+                            <p><strong>返回值：</strong> <code>uint8</code> - 小数位数（18）</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- Modifiers --<section id="modifiers" class="content-card">
+                <!-- Modifiers -->
+                <section id="modifiers" class="content-card">
                     <h2 class="section-title">修饰器</h2>
                     <div class="content">
                         <div class="mb-4">
                             <div class="modifier-def">modifier isOwner()</div>
-                            <p class="mt-2">限制只有合约所有者可以调用的修饰器。</p>
+                            <p class="mt-2">限制只有合约所有者才能调用函数。</p>
                         </div>
                         <div class="mb-4">
                             <div class="modifier-def">modifier whenModuleNotPaused(FunctionModule module)</div>
-                            <p class="mt-2">检查指定函数模块是否未暂停的修饰器。</p>
-                            <p><strong>参数：</strong> <code>module</code> - 函数模块类型</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="modifier-def">modifier nonReentrant()</div>
-                            <p class="mt-2">防止重入攻击的修饰器。</p>
+                            <p class="mt-2">限制只有合约和指定模块都未暂停时才能调用函数。</p>
+                            <p><strong>参数：</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>module</code> - 要检查的功能模块</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -485,35 +764,39 @@
         </div>
     </div>
 
-    <!-- Footer --<footer class="footer mt-8">
-        <div class="container">
-            <div class="content has-text-centered">
-                <p>FairStakeToken 合约 API 文档 &copy; 2025</p>
-            </div>
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #f5f7fa; padding: 2rem 0; margin-top: 3rem;">
+        <div class="content has-text-centered">
+            <p>
+                <strong>FairStakeToken</strong> API 文档 © 2024 FairDAO
+            </p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="/js/doc.js"></script>
+    <!-- Scripts -->
     <script>
         // Language switch function
-        function switchLanguage(language) {
-            if (language === 'en') {
+        function switchLanguage(lang) {
+            if (lang === 'en') {
                 window.location.href = 'en.html';
             } else {
                 window.location.href = 'zh.html';
             }
         }
-        
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
+
+        // Navbar burger toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach( el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
         });
     </script>
 </body>

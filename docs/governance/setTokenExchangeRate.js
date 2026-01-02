@@ -339,10 +339,6 @@ class SetTokenExchangeRate {
       const targetTokenAmountEl = document.getElementById("targetTokenAmount");
       const frTokenAmountEl = document.getElementById("frTokenAmount");
       const maxExchangeAmountEl = document.getElementById("maxExchangeAmount");
-
-      if (targetTokenAmountEl) targetTokenAmountEl.value = "加载中...";
-      if (frTokenAmountEl) frTokenAmountEl.value = "加载中...";
-      if (maxExchangeAmountEl) maxExchangeAmountEl.value = "加载中...";
       const result = await this.app.contractInteraction.contract.tokenExchangeInfo(token.tokenAddress || token.address)
         .call();
 

@@ -164,10 +164,10 @@
             <div class="navbar-start">
                 <a class="navbar-item nav-link" href="#overview">Overview</a>
                 <a class="navbar-item nav-link" href="#contract">Contract Info</a>
+                <a class="navbar-item nav-link" href="#errors">Error Types</a>
                 <a class="navbar-item nav-link" href="#events">Events</a>
                 <a class="navbar-item nav-link" href="#functions">Functions</a>
                 <a class="navbar-item nav-link" href="#modifiers">Modifiers</a>
-                <a class="navbar-item nav-link" href="#errors">Error Types</a>
             </div>
             
             <div class="navbar-end">
@@ -189,11 +189,12 @@
     <section class="header-section">
         <div class="container">
             <h1 class="title">FairStakeToken Contract API Documentation</h1>
-            <p class="subtitle">Staking and Token Exchange Protocol</p>
+            <p class="subtitle">Staking Reward Token and Governance Voting Protocol</p>
         </div>
     </section>
 
-    <!-- Main Content --<div class="container">
+    <!-- Main Content -->
+    <div class="container">
         <div class="columns">
             <div class="column is-three-quarters is-offset-one-eighth">
                 
@@ -201,13 +202,14 @@
                 <section id="overview" class="content-card">
                     <h2 class="section-title">Overview</h2>
                     <div class="content">
-                        <p>FairStakeToken contract is a token staking and exchange protocol based on TRON blockchain, providing the following core functionalities:</p>
+                        <p>FairStakeToken contract is an ERC20-based staking reward token that integrates staking functionality, token exchange mechanism, and governance voting interface. The contract provides the following core features:</p>
                         <ul>
-                            <li>Token staking and reward system</li>
-                            <li>Fair Reward (FR) and FairToken exchange mechanism</li>
-                            <li>Early unstaking mechanism with penalty rate calculation</li>
+                            <li>Token staking and dynamic reward system</li>
+                            <li>Fair Reward (FR) token exchange with other tokens</li>
+                            <li>Flexible unstaking mechanism and penalty calculation</li>
                             <li>Modular function pause control</li>
-                            <li>Multi-dimensional reward calculation and distribution</li>
+                            <li>Contributor reward minting functionality</li>
+                            <li>Governance voting interface implementation</li>
                         </ul>
                     </div>
                 </section>
@@ -223,16 +225,36 @@
                                     <td>FairStakeToken</td>
                                 </tr>
                                 <tr>
+                                    <th>Token Name</th>
+                                    <td>Fair Reward Token</td>
+                                </tr>
+                                <tr>
+                                    <th>Token Symbol</th>
+                                    <td>FR</td>
+                                </tr>
+                                <tr>
                                     <th>Inheritance</th>
-                                    <td>ERC20</td>
+                                    <td>ERC20, IFairStakeToken, IVoting, ReentrancyGuard</td>
                                 </tr>
                                 <tr>
                                     <th>Compiler Version</th>
-                                    <td>^0.8.23</td>
+                                    <td>^0.8.24</td>
                                 </tr>
                                 <tr>
                                     <th>License</th>
-                                    <td>MIT</td>
+                                    <td>GPL-3.0</td>
+                                </tr>
+                                <tr>
+                                    <th>Max Supply</th>
+                                    <td>1,000,000,000,000 FR (1 trillion)</td>
+                                </tr>
+                                <tr>
+                                    <th>Max Stake Per User</th>
+                                    <td>30,000,000 tokens</td>
+                                </tr>
+                                <tr>
+                                    <th>Max Staking Duration</th>
+                                    <td>180 days</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -244,72 +266,76 @@
                     <h2 class="section-title">Error Types</h2>
                     <div class="content">
                         <div class="mb-4">
-                            <div class="error-def">TransferFailed()</div>
-                            <p class="mt-2">Error thrown when token transfer fails.</p>
+                            <div class="error-def">error InsufficientBalance(uint256 required, uint256 available)</div>
+                            <p class="mt-2">Thrown when account balance is insufficient.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">InsufficientFROnChain()</div>
-                            <p class="mt-2">Error thrown when there are not enough FR rewards available on chain.</p>
+                            <div class="error-def">error ZeroAmount()</div>
+                            <p class="mt-2">Thrown when amount is zero.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">AddressIsZero()</div>
-                            <p class="mt-2">Error thrown when address is zero address.</p>
+                            <div class="error-def">error NotAuthorized()</div>
+                            <p class="mt-2">Thrown when caller is not authorized.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">AmountIsZero()</div>
-                            <p class="mt-2">Error thrown when amount is zero.</p>
+                            <div class="error-def">error PausedContract()</div>
+                            <p class="mt-2">Thrown when contract or module is paused.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">UserNotStaked()</div>
-                            <p class="mt-2">Error thrown when user has not staked any tokens.</p>
+                            <div class="error-def">error ExceedsMaxStake()</div>
+                            <p class="mt-2">Thrown when exceeding single user maximum staking limit.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">UserAlreadyStaked()</div>
-                            <p class="mt-2">Error thrown when user has already staked tokens.</p>
+                            <div class="error-def">error LockPeriodNotCompleted(uint256 requiredDays, uint256 elapsedDays)</div>
+                            <p class="mt-2">Thrown when unstake lock period is not completed.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">UnstakeRequestNotReady()</div>
-                            <p class="mt-2">Error thrown when unstake request is not yet ready.</p>
+                            <div class="error-def">error NoUnstakeRequest()</div>
+                            <p class="mt-2">Thrown when there is no pending unstake request.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">UnstakeRequestAlreadyExists()</div>
-                            <p class="mt-2">Error thrown when user already has an unstake request pending.</p>
+                            <div class="error-def">error NoTokensToClaim(address user)</div>
+                            <p class="mt-2">Thrown when user has no claimable rewards.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">NoPendingUnstakeRequest()</div>
-                            <p class="mt-2">Error thrown when there is no pending unstake request.</p>
+                            <div class="error-def">error TransferFailed(uint256 amount)</div>
+                            <p class="mt-2">Thrown when token transfer fails.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">ExchangeLimitExceeded()</div>
-                            <p class="mt-2">Error thrown when exchange amount exceeds the limit.</p>
+                            <div class="error-def">error InvalidReturnDataLength(uint256 expected, uint256 actual)</div>
+                            <p class="mt-2">Thrown when return data length is invalid.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">ExchangeAmountExceedsOnePercentLimit()</div>
-                            <p class="mt-2">Error thrown when single exchange amount exceeds 1% of remaining limit within 48 hours.</p>
+                            <div class="error-def">error InvalidRate()</div>
+                            <p class="mt-2">Thrown when exchange rate is invalid.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">ContractIsPaused()</div>
-                            <p class="mt-2">Error thrown when contract function is paused.</p>
+                            <div class="error-def">error ExchangeNotYetAvailable()</div>
+                            <p class="mt-2">Thrown when exchange is not yet available.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">OnlyOwner()</div>
-                            <p class="mt-2">Error thrown when only contract owner can call this function.</p>
+                            <div class="error-def">error ExchangeExpired()</div>
+                            <p class="mt-2">Thrown when exchange has expired.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">TokenExchangeTypeInvalid()</div>
-                            <p class="mt-2">Error thrown when token exchange type is invalid.</p>
+                            <div class="error-def">error ExceedsExchangeLimit(uint256 requested, uint256 available)</div>
+                            <p class="mt-2">Thrown when exchange amount exceeds available limit.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">BurnAmountTooLarge()</div>
-                            <p class="mt-2">Error thrown when burn amount is too large.</p>
+                            <div class="error-def">error InvalidAddress()</div>
+                            <p class="mt-2">Thrown when address is invalid.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">RewardAmountZero()</div>
-                            <p class="mt-2">Error thrown when reward amount is zero.</p>
+                            <div class="error-def">error ExchangeAmountExceedsOnePercentLimit(uint256 requested, uint256 maxAllowed)</div>
+                            <p class="mt-2">Thrown when single exchange amount exceeds 1% of remaining quota within 48 hours.</p>
                         </div>
                         <div class="mb-4">
-                            <div class="error-def">NotEnoughTokensToUnstake()</div>
-                            <p class="mt-2">Error thrown when user doesn't have enough tokens to unstake.</p>
+                            <div class="error-def">error InvalidTransferType()</div>
+                            <p class="mt-2">Thrown when transfer type is invalid.</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="error-def">error ExceedsMaxSupply(uint256 requested, uint256 maxSupply, uint256 currentSupply)</div>
+                            <p class="mt-2">Thrown when exceeding maximum supply.</p>
                         </div>
                     </div>
                 </section>
@@ -319,53 +345,120 @@
                     <h2 class="section-title">Events</h2>
                     <div class="content">
                         <div class="mb-4">
-                            <div class="event-def">event Staked(address indexed user, uint256 amount, uint256 rewardAmount)</div>
-                            <p class="mt-2">Event emitted when a user successfully stakes tokens.</p>
+                            <div class="event-def">event Paused(address indexed operator)</div>
+                            <p class="mt-2">Emitted when contract is paused.</p>
                             <p><strong>Parameters:</strong></p>
                             <ul class="parameter-list">
-                                <li><code>user</code> - Staking user's address</li>
-                                <li><code>amount</code> - Amount of tokens staked</li>
-                                <li><code>rewardAmount</code> - FR reward amount</li>
+                                <li><code>operator</code> - Address of the operator who performed the pause</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="event-def">event UnstakeRequested(address indexed user, uint256 amount, uint256 timestamp)</div>
-                            <p class="mt-2">Event emitted when a user successfully requests to unstake.</p>
+                            <div class="event-def">event Unpaused(address indexed operator)</div>
+                            <p class="mt-2">Emitted when contract is unpaused.</p>
                             <p><strong>Parameters:</strong></p>
                             <ul class="parameter-list">
-                                <li><code>user</code> - Unstaking user's address</li>
-                                <li><code>amount</code> - Amount of tokens to unstake</li>
-                                <li><code>timestamp</code> - Request timestamp</li>
+                                <li><code>operator</code> - Address of the operator who performed the unpause</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event ModulePaused(FunctionModule indexed module, address indexed operator)</div>
+                            <p class="mt-2">Emitted when a specific function module is paused.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>module</code> - The paused function module</li>
+                                <li><code>operator</code> - Address of the operator who performed the pause</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event ModuleUnpaused(FunctionModule indexed module, address indexed operator)</div>
+                            <p class="mt-2">Emitted when a specific function module is unpaused.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>module</code> - The unpaused function module</li>
+                                <li><code>operator</code> - Address of the operator who performed the unpause</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event Staked(address indexed user, uint256 fairAmount, uint256 rate)</div>
+                            <p class="mt-2">Emitted when user successfully stakes tokens.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - Address of the staking user</li>
+                                <li><code>fairAmount</code> - Amount of staked tokens</li>
+                                <li><code>rate</code> - Reward rate</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event UnstakeRequested(address indexed user, uint256 fairAmount, uint64 waitDays, uint256 rate)</div>
+                            <p class="mt-2">Emitted when user successfully requests unstake.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - Address of the unstaking user</li>
+                                <li><code>fairAmount</code> - Amount of unstaked tokens</li>
+                                <li><code>waitDays</code> - Number of days to wait</li>
+                                <li><code>rate</code> - Reward rate</li>
                             </ul>
                         </div>
                         <div class="mb-4">
                             <div class="event-def">event Unstaked(address indexed user, uint256 fairAmount, uint256 fee)</div>
-                            <p class="mt-2">Event emitted when a user successfully unstakes.</p>
+                            <p class="mt-2">Emitted when user successfully unstakes tokens.</p>
                             <p><strong>Parameters:</strong></p>
                             <ul class="parameter-list">
-                                <li><code>user</code> - Unstaking user's address</li>
-                                <li><code>fairAmount</code> - FR amount received</li>
-                                <li><code>fee</code> - Early unstake penalty amount</li>
+                                <li><code>user</code> - Address of the unstaking user</li>
+                                <li><code>fairAmount</code> - Amount of unstaked tokens</li>
+                                <li><code>fee</code> - Penalty amount for early unstake</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="event-def">event RewardClaimed(address indexed user, uint256 amount)</div>
-                            <p class="mt-2">Event emitted when a user successfully claims reward.</p>
+                            <div class="event-def">event RewardClaimed(address indexed user, uint256 frAmount)</div>
+                            <p class="mt-2">Emitted when user successfully claims rewards.</p>
                             <p><strong>Parameters:</strong></p>
                             <ul class="parameter-list">
-                                <li><code>user</code> - Reward claiming user's address</li>
-                                <li><code>amount</code> - FR reward amount claimed</li>
+                                <li><code>user</code> - Address of the user claiming rewards</li>
+                                <li><code>frAmount</code> - Amount of FR rewards claimed</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="event-def">event TokenExchanged(address indexed user, uint256 frAmount, uint256 tokenAmount, uint256 timestamp)</div>
-                            <p class="mt-2">Event emitted when a user successfully exchanges tokens.</p>
+                            <div class="event-def">event Burnt(address indexed user, uint256 frAmount)</div>
+                            <p class="mt-2">Emitted when tokens are burned.</p>
                             <p><strong>Parameters:</strong></p>
                             <ul class="parameter-list">
-                                <li><code>user</code> - Token exchanging user's address</li>
-                                <li><code>frAmount</code> - FR amount paid</li>
-                                <li><code>tokenAmount</code> - Token amount received</li>
-                                <li><code>timestamp</code> - Exchange timestamp</li>
+                                <li><code>user</code> - Address of the user burning tokens</li>
+                                <li><code>frAmount</code> - Amount of FR burned</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event TokenExchangeRateSet(address indexed tokenAddress, uint88 rateNumerator, uint88 rateDenominator, uint256 maxExchangeAmount)</div>
+                            <p class="mt-2">Emitted when token exchange rate is set.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>tokenAddress</code> - Token address</li>
+                                <li><code>rateNumerator</code> - Exchange rate numerator</li>
+                                <li><code>rateDenominator</code> - Exchange rate denominator</li>
+                                <li><code>maxExchangeAmount</code> - Maximum exchange amount</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event TokenExchanged(address indexed user, address indexed tokenAddress, uint256 frAmount, uint256 exchangeTokenAmount)</div>
+                            <p class="mt-2">Emitted when user successfully exchanges tokens.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - Address of the user exchanging tokens</li>
+                                <li><code>tokenAddress</code> - Address of the target token to exchange</li>
+                                <li><code>frAmount</code> - Amount of FR paid</li>
+                                <li><code>exchangeTokenAmount</code> - Amount of tokens received</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="event-def">event ContributorRewardMinted(address indexed contributor, uint256 indexed proposalId, uint256 frAmount, string description, address operator)</div>
+                            <p class="mt-2">Emitted when contributor reward is minted.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>contributor</code> - Contributor address</li>
+                                <li><code>proposalId</code> - Proposal ID</li>
+                                <li><code>frAmount</code> - Amount of FR minted</li>
+                                <li><code>description</code> - Description</li>
+                                <li><code>operator</code> - Operator address</li>
                             </ul>
                         </div>
                     </div>
@@ -376,94 +469,274 @@
                     <h2 class="section-title">Functions</h2>
                     <div class="content">
                         <div class="mb-4">
-                            <div class="function-def">function stake(uint256 amount) external</div>
-                            <p class="mt-2">Main function for users to stake tokens.</p>
-                            <p><strong>Parameters:</strong> <code>amount</code> - Amount of tokens to stake (in TRX units)</p>
-                            <p><strong>Operation流程：</strong></p>
+                            <div class="function-def">function stake(uint256 amount) external whenModuleNotPaused(FunctionModule.STAKE) nonReentrant returns (bool)</div>
+                            <p class="mt-2">User stakes tokens to start earning rewards.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>amount</code> - Amount of tokens to stake</li>
+                            </ul>
+                            <p><strong>Returns:</strong> <code>bool</code> - Whether the operation was successful</p>
+                            <p><strong>Functionality:</strong></p>
                             <ul>
-                                <li>Validate input parameters</li>
-                                <li>Calculate user's FR rewards (including unclaimed rewards)</li>
-                                <li>Process user's staking operation</li>
-                                <li>Update staking records</li>
+                                <li>Validate staking amount is not zero</li>
+                                <li>Check if exceeding single user maximum staking limit (30,000,000 tokens)</li>
+                                <li>Transfer tokens from user account to contract</li>
+                                <li>Calculate and distribute unclaimed FR rewards</li>
+                                <li>Update user staking information and total staked amount</li>
                                 <li>Emit Staked event</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="function-def">function requestUnstake(uint256 amount) external</div>
+                            <div class="function-def">function requestUnstake(uint256 amount, uint64 waitDays) external whenModuleNotPaused(FunctionModule.UNSTAKE) nonReentrant returns (bool)</div>
                             <p class="mt-2">User requests to unstake staked tokens.</p>
-                            <p><strong>Parameters:</strong> <code>amount</code> - Amount of tokens to unstake</p>
-                            <p><strong>Feature特点：</strong></p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>amount</code> - Amount of tokens to unstake</li>
+                                <li><code>waitDays</code> - Number of days to wait (15-60 days, automatically adjusted if out of range)</li>
+                            </ul>
+                            <p><strong>Returns:</strong> <code>bool</code> - Whether the operation was successful</p>
+                            <p><strong>Functionality:</strong></p>
                             <ul>
-                                <li>Requires 15-60 days waiting period, specific duration calculated based on staked amount</li>
-                                <li>Calculate user's unclaimed FR rewards</li>
-                                <li>Set unstake request expiration time</li>
-                                <li>Update user's staking information</li>
+                                <li>Validate unstake amount is not zero and does not exceed staked amount</li>
+                                <li>Automatically adjust wait days to be within 15-60 days range</li>
+                                <li>Calculate and distribute unclaimed FR rewards</li>
+                                <li>Transfer tokens from staking state to unstake waiting state</li>
+                                <li>Set unstake request time and wait days</li>
                                 <li>Emit UnstakeRequested event</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="function-def">function unstake() external</div>
+                            <div class="function-def">function unstake() external whenModuleNotPaused(FunctionModule.UNSTAKE) nonReentrant returns (bool)</div>
                             <p class="mt-2">User executes the actual unstake operation.</p>
-                            <p><strong>Feature特点：</strong></p>
+                            <p><strong>Returns:</strong> <code>bool</code> - Whether the operation was successful</p>
+                            <p><strong>Functionality:</strong></p>
                             <ul>
-                                <li>Check if unstake request has expired</li>
-                                <li>Calculate early unstake penalty rate (0.2% per day)</li>
-                                <li>Execute token transfer</li>
-                                <li>Update user's staking records</li>
+                                <li>Check if there is a pending unstake request</li>
+                                <li>Verify lock period is completed</li>
+                                <li>Calculate early unstake penalty (0.2% per day when wait days is less than 60)</li>
+                                <li>Transfer remaining tokens back to user account after deducting penalty</li>
+                                <li>Update user staking record and total unstaked amount</li>
                                 <li>Emit Unstaked event</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="function-def">function claimReward() external</div>
-                            <p class="mt-2">User claims unclaimed FR rewards.</p>
-                            <p><strong>Operation流程：</strong></p>
+                            <div class="function-def">function claimReward() external whenModuleNotPaused(FunctionModule.REWARD) nonReentrant returns (bool)</div>
+                            <p class="mt-2">User claims unclaimed FR rewards without unstaking.</p>
+                            <p><strong>Returns:</strong> <code>bool</code> - Whether the operation was successful</p>
+                            <p><strong>Functionality:</strong></p>
                             <ul>
-                                <li>Calculate earned FR rewards</li>
-                                <li>Update user's reward records</li>
+                                <li>Calculate FR rewards earned by user since last claim</li>
+                                <li>Validate reward amount is not zero</li>
+                                <li>Mint FR tokens to user account</li>
+                                <li>Update last claim time</li>
                                 <li>Emit RewardClaimed event</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="function-def">function exchangeFRForToken(uint256 frAmount, TokenTransferType transferType) external</div>
-                            <p class="mt-2">Core token exchange function, allows users to exchange FR for FairToken.</p>
+                            <div class="function-def">function burn(uint256 amount) external whenModuleNotPaused(FunctionModule.BURN) nonReentrant</div>
+                            <p class="mt-2">Burn FR tokens from user account.</p>
                             <p><strong>Parameters:</strong></p>
                             <ul class="parameter-list">
-                                <li><code>frAmount</code> - FR amount to exchange</li>
-                                <li><code>transferType</code> - Transfer type (instant or other)</li>
+                                <li><code>amount</code> - Amount of FR to burn</li>
                             </ul>
-                            <p><strong>Important limitations：</strong></p>
+                            <p><strong>Functionality:</strong></p>
                             <ul>
-                                <li><strong>48-hour single exchange limit</strong>: Single exchange within 48 hours not exceeding 1% of remaining limit</li>
-                                <li>Check if contract is paused</li>
-                                <li>Validate input parameters</li>
-                                <li>Calculate exchange rate and exchange amount</li>
-                                <li>Update user's exchange records</li>
-                                <li>Execute token transfer</li>
+                                <li>Validate burn amount is not zero</li>
+                                <li>Burn specified amount of FR tokens from user account</li>
+                                <li>Emit Burnt event</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function exchangeFRForToken(address tokenAddress, uint256 frAmount) external whenModuleNotPaused(FunctionModule.EXCHANGE) nonReentrant returns (uint256)</div>
+                            <p class="mt-2">Exchange other tokens by burning FR tokens.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>tokenAddress</code> - Address of target token to exchange</li>
+                                <li><code>frAmount</code> - Amount of FR to exchange</li>
+                            </ul>
+                            <p><strong>Returns:</strong> <code>uint256</code> - Amount of tokens received from exchange</p>
+                            <p><strong>Functionality:</strong></p>
+                            <ul>
+                                <li>Validate target token address and FR amount</li>
+                                <li>Check if exchange rate is set and valid</li>
+                                <li>Verify exchange is within valid time window</li>
+                                <li>Check if exchange amount exceeds available limit</li>
+                                <li>Within first 48 hours, single exchange cannot exceed 1% of remaining quota</li>
+                                <li>Burn FR tokens and transfer target tokens to user account</li>
+                                <li>Update remaining exchange quota</li>
                                 <li>Emit TokenExchanged event</li>
                             </ul>
                         </div>
                         <div class="mb-4">
-                            <div class="function-def">function getUserStakeInfo(address user) external view returns (StakeInfo memory)</div>
-                            <p class="mt-2">Get user's staking information.</p>
-                            <p><strong>Parameters:</strong> <code>user</code> - User's address</p>
-                            <p><strong>Returns:</strong> <code>StakeInfo</code> - User's staking information struct</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="function-def">function burn(uint256 amount) external</div>
-                            <p class="mt-2">Burn specified amount of tokens.</p>
-                            <p><strong>Parameters:</strong> <code>amount</code> - Amount of tokens to burn</p>
-                            <p><strong>Permissions:</strong> Only contract owner can call</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="function-def">function setTokenExchangeRate(uint256 rate, uint256 maxExchangeAmountPerDay, TokenTransferType transferType) external</div>
-                            <p class="mt-2">Set token exchange rate and daily maximum exchange amount.</p>
+                            <div class="function-def">function calculateEarnedTokens(address user) public view returns (uint256)</div>
+                            <p class="mt-2">Calculate user's unclaimed FR reward amount.</p>
                             <p><strong>Parameters:</strong></p>
                             <ul class="parameter-list">
-                                <li><code>rate</code> - Exchange rate (FR amount per token unit)</li>
-                                <li><code>maxExchangeAmountPerDay</code> - Daily maximum exchange amount</li>
-                                <li><code>transferType</code> - Transfer type</li>
+                                <li><code>user</code> - User address</li>
                             </ul>
-                            <p><strong>Permissions:</strong> Only contract owner can call</p>
+                            <p><strong>Returns:</strong> <code>uint256</code> - Amount of unclaimed FR rewards</p>
+                            <p><strong>Functionality:</strong></p>
+                            <ul>
+                                <li>Get user's staking information</li>
+                                <li>Calculate time difference since last claim (maximum 180 days)</li>
+                                <li>Calculate reward rate based on staking amount</li>
+                                <li>Use formula: staked amount × time × rate / (86400 × 3650000) to calculate rewards</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getRate(uint256 amount) public pure returns (uint256)</div>
+                            <p class="mt-2">Calculate reward rate based on staking amount.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>amount</code> - Staking amount</li>
+                            </ul>
+                            <p><strong>Returns:</strong> <code>uint256</code> - Reward rate</p>
+                            <p><strong>Functionality:</strong></p>
+                            <ul>
+                                <li>Base rate is 100 (when staking amount is less than 10,000 × 10^18)</li>
+                                <li>When staking amount is between 10,000-20,000 × 10^18, rate equals amount divided by 10,000 × 10^18</li>
+                                <li>When staking amount exceeds 20,000 × 10^18, rate is 200 + (amount - 20,000 × 10^18) / 40,000 × 10^18</li>
+                                <li>Maximum rate is 500</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getUserStakeInfo(address _user) external view returns (uint256 amount, uint64 startTime, uint64 lastClaimed, uint256 unstakeRequestAmount, uint64 unstakeRequestTime, uint64 unstakeWaitDays)</div>
+                            <p class="mt-2">Get user's staking information.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>_user</code> - User address</li>
+                            </ul>
+                            <p><strong>Returns:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>amount</code> - Current staking amount</li>
+                                <li><code>startTime</code> - First staking time</li>
+                                <li><code>lastClaimed</code> - Last reward claim time</li>
+                                <li><code>unstakeRequestAmount</code> - Pending unstake amount</li>
+                                <li><code>unstakeRequestTime</code> - Unstake request time</li>
+                                <li><code>unstakeWaitDays</code> - Unstake wait days</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function setTokenExchangeRate(address tokenAddress, uint88 rateNumerator, uint88 rateDenominator, uint256 maxExchangeAmount, uint8 transferType, uint8 durationWeeks) external isOwner returns (bool)</div>
+                            <p class="mt-2">Set token exchange rate (owner only).</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>tokenAddress</code> - Token address (address(1) for TRX)</li>
+                                <li><code>rateNumerator</code> - Exchange rate numerator</li>
+                                <li><code>rateDenominator</code> - Exchange rate denominator</li>
+                                <li><code>maxExchangeAmount</code> - Maximum exchange amount</li>
+                                <li><code>transferType</code> - Transfer type (0=standard, 1=non-standard, 2=TRX)</li>
+                                <li><code>durationWeeks</code> - Exchange duration in weeks (255 for permanent)</li>
+                            </ul>
+                            <p><strong>Returns:</strong> <code>bool</code> - Whether the operation was successful</p>
+                            <p><strong>Functionality:</strong></p>
+                            <ul>
+                                <li>Validate parameters</li>
+                                <li>If exchanging staked tokens, check if contract balance is sufficient</li>
+                                <li>Set exchange start time to current time + 1 day</li>
+                                <li>Store exchange information</li>
+                                <li>Emit TokenExchangeRateSet event</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getTokenExchangeRate(address tokenAddress) external view returns (uint88 rateNumerator, uint88 rateDenominator, uint256 remainingExchangeAmount, uint8 transferType, uint8 exchangeDurationWeeks, uint64 startTime)</div>
+                            <p class="mt-2">Get token exchange rate information.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>tokenAddress</code> - Token address</li>
+                            </ul>
+                            <p><strong>Returns:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>rateNumerator</code> - Exchange rate numerator</li>
+                                <li><code>rateDenominator</code> - Exchange rate denominator</li>
+                                <li><code>remainingExchangeAmount</code> - Remaining exchangeable amount</li>
+                                <li><code>transferType</code> - Transfer type</li>
+                                <li><code>exchangeDurationWeeks</code> - Exchange duration in weeks</li>
+                                <li><code>startTime</code> - Exchange start time</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function mintContributorReward(address contributor, uint256 proposalId, uint256 amount, string calldata description) external isOwner returns (bool)</div>
+                            <p class="mt-2">Mint reward tokens for contributors (owner only).</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>contributor</code> - Contributor address</li>
+                                <li><code>proposalId</code> - Proposal ID</li>
+                                <li><code>amount</code> - Reward amount</li>
+                                <li><code>description</code> - Description</li>
+                            </ul>
+                            <p><strong>Returns:</strong> <code>bool</code> - Whether the operation was successful</p>
+                            <p><strong>Functionality:</strong></p>
+                            <ul>
+                                <li>Validate contributor address and amount</li>
+                                <li>Check if exceeding maximum supply</li>
+                                <li>Mint FR tokens to contributor account</li>
+                                <li>Emit ContributorRewardMinted event</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function transferOwnership(address _newOwner) external isOwner</div>
+                            <p class="mt-2">Transfer contract ownership (owner only).</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>_newOwner</code> - New owner address</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function renounceOwnership() external isOwner</div>
+                            <p class="mt-2">Renounce contract ownership (owner only).</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function checkIsOwner(address account) external view returns (bool)</div>
+                            <p class="mt-2">Check if address is contract owner.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>account</code> - Address to check</li>
+                            </ul>
+                            <p><strong>Returns:</strong> <code>bool</code> - Whether it is the owner</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function pause() external isOwner</div>
+                            <p class="mt-2">Pause contract (owner only).</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function unpause() external isOwner</div>
+                            <p class="mt-2">Unpause contract (owner only).</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function pauseModule(uint8 module) external isOwner</div>
+                            <p class="mt-2">Pause specific function module (owner only).</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>module</code> - Module index (0=STAKE, 1=UNSTAKE, 2=REWARD, 3=EXCHANGE, 4=BURN)</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function unpauseModule(uint8 module) external isOwner</div>
+                            <p class="mt-2">Unpause specific function module (owner only).</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>module</code> - Module index</li>
+                            </ul>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getUserVotes(address user) external view override returns (uint256 votes)</div>
+                            <p class="mt-2">Get user's voting power (implements IVoting interface).</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>user</code> - User address</li>
+                            </ul>
+                            <p><strong>Returns:</strong> <code>uint256</code> - User's voting power (equal to staked amount)</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function getAllVotes() external view override returns (uint256 totalVotes)</div>
+                            <p class="mt-2">Get total voting power (implements IVoting interface).</p>
+                            <p><strong>Returns:</strong> <code>uint256</code> - Total voting power (equal to total staked amount)</p>
+                        </div>
+                        <div class="mb-4">
+                            <div class="function-def">function decimals() public view virtual override returns (uint8)</div>
+                            <p class="mt-2">Return token decimals.</p>
+                            <p><strong>Returns:</strong> <code>uint8</code> - Decimals (18)</p>
                         </div>
                     </div>
                 </section>
@@ -474,16 +747,15 @@
                     <div class="content">
                         <div class="mb-4">
                             <div class="modifier-def">modifier isOwner()</div>
-                            <p class="mt-2">Modifier that restricts access to contract owner only.</p>
+                            <p class="mt-2">Restricts function calls to contract owner only.</p>
                         </div>
                         <div class="mb-4">
                             <div class="modifier-def">modifier whenModuleNotPaused(FunctionModule module)</div>
-                            <p class="mt-2">Modifier that checks if specified function module is not paused.</p>
-                            <p><strong>Parameters:</strong> <code>module</code> - Function module type</p>
-                        </div>
-                        <div class="mb-4">
-                            <div class="modifier-def">modifier nonReentrant()</div>
-                            <p class="mt-2">Modifier that prevents reentrant attacks.</p>
+                            <p class="mt-2">Restricts function calls to when both contract and specified module are not paused.</p>
+                            <p><strong>Parameters:</strong></p>
+                            <ul class="parameter-list">
+                                <li><code>module</code> - Function module to check</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -493,35 +765,38 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer mt-8">
-        <div class="container">
-            <div class="content has-text-centered">
-                <p>FairStakeToken Contract API Documentation &copy; 2025</p>
-            </div>
+    <footer class="footer" style="background-color: #f5f7fa; padding: 2rem 0; margin-top: 3rem;">
+        <div class="content has-text-centered">
+            <p>
+                <strong>FairStakeToken</strong> API Documentation © 2024 FairDAO
+            </p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="/js/doc.js"></script>
+    <!-- Scripts -->
     <script>
         // Language switch function
-        function switchLanguage(language) {
-            if (language === 'en') {
+        function switchLanguage(lang) {
+            if (lang === 'en') {
                 window.location.href = 'en.html';
             } else {
                 window.location.href = 'zh.html';
             }
         }
-        
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
+
+        // Navbar burger toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach( el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
         });
     </script>
 </body>

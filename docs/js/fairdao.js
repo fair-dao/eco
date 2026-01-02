@@ -65,8 +65,8 @@ class FairDaoModule {
       const hash = window.location.hash;
       console.log("当前哈希：", window.location.hash);
       if (hash && hash.startsWith("#/")) {
-        const moduleId = hash.substring(2);
-        fairdao.loadModule(moduleId);
+        const modules = hash.substring(2).split('/');        
+        fairdao.loadModule(modules[0],modules.length>1 ? modules[1]:null);
       }
     });
 

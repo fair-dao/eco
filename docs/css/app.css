@@ -186,22 +186,7 @@ a{
     padding: 1.75rem 1.5rem;
 }
 
-/* 按钮样式 */
-.button {
-    border-radius: 10px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    padding: 0.85rem 1.75rem;
-    border: none;
-    outline: none;
-    position: relative;
-    overflow: hidden;
-    height: 3.5rem; /* 固定高度，与输入框保持一致 */
-    display: inline-flex; /* 确保按钮内内容垂直居中 */
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+
 
 /* 按钮悬停效果 */
 .button:hover {
@@ -282,91 +267,8 @@ a{
     justify-content: flex-end;
 }
 
-.button:hover:not(:disabled) {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
 
-.button:active:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-}
 
-.button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.2) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    transition: all 0.6s ease;
-}
-
-.button:hover::before {
-    left: 100%;
-}
-
-.button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-/* 主按钮样式 */
-.button.is-primary {
-    background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%);
-    border: none;
-    color: white;
-}
-
-.button.is-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-}
-
-/* 成功按钮样式 */
-.button.is-success {
-    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
-    border: none;
-}
-
-.button.is-success:hover:not(:disabled) {
-    background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%);
-}
-
-/* 警告按钮样式 */
-.button.is-warning {
-    background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
-    border: none;
-}
-
-.button.is-warning:hover:not(:disabled) {
-    background: linear-gradient(135deg, #f57c00 0%, #ef6c00 100%);
-}
-
-/* 危险按钮样式 */
-.button.is-danger {
-    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
-    border: none;
-}
-
-.button.is-danger:hover:not(:disabled) {
-    background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
-}
-
-/* 信息按钮样式 */
-.button.is-info {
-    background: linear-gradient(135deg, #03a9f4 0%, #0288d1 100%);
-    border: none;
-}
-
-.button.is-info:hover:not(:disabled) {
-    background: linear-gradient(135deg, #0288d1 0%, #0277bd 100%);
-}
 
 /* 输入框样式 */
 .input {

@@ -953,11 +953,10 @@ class ContractInteraction {
       const proposalCount = await diamondContract.getProposalCount().call();
       const proposals = [];
       
-      for (let i = 0; i <proposalCount; i++) {
+      for (let i = proposalCount-1; i >=0; i--) {
+        debugger;
         const r = await diamondContract.getProposal(i).call();
         const proposal=r.proposal;
-
-        
         // Map proposal status
         const statusMap = {
           0: "Pending",

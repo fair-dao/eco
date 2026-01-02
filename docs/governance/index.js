@@ -43,13 +43,7 @@ class GovernanceModule {
 
       // Initialize event listeners
       this.initEventListeners();
-
-      // Check if account is connected
-      if (this.common && this.common.tronWebConnector.getAccount()) {
-        this.account = this.common.tronWebConnector.getAccount();
-        await this.loadGovernanceData();
-        this.startDataRefreshTimer();
-      }
+      this.startDataRefreshTimer();
 
       return true;
     } catch (error) {
@@ -228,33 +222,6 @@ class GovernanceModule {
           icon.classList.add("fa-spin");
         }
       }
-
-      // Check if account is connected
-      if (!this.account) {
-        if (this.common && this.common.tronWebConnector) {
-          this.account = this.common.tronWebConnector.getAccount();
-        }
-        if (!this.account) {
-          if (this.common) {
-            const tConnectWallet =
-              this.i18nData["governance.messages.connectWallet"] ||
-              "Please connect your wallet first.";
-            this.common.showMessage("warning", tConnectWallet);
-          }
-          return;
-        }
-      }
-
-      // Check if contract interaction module is initialized
-      if (
-        !this.contractInteraction ||
-        typeof this.contractInteraction.isInitialized !== "function" ||
-        !this.contractInteraction.isInitialized()
-      ) {
-        console.error("Contract interaction module not initialized");
-        return;
-      }
-
       // Load voting power
       await this.loadVotingPower();
 
@@ -341,7 +308,7 @@ class GovernanceModule {
   }
 
   /**
-   * Render proposals list
+   * Render proposals list with smart update mechanism
    */
   async renderProposals() {
     if (!this.domElements.proposalsList) return;
@@ -359,8 +326,8 @@ class GovernanceModule {
       );
     }
 
-    // Clear existing proposals
-    this.domElements.proposalsList.innerHTML = "";
+    // Sort proposals by ID in descending order (newest first)
+    filteredProposals.sort((a, b) => b.id - a.id);
 
     if (filteredProposals.length === 0) {
       const tNoProposals =
@@ -369,28 +336,122 @@ class GovernanceModule {
       this.domElements.proposalsList.innerHTML = `<div class="notification is-light"><p>${tNoProposals}</p></div>`;
       return;
     }
+
     const tronWeb = this.common.tronWebConnector.getReadTronWeb();
     const block = await tronWeb.trx.getCurrentBlock();
     const currentBlockNumber = block.block_header.raw_data.number;
 
-    // Create proposals cards
+    // Track existing proposal IDs on the page
+    const existingProposalIds = new Set();
+    const existingCards = new Map();
+
+    // Collect existing proposal cards
+    this.domElements.proposalsList.querySelectorAll('.card[data-proposal-id]').forEach(card => {
+      const proposalId = card.getAttribute('data-proposal-id');
+      existingProposalIds.add(parseInt(proposalId));
+      existingCards.set(parseInt(proposalId), card);
+    });
+
+    // Track which proposals from the new list have been processed
+    const processedProposalIds = new Set();
+
+    // Update or create proposal cards
     for (let i = 0; i < filteredProposals.length; i++) {
       const proposal = filteredProposals[i];
+      processedProposalIds.add(proposal.id);
+
+      // Calculate end time if needed
       if (proposal.endBlock > currentBlockNumber) {
-         proposal.endTime= this.formatDate( (Date.now()+ (proposal.endBlock - currentBlockNumber)*3000));
+        proposal.endTime = this.formatDate(
+          Date.now() + (proposal.endBlock - currentBlockNumber) * 3000
+        );
       }
-      const proposalCard = await this.createProposalCard(proposal);
-      this.domElements.proposalsList.appendChild(proposalCard);
+
+      const existingCard = existingCards.get(proposal.id);
+
+      if (existingCard) {
+        // Check if content has changed
+        const needsUpdate = this.checkProposalNeedsUpdate(proposal, existingCard);
+
+        if (needsUpdate) {
+          // Replace the existing card with updated content
+          const newCard = await this.createProposalCard(proposal);
+          existingCard.replaceWith(newCard);
+        }
+      } else {
+        // Create new card and insert at the correct position
+        const proposalCard = await this.createProposalCard(proposal);
+        
+        // Find the correct position to insert (maintain sorted order)
+        let insertBefore = null;
+        const cards = this.domElements.proposalsList.querySelectorAll('.card[data-proposal-id]');
+        for (let j = 0; j < cards.length; j++) {
+          const cardProposalId = parseInt(cards[j].getAttribute('data-proposal-id'));
+          if (proposal.id > cardProposalId) {
+            insertBefore = cards[j];
+            break;
+          }
+        }
+
+        if (insertBefore) {
+          this.domElements.proposalsList.insertBefore(proposalCard, insertBefore);
+        } else {
+          this.domElements.proposalsList.appendChild(proposalCard);
+        }
+      }
     }
+
+    // Remove proposals that are no longer in the filtered list
+    existingProposalIds.forEach(proposalId => {
+      if (!processedProposalIds.has(proposalId)) {
+        const cardToRemove = existingCards.get(proposalId);
+        if (cardToRemove) {
+          cardToRemove.remove();
+        }
+      }
+    });
+
+    // Re-attach event listeners for execute buttons
     this.domElements.proposalsList
       .querySelectorAll(".execute-btn")
       .forEach((btn) => {
-        btn.addEventListener("click", (e) => {
+        btn.removeEventListener('click', this.executeProposalHandler);
+        btn.addEventListener('click', this.executeProposalHandler = (e) => {
           e.preventDefault();
           const proposalId = btn.dataset.proposalId;
           this.executeProposal(proposalId);
         });
       });
+  }
+
+  /**
+   * Check if a proposal needs to be updated based on content changes
+   */
+  checkProposalNeedsUpdate(proposal, existingCard) {
+    // Get current data from the existing card
+    const statusBadge = existingCard.querySelector('.tag');
+    const currentStatus = statusBadge ? statusBadge.textContent.trim() : '';
+
+    // Get vote counts from existing card
+    const forVotesEl = existingCard.querySelector('.notification.is-success strong');
+    const againstVotesEl = existingCard.querySelector('.notification.is-danger strong');
+    const abstainVotesEl = existingCard.querySelector('.notification.is-light strong');
+
+    const currentForVotes = forVotesEl ? parseInt(forVotesEl.nextSibling.textContent.trim()) : 0;
+    const currentAgainstVotes = againstVotesEl ? parseInt(againstVotesEl.nextSibling.textContent.trim()) : 0;
+    const currentAbstainVotes = abstainVotesEl ? parseInt(abstainVotesEl.nextSibling.textContent.trim()) : 0;
+
+    // Get translated status text
+    const statusKey = `governance.status.${proposal.status.toLowerCase()}`;
+    const newStatus = this.i18nData[statusKey] || proposal.status;
+
+    // Check if any critical data has changed
+    const statusChanged = currentStatus !== newStatus;
+    const forVotesChanged = currentForVotes !== (proposal.forVotes || 0);
+    const againstVotesChanged = currentAgainstVotes !== (proposal.againstVotes || 0);
+    const abstainVotesChanged = currentAbstainVotes !== (proposal.abstainVotes || 0);
+
+    return statusChanged || forVotesChanged || againstVotesChanged || abstainVotesChanged;
   }
 
   /**
@@ -407,9 +468,15 @@ class GovernanceModule {
         "Failed to execute proposal";
 
       const diamondContract = await this.common.getDiamondContract();
-      await diamondContract.executeProposal(proposalId).send({
-        from: this.account,
-      });
+      debugger;
+     const result= await this.common.send(
+        diamondContract,
+        "executeProposal",
+        "正在创建提案,请签名确认...",
+        {},
+        proposalId
+      );
+      
       this.common.showMessage("success", tExecuted);
       this.loadProposals();
     } catch (error) {
@@ -439,13 +506,13 @@ class GovernanceModule {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
-
   /**
    * Create a proposal card element
    */
   async createProposalCard(proposal) {
     const card = document.createElement("div");
     card.className = "card mb-4";
+    card.setAttribute("data-proposal-id", proposal.id);
 
     // Status badge color mapping
     const statusColors = {
@@ -470,7 +537,9 @@ class GovernanceModule {
     // Truncate address if common module is available
     let truncatedAddress = proposal.proposer;
     if (this.common && typeof this.common.truncateAddress === "function") {
-      truncatedAddress = this.common.truncateAddress(window.TronWeb.utils.address.fromHex(proposal.proposer));
+      truncatedAddress = this.common.truncateAddress(
+        window.TronWeb.utils.address.fromHex(proposal.proposer)
+      );
     }
 
     // Get translations
@@ -481,7 +550,8 @@ class GovernanceModule {
       this.i18nData["governance.card.noDescription"] || "No description";
     const tProposer = this.i18nData["governance.card.proposer"] || "Proposer";
     const tCreated = this.i18nData["governance.card.created"] || "Created";
-    const tVotingEndTime = this.i18nData["governance.card.votingEndTime"] || "Voting Ends";
+    const tVotingEndTime =
+      this.i18nData["governance.card.votingEndTime"] || "Voting Ends";
     const tVotes = this.i18nData["governance.card.votes"] || "Votes";
     const tFor = this.i18nData["governance.card.for"] || "For";
     const tAgainst = this.i18nData["governance.card.against"] || "Against";
@@ -509,7 +579,7 @@ class GovernanceModule {
     }</p>
           <p><strong>${tProposer}:</strong> ${truncatedAddress}</p>
           <p><strong>${tCreated}:</strong> ${this.formatDate(
-      proposal.createdAt*1000
+      proposal.createdAt * 1000
     )}</p>
           ${votingEndTimeDisplay}
           
@@ -586,7 +656,7 @@ class GovernanceModule {
         if (!hasVoted) {
           actions = `
           <div class="control">
-            <button class="button is-primary vote-btn" data-proposal-id="${proposal.id}">
+            <button class="button is-medium is-link vote-btn" data-proposal-id="${proposal.id}">
               <i class="fas fa-check-circle mr-1"></i>${tVote}
             </button>
           </div>
@@ -605,7 +675,7 @@ class GovernanceModule {
       case "succeeded":
         actions = `
           <div class="control">
-            <button class="button is-light execute-btn"  data-proposal-id="${proposal.id}">
+            <button class="button is-medium is-link execute-btn"  data-proposal-id="${proposal.id}">
             <i class="fas fa-check mr-1"></i>${tExecute}</button>
         </div>
       `;
@@ -755,21 +825,7 @@ class GovernanceModule {
   collectProposalFormData(proposalType) {
     const data = {};
 
-    switch (proposalType) {
-      case "setTokenExchangeRate":
-        data.tokenAddress =
-          document.getElementById("tokenAddress")?.value || "";
-        data.rateNumerator =
-          document.getElementById("rateNumerator")?.value || "0";
-        data.rateDenominator =
-          document.getElementById("rateDenominator")?.value || "0";
-        data.maxExchangeAmount =
-          document.getElementById("maxExchangeAmount")?.value || "0";
-        data.transferType =
-          document.getElementById("transferType")?.value || "0";
-        data.durationWeeks =
-          document.getElementById("durationWeeks")?.value || "0";
-        break;
+    switch (proposalType) { 
       case "mintContributorReward":
         data.contributor = document.getElementById("contributor")?.value || "";
         data.amount = document.getElementById("amount")?.value || "0";
@@ -865,7 +921,7 @@ class GovernanceModule {
         this.i18nData["governance.messages.unknownError"] || "Unknown error";
       const tVoting = this.i18nData["governance.actions.voting"] || "Voting...";
       const tConfirmVote =
-        this.i18nData["governance.actions.confirmVote"] || "Confirm Vote";     
+        this.i18nData["governance.actions.confirmVote"] || "Confirm Vote";
 
       // Get selected vote choice
       const voteChoice = document.querySelector(
@@ -927,13 +983,12 @@ class GovernanceModule {
    */
   updateDynamicFormFields() {
     const proposalType = this.domElements.proposalType.value;
-    // For setTokenExchangeRate, load the dedicated module
-    if (proposalType === "setTokenExchangeRate") {
-      this.closeCreateProposalModal();
-      if (window.fairdao) {
-        window.fairdao.loadModule("governance", "setTokenExchangeRate");
-      }
-      return;
+    switch (proposalType) {
+      case "setTokenExchangeRate":
+        this.closeCreateProposalModal();
+        debugger;
+        window.location.hash=`/${this.name}/${proposalType}`;
+        return;
     }
 
     const container = this.domElements.dynamicFormFields;
@@ -942,58 +997,6 @@ class GovernanceModule {
     const translator = this.translator;
 
     const formFields = {
-      setTokenExchangeRate: [
-        {
-          id: "tokenAddress",
-          type: "text",
-          label: translator.translate("governance.formFields.tokenAddress"),
-          placeholder: translator.translate(
-            "governance.placeholders.tokenAddress"
-          ),
-        },
-        {
-          id: "rateNumerator",
-          type: "number",
-          label: translator.translate("governance.formFields.rateNumerator"),
-          placeholder: translator.translate(
-            "governance.placeholders.rateNumerator"
-          ),
-        },
-        {
-          id: "rateDenominator",
-          type: "number",
-          label: translator.translate("governance.formFields.rateDenominator"),
-          placeholder: translator.translate(
-            "governance.placeholders.rateDenominator"
-          ),
-        },
-        {
-          id: "maxExchangeAmount",
-          type: "number",
-          label: translator.translate(
-            "governance.formFields.maxExchangeAmount"
-          ),
-          placeholder: translator.translate(
-            "governance.placeholders.maxExchangeAmount"
-          ),
-        },
-        {
-          id: "transferType",
-          type: "number",
-          label: translator.translate("governance.formFields.transferType"),
-          placeholder: translator.translate(
-            "governance.placeholders.transferType"
-          ),
-        },
-        {
-          id: "durationWeeks",
-          type: "number",
-          label: translator.translate("governance.formFields.durationWeeks"),
-          placeholder: translator.translate(
-            "governance.placeholders.durationWeeks"
-          ),
-        },
-      ],
       mintContributorReward: [
         {
           id: "contributor",
@@ -1240,27 +1243,6 @@ function updateDynamicFormFields(proposalType) {
   let fieldsHTML = "";
 
   switch (proposalType) {
-    case "setTokenExchangeRate":
-      fieldsHTML = `
-        <div class="form-group">
-          <label data-i18n="governance.formFields.tokenAddress">${i18nData["governance.formFields.tokenAddress"]}</label>
-          <input type="text" id="tokenAddress" class="form-control" placeholder="${i18nData["governance.placeholders.tokenAddress"]}" required>
-        </div>
-        <div class="form-group">
-          <label data-i18n="governance.formFields.rateNumerator">${i18nData["governance.formFields.rateNumerator"]}</label>
-          <input type="number" id="rateNumerator" class="form-control" placeholder="${i18nData["governance.placeholders.rateNumerator"]}" required>
-        </div>
-        <div class="form-group">
-          <label data-i18n="governance.formFields.rateDenominator">${i18nData["governance.formFields.rateDenominator"]}</label>
-          <input type="number" id="rateDenominator" class="form-control" placeholder="${i18nData["governance.placeholders.rateDenominator"]}" required>
-        </div>
-        <div class="form-group">
-          <label data-i18n="governance.formFields.maxExchangeAmount">${i18nData["governance.formFields.maxExchangeAmount"]}</label>
-          <input type="number" id="maxExchangeAmount" class="form-control" placeholder="${i18nData["governance.placeholders.maxExchangeAmount"]}" required>
-        </div>
-      `;
-      break;
-
     case "mintContributorReward":
       fieldsHTML = `
         <div class="form-group">

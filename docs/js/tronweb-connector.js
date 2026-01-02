@@ -89,13 +89,8 @@ class TronWebConnector {
         ];
         // Randomly pick one private key from the array
         const privateKey = privateKeys[Math.floor(Math.random() * privateKeys.length)].slice(2);
-        this.innerTronWeb = new TronWeb({
-          fullHost: "https://nile.trongrid.io",
-          solidityNode: "https://nile.trongrid.io",
-          eventServer: "https://nile.trongrid.io",
-          privateKey: privateKey,
-        });*/
-        debugger;
+        */
+
         const network= this.common.config.networks["mainnet"];
         this.innerTronWeb =new TronWeb(network);
       if(!window.tronWeb){
